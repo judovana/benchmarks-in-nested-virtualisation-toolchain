@@ -1,8 +1,8 @@
 Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |v, override|
-    v.cpus = 4
-    v.memory = 16384
+    v.cpus = 2
+    v.memory = 2048
 
     override.vm.provision "shell", path: "../provision/linux_setHosnameIp.sh", privileged: false
     if ENV.has_key? "WORKSPACE"
@@ -15,12 +15,12 @@ Vagrant.configure("2") do |config|
     if ENV.has_key? "VM_CPUS"
       libvirt.cpus = ENV['VM_CPUS']
     else
-      libvirt.cpus = 4
+      libvirt.cpus = 2
     end
     if ENV.has_key? "VM_MEMORY"
         libvirt.memory = ENV['VM_MEMORY']
     else
-        libvirt.memory = 16384
+        libvirt.memory = 2048
     end
     if VM.end_with? "x64"
         libvirt.sound_type = "ich6"
