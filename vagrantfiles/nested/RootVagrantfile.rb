@@ -66,6 +66,11 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.provider :libvirt do |p|
+   p.management_network_name = 'vagrant-libvirt-new'
+   p.management_network_address = '192.168.124.0/24'
+  end
+  
   config.vm.provider "virtualbox" do |v, override|
     v.linked_clone = true
 
