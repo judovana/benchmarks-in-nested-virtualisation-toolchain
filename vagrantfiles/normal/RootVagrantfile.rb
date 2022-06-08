@@ -30,6 +30,9 @@ Vagrant.configure("2") do |config|
     libvirt.qemu_use_session = false
     libvirt.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'
     libvirt.random :model => 'random'
+    # Enable KVM nested virtualization, ALSO should TEST different CPU mode to see which is better
+    libvirt.nested = true
+    libvirt.cpu_mode = "host-model"
     if VM.end_with? "aarch64"
         libvirt.features = []
         # uncomment following to emulate aarch on x86_64
