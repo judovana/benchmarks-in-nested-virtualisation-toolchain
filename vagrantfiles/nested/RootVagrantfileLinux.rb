@@ -15,12 +15,12 @@ Vagrant.configure("2") do |config|
     if ENV.has_key? "VM_CPUS"
       libvirt.cpus = ENV['VM_CPUS']
     else
-      libvirt.cpus = 2
+      libvirt.cpus = 4
     end
     if ENV.has_key? "VM_MEMORY"
         libvirt.memory = ENV['VM_MEMORY']
     else
-        libvirt.memory = 2048
+        libvirt.memory = 8192
     end
     if VM.end_with? "x64"
         libvirt.sound_type = "ich6"
