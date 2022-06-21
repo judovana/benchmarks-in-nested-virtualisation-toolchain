@@ -32,7 +32,7 @@ pushd /home/tester/diplomka/benchmarks-in-nested-virtualisation-toolchain/vagran
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/install_components.sh"
   vagrant halt
   vagrant up
-  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/run_on_VM.sh"
+  vagrant ssh -c "VM_CPUS=$NESTED_CPUS VM_MEMORY=$NESTED_MEMORY bash $VIRTUAL_WORKSPACE/in/run_on_VM.sh"
   find $WORKSPACE
 popd
 cp -r $WORKSPACE/out /home/tester/diplomka/results
