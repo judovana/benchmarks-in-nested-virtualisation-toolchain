@@ -1,0 +1,41 @@
+#!/bin/bash
+set -exo pipefail
+
+export WORKSPACE=`mktemp -d`
+mkdir  $WORKSPACE/in
+mkdir  $WORKSPACE/out
+
+SCRIPT_ORIGIN=/home/tester/diplomka/benchmarks-in-nested-virtualisation-toolchain/scripts
+VAGRANTFILES_ORIGIN=/home/tester/diplomka/benchmarks-in-nested-virtualisation-toolchain/vagrantfiles
+VIRTUAL_WORKSPACE=/mnt/workspace
+
+cp -r /home/tester/diplomka/TckScripts/ssh-keys/priv-keys/tester_rsa  $WORKSPACE/in
+cp -r $SCRIPT_ORIGIN/script.sh  $WORKSPACE/in
+cp -r $SCRIPT_ORIGIN/run_on_VM.sh  $WORKSPACE/in
+cp -r $SCRIPT_ORIGIN/install_components.sh  $WORKSPACE/in
+cp -r $SCRIPT_ORIGIN/create_private_key_symlink.sh  $WORKSPACE/in
+cp -r $VAGRANTFILES_ORIGIN/nested  $WORKSPACE/in
+
+
+pushd /home/tester/diplomka/benchmarks-in-nested-virtualisation-toolchain/vagrantfiles/normal/f35-x64
+  if [ "x$DEV" = "xtrue" ] ; then
+    vagrant halt
+  else
+    vagrant destroy -f
+  fi
+  vagrant up
+  vagrant ssh -c "pwd && mkdir -p $SCRIPT_ORIGIN"
+  vagrant ssh -c "cp $VIRTUAL_WORKSPACE/in/script.sh  $SCRIPT_ORIGIN"
+  #Using rsync because permission issues with cp
+  vagrant ssh -c "rsync -av --progress $VIRTUAL_WORKSPACE/in/nested /home/tester/diplomka --exclude .git"
+  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/create_private_key_symlink.sh"
+  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/install_components.sh"
+  vagrant halt
+  vagrant up
+  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/run_on_VM.sh"
+  find $WORKSPACE
+popd
+cp -r $WORKSPACE/out /home/tester/diplomka/results
+find $WORKSPACE
+
+
