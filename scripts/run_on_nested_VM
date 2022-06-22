@@ -21,12 +21,13 @@ mkdir  $WORKSPACE/out
 
 VAGRANTFILES_ORIGIN=$SCRIPT_ORIGIN/../vagrantfiles
 VIRTUAL_WORKSPACE=/mnt/workspace
-cp /home/tester/diplomka/TckScripts/ssh-keys/priv-keys/tester_rsa  $WORKSPACE/in
+cp  ~/.ssh/tester_rsa  $WORKSPACE/in
 cp -r $REPO_DIR  $WORKSPACE/in
 
 
 pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/f35-x64
   if [ "x$DEV" = "xtrue" ] ; then
+    other_params="VM_CPUS=2 VM_MEMORY=2048"
     vagrant halt
   else
     vagrant destroy -f
@@ -36,7 +37,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/f35-x64
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
   vagrant halt
   vagrant up
-  vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE VM_CPUS=$NESTED_CPUS VM_MEMORY=$NESTED_MEMORY bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh"
+  vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh"
   find $WORKSPACE
 popd
 cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results
