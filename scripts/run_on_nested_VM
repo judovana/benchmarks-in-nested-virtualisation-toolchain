@@ -26,9 +26,15 @@ cp -r $REPO_DIR  $WORKSPACE/in
 
 
 pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/f35-x64
-  if [ "x$DEV" = "xtrue" ] ; then
+  if [ ! "x$DEV" = "x" ] ; then
     other_params="VM_CPUS=2 VM_MEMORY=2048"
-    vagrant halt
+    export VM_CPUS=3
+    export VM_MEMORY=4096
+    if [ "x$DEV" = "xhalt" ] ; then
+      vagrant halt
+    else
+      vagrant destroy -f
+    fi
   else
     vagrant destroy -f
   fi
