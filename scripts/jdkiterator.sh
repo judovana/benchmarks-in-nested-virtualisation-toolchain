@@ -21,7 +21,7 @@ ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ITER_NUM | sed "s/.*=//")
 JDKS=`find  $JDK_DIR -type f`
 for jdk in $JDKS ; do
   for x in `seq 1 $ITER_NUM` ; do
-    # DEV=halt sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
-    DEV=true sh $SCRIPT_ORIGIN/run_on_nested_VM $x `readlink -f $jdk`
+    # sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
+    sh $SCRIPT_ORIGIN/run_on_nested_VM $x `readlink -f $jdk`
   done
 done
