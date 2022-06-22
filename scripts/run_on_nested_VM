@@ -25,7 +25,7 @@ cp  ~/.ssh/tester_rsa  $WORKSPACE/in
 cp -r $REPO_DIR  $WORKSPACE/in
 
 
-pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/f35-x64
+pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep MAINVM | sed "s/.*=//")
   if [ ! "x$DEV" = "x" ] ; then
     other_params="VM_CPUS=2 VM_MEMORY=2048"
     export VM_CPUS=3
