@@ -15,6 +15,9 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -exo pipefail
 
+JDK=$2
+COUNTER=$1
+
 export WORKSPACE=`mktemp -d`
 mkdir  $WORKSPACE/in
 mkdir  $WORKSPACE/out
@@ -23,7 +26,7 @@ VAGRANTFILES_ORIGIN=$SCRIPT_ORIGIN/../vagrantfiles
 VIRTUAL_WORKSPACE=/mnt/workspace
 cp  ~/.ssh/tester_rsa  $WORKSPACE/in
 cp -r $REPO_DIR  $WORKSPACE/in
-
+cp $JDK $WORKSPACE/in
 
 pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep MAINVM | sed "s/.*=//")
   if [ ! "x$DEV" = "x" ] ; then
@@ -43,10 +46,10 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
   vagrant halt
   vagrant up
-  vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh"
+  vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
   find $WORKSPACE
 popd
 cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results
-find $WORKSPACE
+rm -rfv $WORKSPACE	
 
 
