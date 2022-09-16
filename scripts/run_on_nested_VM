@@ -36,12 +36,16 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
     if [ "x$DEV" = "xhalt" ] ; then
       vagrant halt
     else
+      vagrant up
       vagrant destroy -f
     fi
   else
+    vagrant up
     vagrant destroy -f
   fi
   vagrant up
+  #Using rsync because permission issues with cp
+  #vagrant ssh -c "rsync -av --progress $VIRTUAL_WORKSPACE/in/nested /home/tester/diplomka --exclude .git"
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/create_private_key_symlink.sh"
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
   vagrant halt
