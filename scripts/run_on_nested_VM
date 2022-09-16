@@ -30,7 +30,7 @@ cp -r $REPO_DIR  $WORKSPACE/in
 cp $JDK $WORKSPACE/in
 
 mkdir $SCRIPT_ORIGIN/../results || true
-mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME}
+mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME} || true
 mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
 
 pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep MAINVM | sed "s/.*=//")
