@@ -15,13 +15,18 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -exo pipefail
 
-JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep JDK_DIR | sed "s/.*=//")
-ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ITER_NUM | sed "s/.*=//")
+JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep ^JDK_DIR= | sed "s/.*=//")
+ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ^ITER_NUM= | sed "s/.*=//")
 
 JDKS=`find  $JDK_DIR -type f | sort -V`
+NESTED=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_NESTED_VM= | sed "s/.*=//")
+export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 for jdk in $JDKS ; do
   for x in `seq 1 $ITER_NUM` ; do
-    # sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
-    sh $SCRIPT_ORIGIN/run_on_nested_VM $x `readlink -f $jdk`
+    if [ "x$NESTED" == "xtrue" ]; then
+        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk`
+    else
+        sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
+    fi
   done
 done
