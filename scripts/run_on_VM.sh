@@ -35,7 +35,7 @@ VIRTUAL_WORKSPACE=/mnt/workspace
 pushd $SCRIPT_ORIGIN/../vagrantfiles/nested/$(cat $SCRIPT_ORIGIN/../config | grep NESTED | sed "s/.*=//")
   vagrant destroy -f
   vagrant up
-  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/script.sh"
+  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/script.sh $JDK"
 popd
 
 find $WORKSPACE
