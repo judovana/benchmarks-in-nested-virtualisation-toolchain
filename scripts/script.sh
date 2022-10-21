@@ -1,5 +1,20 @@
 #!/bin/bash
+
+## resolve folder of this script, following all symlinks,
+## http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
+  SCRIPT_SOURCE="$(readlink "$SCRIPT_SOURCE")"
+  # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  [[ $SCRIPT_SOURCE != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
+done
+readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
+	readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
+readonly REPO_NAME=`basename $REPO_DIR`
+
 set -exo pipefail
+
 WORKSPACE=/mnt/workspace
 RESULT_DIR="$WORKSPACE/out"
 pushd $WORKSPACE
@@ -11,16 +26,12 @@ cat /proc/meminfo > $RESULT_DIR/meminfo_output.txt
 cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
 
 JDK=`basename $1`
-JDK_UNPACKED="$HOME/jdk"
-rm -rvf "$JDK_UNPACKED"
-mkdir "$JDK_UNPACKED"
-pushd "$JDK_UNPACKED"
-  tar -xf $WORKSPACE/in/$JDK --strip-components=1 
-popd
-ls -l "$JDK_UNPACKED" >> $RESULT_DIR/jdk.txt
-
-"$JDK_UNPACKED"/bin/java -version 
-"$JDK_UNPACKED"/bin/java -version > $RESULT_DIR/javao
-"$JDK_UNPACKED"/bin/java -version 2> $RESULT_DIR/javae
-
+rm -rf /mnt/workspace/rpms
+mkdir /mnt/workspace/rpms
+rm -rf /home/tester/middle_point
+mkdir /home/tester/middle_point
+cp $WORKSPACE/in/$JDK /home/tester/middle_point
+cp /home/tester/middle_point/$JDK /mnt/workspace/rpms
+# run script swt as EXECUTED_SCRIPT in config
+sh $(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 

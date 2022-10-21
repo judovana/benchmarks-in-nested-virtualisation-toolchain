@@ -33,7 +33,7 @@ mkdir $SCRIPT_ORIGIN/../results || true
 mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME} || true
 mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
 
-pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep MAINVM | sed "s/.*=//")
+pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
   if [ ! "x$DEV" = "x" ] ; then
     other_params="VM_CPUS=2 VM_MEMORY=2048"
     export VM_CPUS=3
