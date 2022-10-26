@@ -40,7 +40,7 @@ popd
 
 find $WORKSPACE
 if [ "x$isTmpWs" = "xtrue" ] ; then 
-  cp -r $WORKSPACE/out  $SCRIPT_ORIGIN/../results
+  cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
   rm -rfv $WORKSPACE
 fi
 
