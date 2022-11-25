@@ -25,8 +25,10 @@ for jdk in $JDKS ; do
   for x in `seq 1 $ITER_NUM` ; do
     if [ "x$NESTED" == "xtrue" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk`
-    else
+    elif [ "x$NESTED" == "xfalse" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
+    else
+        sh $SCRIPT_ORIGIN/run_local.sh $JDK_DIR `readlink -f $jdk` $x
     fi
   done
 done
