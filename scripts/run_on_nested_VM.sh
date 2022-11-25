@@ -58,7 +58,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
   find $WORKSPACE
 popd
-cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
+
 rm -rfv $WORKSPACE	
 
 

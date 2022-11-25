@@ -16,6 +16,7 @@ readonly REPO_NAME=`basename $REPO_DIR`
 set -exo pipefail
 
 JDK=$2
+JDK_NAME=`basename ${JDK}`
 COUNTER=$1
 if [ ! "x$DEV" = "x" ] ; then
   export VM_CPUS=2
@@ -31,6 +32,10 @@ if [ "x$WORKSPACE" = "x" ] ; then
   cp $JDK $WORKSPACE/in
 fi
 
+mkdir $SCRIPT_ORIGIN/../results || true
+mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME} || true
+mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
+
 VIRTUAL_WORKSPACE=/mnt/workspace
 pushd $SCRIPT_ORIGIN/../vagrantfiles/nested/$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^NESTED= | sed "s/.*=//")
   vagrant destroy -f
@@ -40,7 +45,8 @@ popd
 
 find $WORKSPACE
 if [ "x$isTmpWs" = "xtrue" ] ; then 
-  cp -r $WORKSPACE/out  $SCRIPT_ORIGIN/../results
+  cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
+  cp -r $WORKSPACE/results $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
   rm -rfv $WORKSPACE
 fi
 
