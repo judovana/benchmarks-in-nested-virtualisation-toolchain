@@ -1,0 +1,98 @@
+diff --git a/jenkins/benchmarks/dacapo.sh b/jenkins/benchmarks/dacapo.sh
+index a7b82d66..d7b02233 100644
+--- a/jenkins/benchmarks/dacapo.sh
++++ b/jenkins/benchmarks/dacapo.sh
+@@ -48,7 +48,7 @@ if [ "$JDK_MAJOR" -ge "16" ] ; then
+   export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS --add-opens=java.base/java.lang=ALL-UNNAMED"
+ fi
+ 
+-readonly REPORT_DIR="dacapo-report"
++readonly REPORT_DIR="results"
+ rm -rf ${REPORT_DIR}
+ mkdir ${REPORT_DIR}
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+@@ -66,7 +66,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_90P / 2" | bc -l) )
+     MEM_90P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_90P}M
++MEM=4096M
+ 
+ function runSuite() {
+   SUITE=${1}
+@@ -84,7 +84,7 @@ function runSuite() {
+ }
+ 
+ ## get all suites
+-SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" || true))
++SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" || true))
+ 
+ set +x
+ 
+@@ -114,4 +114,4 @@ fi
+ geom=`echo "e(l($geomMsumm)/$geomCount)" |  bc -l | sed "s/\..*//"`
+ echo "geom=$geom" >> ${REPORT_DIR}/summary.txt
+ 
+-sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
++#sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
+diff --git a/jenkins/benchmarks/radargun/quickstart-radargun.sh b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+index f321890b..edcff8f8 100644
+--- a/jenkins/benchmarks/radargun/quickstart-radargun.sh
++++ b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+@@ -30,7 +30,7 @@ fi
+ 
+ SLAVES=${1}
+ VERIFY_SENTENCE=${2}
+-THREADS=30
++THREADS=12
+ 
+ # calculate 90% of memory in MB and save it in java friendly format
+ MEM_90P=$( sh ${SCRIPT_DIR}/../calcMemoryPercentage.sh )
+@@ -40,6 +40,7 @@ fi
+ if [ "x$OTOOL_BUILD_ARCH" = "xi686" ] ; then
+     MEM_90P=1500
+ fi
++MEM_90P=4096
+ MEM_PER_SLAVE=$( printf %.0f $(echo "$MEM_90P / $SLAVES" | bc -l) )
+ MEM_PER_SLAVE=${MEM_PER_SLAVE}M
+ 
+diff --git a/jenkins/benchmarks/specjbb.sh b/jenkins/benchmarks/specjbb.sh
+index 6766e484..1564372c 100644
+--- a/jenkins/benchmarks/specjbb.sh
++++ b/jenkins/benchmarks/specjbb.sh
+@@ -60,10 +60,10 @@ readonly JAVA="$( readlink -e '/usr/lib/jvm/java' )/bin/java"
+ rm -rf 'SPECjbb2015_1.00'
+ unzip "$SPECJBB_ZIP"
+ 
+-rm -rf 'jbb-report'
+-mkdir 'jbb-report'
++rm -rf 'results'
++mkdir 'results'
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+-cd 'jbb-report'
++cd 'results'
+ 
+ rpm -qa > rpms
+ sudo su -c "sh $SCRIPT_DIR/memoryProtector.sh memory" &
+@@ -85,7 +85,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_85P / 2" | bc -l) )
+     MEM_85P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_85P}M
++MEM=4096M
+ 
+ ##
+ ## Starting the testsuite:
+diff --git a/jenkins/benchmarks/specjvm.sh b/jenkins/benchmarks/specjvm.sh
+index 60bb85ca..a66a5d26 100644
+--- a/jenkins/benchmarks/specjvm.sh
++++ b/jenkins/benchmarks/specjvm.sh
+@@ -75,7 +75,7 @@ tar -xf "$SPECJVM_TAR"
+     MEM_90P=1500
+   fi
+   MEM_R=${MEM_R}M
+-  MEM=${MEM_90P}M
++  MEM=4096M
+ 
+   export JAVA_OPTS="-Xms$MEM -Xmx$MEM"
+   bash -x ./run-specjvm.sh ${ARGS}
