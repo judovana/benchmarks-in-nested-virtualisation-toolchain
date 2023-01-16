@@ -1,0 +1,241 @@
+    PID USER     CPU  SIZE   RSS CMD
+  81793 qemu       - 8884556 8433480 /usr/bin/qemu-system-x86_64 -name guest=f36-x64_default,debug-threads=on -S -object {"qom-type":"secret","id":"masterKey0","format":"raw","file":"/var/lib/libvirt/qemu/domain-88-f36-x64_default/master-key.aes"} -machine pc-i440fx-6.2,usb=off,dump-guest-core=off,memory-backend=pc.ram -accel kvm -cpu Haswell-noTSX-IBRS,vme=on,ss=on,vmx=on,pdcm=on,f16c=on,rdrand=on,hypervisor=on,arat=on,tsc-adjust=on,umip=on,md-clear=on,stibp=on,arch-capabilities=on,ssbd=on,xsaveopt=on,pdpe1gb=on,abm=on,ibpb=on,ibrs=on,amd-stibp=on,amd-ssbd=on,skip-l1dfl-vmentry=on,pschange-mc-no=on -m 8192 -object {"qom-type":"memory-backend-ram","id":"pc.ram","size":8589934592} -overcommit mem-lock=off -smp 4,sockets=4,cores=1,threads=1 -uuid 95a016f4-dae5-4197-b62b-e89be4f172fa -no-user-config -nodefaults -chardev socket,id=charmonitor,fd=29,server=on,wait=off -mon chardev=charmonitor,id=monitor,mode=control -rtc base=utc -no-shutdown -boot strict=on -device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 -device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x4 -blockdev {"driver":"file","filename":"/var/lib/libvirt/images/f36-x64_vagrant_box_image_1665065446_box.img","node-name":"libvirt-2-storage","auto-read-only":true,"discard":"unmap"} -blockdev {"node-name":"libvirt-2-format","read-only":true,"driver":"qcow2","file":"libvirt-2-storage","backing":null} -blockdev {"driver":"file","filename":"/var/lib/libvirt/images/f36-x64_default.img","node-name":"libvirt-1-storage","auto-read-only":true,"discard":"unmap"} -blockdev {"node-name":"libvirt-1-format","read-only":false,"driver":"qcow2","file":"libvirt-1-storage","backing":"libvirt-2-format"} -device virtio-blk-pci,bus=pci.0,addr=0x5,drive=libvirt-1-format,id=ua-box-volume-0,bootindex=1 -netdev tap,fd=30,id=hostua-net-0,vhost=on,vhostfd=32 -device virtio-net-pci,netdev=hostua-net-0,id=ua-net-0,mac=52:54:00:d9:ee:b4,bus=pci.0,addr=0x8 -chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0,index=0 -chardev socket,id=charchannel0,fd=28,server=on,wait=off -device virtserialport,bus=virtio-serial0.0,nr=1,chardev=charchannel0,id=channel0,name=org.qemu.guest_agent.0 -chardev spicevmc,id=charchannel1,name=vdagent -device virtserialport,bus=virtio-serial0.0,nr=2,chardev=charchannel1,id=channel1,name=com.redhat.spice.0 -audiodev {"id":"audio1","driver":"spice"} -spice port=5900,addr=127.0.0.1,disable-ticketing=on,seamless-migration=on -k en-us -device qxl-vga,id=video0,max_outputs=1,ram_size=67108864,vram_size=16777216,vram64_size_mb=0,vgamem_mb=16,bus=pci.0,addr=0x2 -device intel-hda,id=sound0,bus=pci.0,addr=0x3 -device hda-duplex,id=sound0-codec0,bus=sound0.0,cad=0,audiodev=audio1 -device virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x6 -object {"qom-type":"rng-random","id":"objrng0","filename":"/dev/random"} -device virtio-rng-pci,rng=objrng0,id=rng0,bus=pci.0,addr=0x7 -sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny,resourcecontrol=deny -msg timestamp=on
+ 249235 tester     - 4432956 47280 /usr/lib/jvm/java-11-openjdk-jdk.11.0.8.4-0.ojdk11~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz/bin/java -Xms4096M -Xmx4096M -jar /home/tester/benchmarks-in-nested-virtualisation-toolchain/local_workspace/SPECjbb2015_1.00/specjbb2015.jar -m COMPOSITE -skipReport -ikv -p /home/tester/benchmarks-in-nested-virtualisation-toolchain/local_workspace/SPECjbb2015_1.00/config/specjbb2015.props -raw /home/tester/benchmarks-in-nested-virtualisation-toolchain/local_workspace/SPECjbb2015_1.00/config/template-C.raw
+   1817 root       - 218340 75864 /usr/sbin/virtqemud --timeout 120
+   1263 root       - 174488 144788 /usr/libexec/packagekitd
+   1204 gdm        - 172296 173940 /usr/bin/gnome-shell
+    857 polkitd    - 59088 26488 /usr/lib/polkit-1/polkitd --no-debug
+   1196 gdm        - 51832 18404 /usr/libexec/gnome-session-binary --autostart /usr/share/gdm/greeter/autostart
+   1303 gdm        - 51132  8596 /usr/libexec/gsd-sharing
+   1317 gdm        - 50652  5896 /usr/libexec/gsd-rfkill
+   1496 root       - 50448  6316 /usr/sbin/pcscd --foreground --auto-exit
+   1580 gdm        - 47692 27380 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.ScreenSaver
+   1267 gdm        - 47456 26772 /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+   1598 gdm        - 47032 11924 ibus-daemon --panel disable -r --xim
+   1334 gdm        - 46532 26572 /usr/libexec/gsd-power
+   1323 gdm        - 46516 27980 /usr/libexec/gsd-media-keys
+   1308 gdm        - 46480 26176 /usr/libexec/gsd-color
+    870 root       - 43596 14120 /usr/libexec/udisks2/udisksd
+   1319 gdm        - 43012 12224 /usr/libexec/gsd-smartcard
+    978 root       - 41572  3292 /usr/sbin/gssproxy -D
+   1307 gdm        - 38040 25120 /usr/libexec/gsd-wacom
+   1244 gdm        - 37788 18104 /usr/bin/wireplumber
+   1312 gdm        - 37744 24400 /usr/libexec/gsd-keyboard
+    945 root       - 36088 45376 /usr/bin/python3 -s /usr/sbin/firewalld --nofork --nopid
+    864 root       - 35836 12352 /usr/lib/systemd/systemd-logind
+   1566 colord     - 35300 11080 /usr/libexec/colord
+    942 root       - 34740 11752 /usr/sbin/ModemManager
+   1499 gdm        - 34696 19444 /usr/libexec/gsd-printer
+   1327 gdm        - 34348  8944 /usr/libexec/gsd-sound
+   1321 gdm        - 34252 11312 /usr/libexec/gsd-datetime
+    862 root       - 34208  7204 /usr/libexec/accounts-daemon
+   1331 gdm        - 34180  6876 /usr/libexec/gsd-housekeeping
+   1329 gdm        - 33996  6004 /usr/libexec/gsd-a11y-settings
+   1219 gdm        - 33944  7440 /usr/libexec/at-spi-bus-launcher
+   1234 gdm        - 32328 70116 /usr/bin/Xwayland :1024 -rootless -noreset -accessx -core -auth /run/user/42/.mutter-Xwaylandauth.SXRZX1 -listenfd 4 -listenfd 5 -displayfd 6 -initfd 7
+   1608 gdm        - 29888 61992 /usr/libexec/ibus-x11 --kill-daemon
+   1243 gdm        - 27852 11444 /usr/bin/pipewire
+    961 root       - 27320 20212 /usr/sbin/NetworkManager --no-daemon
+    905 root       - 26504 11248 /usr/sbin/abrtd -d -s
+   1315 gdm        - 26096 12568 /usr/libexec/gsd-print-notifications
+    871 root       - 25920  6060 /usr/libexec/upowerd
+   1143 root       - 25904  8232 /usr/sbin/gdm
+   2173 gdm        - 25792  8496 /usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+   1458 gdm        - 25752  7072 /usr/libexec/gvfsd
+    858 root       - 25728  6920 /usr/libexec/power-profiles-daemon
+   1605 gdm        - 25680  6588 /usr/libexec/ibus-dconf
+   1614 gdm        - 25664  5876 /usr/libexec/ibus-portal
+   1164 root       - 25596  5428 /usr/libexec/uresourced
+    863 root       - 25552  6020 /usr/libexec/switcheroo-control
+   1325 gdm        - 25540  5560 /usr/libexec/gsd-screensaver-proxy
+    853 root       - 25520  4784 /usr/libexec/low-memory-monitor
+   1238 gdm        - 25520  4548 /usr/libexec/xdg-permission-store
+  96790 root       - 25404   912 gpg-agent --homedir /var/cache/PackageKit/36/metadata/rhel8-csb-36-x86_64.tmp/gpgdir --use-standard-socket --daemon
+   1684 tester     - 23332  7124 (sd-pam)
+      1 root       - 23008 17740 /usr/lib/systemd/systemd rhgb --switched-root --system --deserialize 35
+   1152 root       - 17900 11020 gdm-session-worker [pam/gdm-launch-environment]
+    673 root       - 17580 79108 /usr/lib/systemd/systemd-journald
+   1621 gdm        - 17340  6528 /usr/libexec/ibus-engine-simple
+   1269 gdm        - 17312  7160 /usr/libexec/at-spi2-registryd --use-gnome-session
+   1189 gdm        - 17196  5324 /usr/libexec/gdm-wayland-session dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+    859 rtkit      - 17056  1424 /usr/libexec/rtkit-daemon
+   1246 gdm        -  9512  7668 /usr/bin/pipewire-pulse
+    869 root       -  9112  8420 /usr/sbin/thermald --systemd --dbus-enable --adaptive
+    908 chrony     -  9084  3648 /usr/sbin/chronyd -F 2
+  96792 root       -  8728  1368 scdaemon --multi-server --homedir /var/cache/PackageKit/36/metadata/rhel8-csb-36-x86_64.tmp/gpgdir
+    823 root       -  8716  2296 /sbin/auditd
+    974 root       -  7664 10484 /usr/sbin/cupsd -l
+   1171 gdm        -  6468  6940 (sd-pam)
+    687 root       -  4036 12340 /usr/lib/systemd/systemd-udevd
+    821 systemd+   -  3752 15860 /usr/lib/systemd/systemd-resolved
+    912 dbus       -  3064  5088 dbus-broker --log 4 --controller 9 --machine-id 9d34d83bad564473b29b4d379f9fd0e9 --max-bytes 536870912 --max-fds 4096 --max-matches 131072 --audit
+   1675 tester     -  2752 13992 /usr/lib/systemd/systemd --user
+   1169 gdm        -  2748 14004 /usr/lib/systemd/systemd --user
+    939 root       -  1624 24124 /usr/bin/abrt-dump-journal-xorg -fxtD
+    937 root       -  1624 13296 /usr/bin/abrt-dump-journal-core -D -T -f -e
+    938 root       -  1612 28872 /usr/bin/abrt-dump-journal-oops -fxtD
+   2109 root       -  1500 15484 /usr/sbin/virtlogd
+ 249242 root       -  1412  3852 ps -e -o pid,user,cpu,size,rss,cmd --sort -size,-rss
+  81859 tester     -  1348  8140 /usr/bin/ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o User=tester -o Port=22 -o UserKnownHostsFile=/dev/null -F /dev/null -o IdentityFile="/home/tester/.ssh/tester_rsa" 192.168.124.78 sudo -E sshfs :/tmp/tmp.t5CpL2Yo1c /mnt/workspace -o allow_other  -o noauto_cache  -o slave  -o rw 
+   1142 root       -  1328  3316 /usr/sbin/crond -n
+ 249222 root       -  1216  9356 sudo su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+ 249236 root       -  1128  8152 su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+   1195 gdm        -  1084  5428 dbus-daemon --nofork --print-address 4 --session
+    899 dbus       -  1080  4904 /usr/bin/dbus-broker-launch --scope system --audit
+    819 systemd+   -  1052  6576 /usr/lib/systemd/systemd-oomd
+    977 root       -  1004  9144 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+    867 root       -   912  8556 /usr/lib/systemd/systemd-machined
+    854 root       -   880  1192 /usr/sbin/mcelog --daemon --foreground
+ 248611 root       -   844  8056 systemd-userwork
+ 248658 root       -   844  8052 systemd-userwork
+ 249092 root       -   844  8036 systemd-userwork
+  81847 tester     -   832  7344 /usr/bin/ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o User=tester -o Port=22 -o UserKnownHostsFile=/dev/null -F /dev/null -o IdentityFile="/home/tester/.ssh/tester_rsa" 192.168.124.78 sudo -E sshfs :/home/tester/vm-shared /mnt/shared -o allow_other  -o noauto_cache  -o slave  -o ro 
+  81858 tester     -   816  5568 /usr/libexec/openssh/sftp-server
+  81846 tester     -   776  5340 /usr/libexec/openssh/sftp-server
+    848 avahi      -   708  4312 avahi-daemon: running [jfabo-main.local]
+ 249018 tester     -   680  3744 sh /mnt/shared/TckScripts/jenkins/benchmarks/specjbb.sh
+    822 root       -   656  7192 /usr/lib/systemd/systemd-userdbd
+   1224 gdm        -   636  4876 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessibility.conf --nofork --print-address 12 --address=unix:path=/run/user/42/at-spi/bus
+   2039 dnsmasq    -   520  2484 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
+  81773 dnsmasq    -   520  2428 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/vagrant-libvirt-new.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
+   1272 root       -   500  5728 /usr/sbin/wpa_supplicant -c /etc/wpa_supplicant/wpa_supplicant.conf -u -s
+   1191 gdm        -   492  3904 /usr/bin/dbus-broker-launch --scope user
+    926 root       -   476  3044 /usr/sbin/alsactl -s -n 19 -c -E ALSA_CONFIG_PATH=/etc/alsa/alsactl.conf --initfile=/lib/alsa/init/00main rdaemon
+  81774 root       -   444  1644 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/vagrant-libvirt-new.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
+   2040 root       -   444   392 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --leasefile-ro --dhcp-script=/usr/libexec/libvirt_leaseshelper
+    894 avahi      -   444   380 avahi-daemon: chroot helper
+   1192 gdm        -   424  1412 dbus-broker --log 4 --controller 10 --machine-id 9d34d83bad564473b29b4d379f9fd0e9 --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
+ 248994 tester     -   416  3544 sh /home/tester/benchmarks-in-nested-virtualisation-toolchain/scripts/run_local.sh /home/tester/diplomka/JDKs/combined /home/tester/diplomka/JDKs/combined/java-11-openjdk-jdk.11.0.8.4-0.ojdk11~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz 2
+ 249241 root       -   416  3512 sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+  96981 tester     -   416  3120 sh jdkiterator.sh
+   1194 gdm        -   408  1560 dbus-run-session -- gnome-session --autostart /usr/share/gdm/greeter/autostart
+      2 root       -     0     0 [kthreadd]
+      3 root       -     0     0 [rcu_gp]
+      4 root       -     0     0 [rcu_par_gp]
+      5 root       -     0     0 [slub_flushwq]
+      6 root       -     0     0 [netns]
+      8 root       -     0     0 [kworker/0:0H-events_highpri]
+     10 root       -     0     0 [mm_percpu_wq]
+     12 root       -     0     0 [rcu_tasks_kthread]
+     13 root       -     0     0 [rcu_tasks_rude_kthread]
+     14 root       -     0     0 [rcu_tasks_trace_kthread]
+     15 root       -     0     0 [ksoftirqd/0]
+     16 root       -     0     0 [rcu_preempt]
+     17 root       -     0     0 [migration/0]
+     19 root       -     0     0 [cpuhp/0]
+     20 root       -     0     0 [cpuhp/1]
+     21 root       -     0     0 [migration/1]
+     22 root       -     0     0 [ksoftirqd/1]
+     24 root       -     0     0 [kworker/1:0H-events_highpri]
+     25 root       -     0     0 [cpuhp/2]
+     26 root       -     0     0 [migration/2]
+     27 root       -     0     0 [ksoftirqd/2]
+     29 root       -     0     0 [kworker/2:0H-events_highpri]
+     30 root       -     0     0 [cpuhp/3]
+     31 root       -     0     0 [migration/3]
+     32 root       -     0     0 [ksoftirqd/3]
+     34 root       -     0     0 [kworker/3:0H-events_highpri]
+     35 root       -     0     0 [cpuhp/4]
+     36 root       -     0     0 [migration/4]
+     37 root       -     0     0 [ksoftirqd/4]
+     39 root       -     0     0 [kworker/4:0H-events_highpri]
+     40 root       -     0     0 [cpuhp/5]
+     41 root       -     0     0 [migration/5]
+     42 root       -     0     0 [ksoftirqd/5]
+     44 root       -     0     0 [kworker/5:0H-events_highpri]
+     45 root       -     0     0 [cpuhp/6]
+     46 root       -     0     0 [migration/6]
+     47 root       -     0     0 [ksoftirqd/6]
+     49 root       -     0     0 [kworker/6:0H-kblockd]
+     50 root       -     0     0 [cpuhp/7]
+     51 root       -     0     0 [migration/7]
+     52 root       -     0     0 [ksoftirqd/7]
+     54 root       -     0     0 [kworker/7:0H-events_highpri]
+     55 root       -     0     0 [kdevtmpfs]
+     56 root       -     0     0 [inet_frag_wq]
+     57 root       -     0     0 [kauditd]
+     59 root       -     0     0 [oom_reaper]
+     60 root       -     0     0 [writeback]
+     61 root       -     0     0 [kcompactd0]
+     62 root       -     0     0 [ksmd]
+     63 root       -     0     0 [khugepaged]
+     64 root       -     0     0 [cryptd]
+     65 root       -     0     0 [kintegrityd]
+     66 root       -     0     0 [kblockd]
+     67 root       -     0     0 [blkcg_punt_bio]
+     70 root       -     0     0 [tpm_dev_wq]
+     71 root       -     0     0 [ata_sff]
+     72 root       -     0     0 [md]
+     73 root       -     0     0 [edac-poller]
+     74 root       -     0     0 [watchdogd]
+     76 root       -     0     0 [kworker/3:1H-kblockd]
+     77 root       -     0     0 [kswapd0]
+     85 root       -     0     0 [kthrotld]
+     91 root       -     0     0 [irq/25-pciehp]
+     92 root       -     0     0 [acpi_thermal_pm]
+     93 root       -     0     0 [xenbus_probe]
+     94 root       -     0     0 [scsi_eh_0]
+     95 root       -     0     0 [scsi_tmf_0]
+     96 root       -     0     0 [scsi_eh_1]
+     97 root       -     0     0 [scsi_tmf_1]
+     98 root       -     0     0 [scsi_eh_2]
+     99 root       -     0     0 [scsi_tmf_2]
+    100 root       -     0     0 [scsi_eh_3]
+    101 root       -     0     0 [scsi_tmf_3]
+    102 root       -     0     0 [scsi_eh_4]
+    103 root       -     0     0 [scsi_tmf_4]
+    104 root       -     0     0 [scsi_eh_5]
+    105 root       -     0     0 [scsi_tmf_5]
+    109 root       -     0     0 [dm_bufio_cache]
+    111 root       -     0     0 [mld]
+    112 root       -     0     0 [ipv6_addrconf]
+    118 root       -     0     0 [kstrp]
+    135 root       -     0     0 [zswap-shrink]
+    136 root       -     0     0 [kworker/u17:0-i915_flip]
+    248 root       -     0     0 [kworker/6:1H-kblockd]
+    251 root       -     0     0 [kworker/7:1H-kblockd]
+    254 root       -     0     0 [kworker/5:1H-kblockd]
+    291 root       -     0     0 [kworker/2:1H-kblockd]
+    294 root       -     0     0 [kworker/1:1H-kblockd]
+    304 root       -     0     0 [kworker/4:1H-kblockd]
+    306 root       -     0     0 [kworker/0:1H-kblockd]
+    509 root       -     0     0 [card1-crtc0]
+    510 root       -     0     0 [card1-crtc1]
+    511 root       -     0     0 [card1-crtc2]
+    544 root       -     0     0 [kdmflush/253:0]
+    563 root       -     0     0 [jbd2/dm-0-8]
+    564 root       -     0     0 [ext4-rsv-conver]
+    732 root       -     0     0 [irq/31-mei_me]
+    766 root       -     0     0 [jbd2/sda2-8]
+    767 root       -     0     0 [ext4-rsv-conver]
+    845 root       -     0     0 [rpciod]
+    846 root       -     0     0 [xprtiod]
+    921 root       -     0     0 [psimon]
+   1607 root       -     0     0 [kworker/u17:1]
+   2775 root       -     0     0 [tls-strp]
+  81810 root       -     0     0 [kvm]
+  81811 root       -     0     0 [kvm-nx-lpage-recovery-81793]
+  81814 root       -     0     0 [vhost-81793]
+  81821 root       -     0     0 [kvm-pit/81793]
+ 159875 root       -     0     0 [kworker/2:2-mm_percpu_wq]
+ 208242 root       -     0     0 [kworker/3:1-events]
+ 211490 root       -     0     0 [kworker/4:2-events]
+ 218269 root       -     0     0 [kworker/7:0-events]
+ 224046 root       -     0     0 [kworker/1:2-events]
+ 225341 root       -     0     0 [kworker/0:0-events]
+ 230964 root       -     0     0 [kworker/6:0-events]
+ 240368 root       -     0     0 [kworker/5:0-kdmflush/253:0]
+ 247835 root       -     0     0 [kworker/0:2-kacpi_notify]
+ 248014 root       -     0     0 [kworker/5:2-events]
+ 248023 root       -     0     0 [kworker/6:1-events]
+ 248028 root       -     0     0 [kworker/7:1-events]
+ 248086 root       -     0     0 [kworker/2:1-events]
+ 248139 root       -     0     0 [kworker/3:0-events]
+ 248182 root       -     0     0 [kworker/u16:2-flush-253:0]
+ 248234 root       -     0     0 [kworker/4:0-events]
+ 248249 root       -     0     0 [kworker/u16:1-flush-253:0]
+ 248271 root       -     0     0 [kworker/1:0]
+ 248299 root       -     0     0 [kworker/4:1-events]
+ 248606 root       -     0     0 [kworker/u16:0-events_unbound]
+ 248607 root       -     0     0 [kworker/u16:3]
+ 248610 root       -     0     0 [kworker/6:2-events]
