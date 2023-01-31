@@ -1,0 +1,69 @@
+<!-- RadarGun 3.0 benchmark -->
+<benchmark xmlns="urn:radargun:benchmark:3.0">
+
+   <!-- Specifies where should the master open socket  -->
+   <master bindAddress="127.0.0.1" port="2103"/>
+
+   <clusters>
+      <cluster size="1" />
+   </clusters>
+
+   <!-- List of configurations of the services -->
+   <configurations>
+      <config name="Infinispan 9.2 - distributed">
+         <!-- All slaves use the same configuration -->
+         <setup plugin="infinispan92">
+            <!-- You can set JVM arguments for slaves here. -->
+            <vm-args>
+               <memory min="4096M" max="4096M" />
+            </vm-args>
+            <embedded xmlns="urn:radargun:plugins:infinispan92:3.0" file="/home/tester/benchmarks-in-nested-virtualisation-toolchain/local_workspace/results/dist-sync.xml"/>
+         </setup>
+      </config>
+   </configurations>
+
+   <!-- Sequence of stages executed on the cluster -->
+   <rg:scenario xmlns:rg="urn:radargun:benchmark:3.0"
+                xmlns="urn:radargun:stages:core:3.0"
+                xmlns:cache="urn:radargun:stages:cache:3.0">
+      <!-- Start services on all nodes -->
+      <service-start />
+      <!-- Begin monitoring of CPU, memory usage and GC -->
+      <jvm-monitor-start />
+
+      <!--Preload the cache with data -->
+      <cache:load num-entries="100000"/>
+
+      <cache:basic-operations-test test-name="warmup" duration="1m" num-threads-per-node="12">
+         <cache:key-selector>
+            <cache:concurrent-keys total-entries="100000" />
+         </cache:key-selector>
+      </cache:basic-operations-test>
+
+      <!-- Remove all data from the default cache -->
+      <cache:clear />
+      <!-- Again, preload the cache with data -->
+      <cache:load num-entries="100000"/>
+
+      <cache:basic-operations-test test-name="stress-test" duration="10m" num-threads-per-node="12">
+         <cache:key-selector>
+            <cache:concurrent-keys total-entries="100000"/>
+         </cache:key-selector>
+         <statistics>
+            <common/>
+         </statistics>
+      </cache:basic-operations-test>
+
+      <!-- Stop JVM monitoring -->
+      <jvm-monitor-stop />
+   </rg:scenario>
+
+   <!-- How the statistics are reported -->
+   <reports>
+      <!-- Produce CSV statistics report -->
+      <reporter type="csv" />
+      <!-- Produce HTML statistics report -->
+      <reporter type="html" />
+   </reports>
+
+</benchmark>
