@@ -20,7 +20,7 @@ JDK_NAME=`basename $2`
 COUNTER=$3
 rm -rf $SCRIPT_ORIGIN/../local_workspace
 mkdir $SCRIPT_ORIGIN/../local_workspace
-WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
+export WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
 RESULT_DIR="$SCRIPT_ORIGIN/../local_results"
 pushd $WORKSPACE
 #mkdir -p $RESULT_DIR
