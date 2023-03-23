@@ -11,6 +11,7 @@ import sys
 
 args = sys.argv
 invert = args[4]
+containsFilter=args[5]
 runsPerJDK  = 5 ### change if needed
 
 def calc_relative_diff(oldVal, newVal, invert):
@@ -41,10 +42,10 @@ def parse_number(line):
 
 def min_max_avg_med(list_, of_values):
     list_.sort()
-    to_delete = (of_values // 10)
-    print("PASSED: ", of_values, " out of 100 ", "deleting: ",  to_delete, " from top and bottom")
-    del list_[(of_values - to_delete):]
-    del list_[:to_delete]
+    #to_delete = (of_values // 10)
+    #print("PASSED: ", of_values, " out of 100 ", "deleting: ",  to_delete, " from top and bottom")
+    #del list_[(of_values - to_delete):]
+    #del list_[:to_delete]
     print("final number of values: ", len(list_))  
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
@@ -78,7 +79,7 @@ def avgmed_alljdks_metric(path, key, result_file):
     for root, dirs, files in os.walk(path, topdown=False):
         for name in files:
             filename = os.path.join(root, name)
-            if (filename.endswith(result_file)):
+            if (filename.endswith(result_file) and containsFilter in filename):
                 with open(filename) as f:
                     lines = [one_line.rstrip() for one_line in f]
                 for line in lines:
@@ -96,7 +97,10 @@ def avgmed_by_jdk_metric(path, key, result_file):
     for root, dirs, files in os.walk(path, topdown=False):
         for name in files:
             filename = os.path.join(root, name)
-            if (filename.endswith(result_file)):
+            if (filename.endswith(result_file) and containsFilter in filename):
+                #print("///////////////////////////////////////////////////////////")
+                #print(os.path.abspath(name), "   ---   ", filename, "---------------------", containsFilter)
+                #print("///////////////////////////////////////////////////////////")
                 with open(filename) as f:
                     lines = [one_line.rstrip() for one_line in f]
                 for line in lines:
@@ -104,9 +108,9 @@ def avgmed_by_jdk_metric(path, key, result_file):
                         geometric_means.append(int(parse_number(line)))
                         if len(geometric_means) == runsPerJDK:
                             geometric_means.sort()
-                            to_delete = (runsPerJDK // 10)
-                            del geometric_means[(runsPerJDK - to_delete):]
-                            del geometric_means[:to_delete]
+                            #to_delete = (runsPerJDK // 10)
+                            #del geometric_means[(runsPerJDK - to_delete):]
+                            #del geometric_means[:to_delete]
                             averages_per_jdk.append(sum(geometric_means) / len(geometric_means))
                             medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
                             del geometric_means[:]
