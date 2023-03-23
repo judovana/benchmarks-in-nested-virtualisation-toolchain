@@ -30,15 +30,20 @@ def calc_relative_diff(oldVal, newVal, invert):
      return dif
 
 def parse_number(line):
+    #print("parsing number: ", line)  
     parsed_number = ""
     for char in line:
-        if not (char.isdigit()):
+        if (char == '.'):
+            parsed_number += '.'
+        if not (char.isdigit() or char == '.'):
             parsed_number = ""
         elif (char.isdigit()):
             parsed_number += char
+    #print("parsed number: ", parsed_number)  
     if parsed_number == "":
         return 0
-    return parsed_number
+    #print("rounded number: ", round(float(parsed_number)))
+    return round(float(parsed_number))
 
 def min_max_avg_med(list_, of_values):
     list_.sort()
