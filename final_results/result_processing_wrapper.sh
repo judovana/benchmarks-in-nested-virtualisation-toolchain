@@ -19,7 +19,7 @@ SCRIPT_DIR=$REPO_DIR/final_results # todo, move them both: s$REPO_DIR/cripts
 JDK_ver=$1
 benchmark=$2
 if [[ $benchmark == "" ]];then
-  benchmark="DACAPO J2DBENCH JMH RADARGUNs1" # TODO, ADD ALL
+  benchmark="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 fi
 
 RESULTS=`find  $RESULT_DIR -maxdepth 2 -mindepth 2 -type d`
@@ -36,21 +36,52 @@ else
   REGEX="java-1.8.0"
 fi
 
+graph_parameters() {
+##GRAPH_NAME="LOCAL" ##necessary for graph naming
+echo "running graph parameters"
+if [[ ($1 == *"local"*) ]];then
+  graph_name=local"$2"
+else
+  graph_name=virtual"$2"
+fi
+}
+
 for res in $RESULTS ; do
   echo $res
   echo $REGEX
   echo $benchmark
-  if [[ ($res == *"DACAPO"*) && ($benchmark == *"DACAPO"*)]];then
-    python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" True $REGEX
+
+  if [[ ($res == *"DACAPO"*) && ($benchmark == *"DACAPO"*)]];then   
+    graph_parameters $res DACAPO
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" True $REGEX $graph_name
   elif [[ ($res == *"J2DBENCH"*) && ($benchmark == *"J2DBENCH"*)]];then
-    python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" True $REGEX
+    graph_parameters $res J2DBENCH
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" True $REGEX $graph_name
   elif [[ ($res == *"JMH"*) && ($benchmark == *"JMH"*)]];then
-    python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" True $REGEX
+    graph_parameters $res JMH
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" True $REGEX $graph_name
   elif [[ ($res == *"RADARGUNs1"*) && ($benchmark == *"RADARGUNs1"*)]];then
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX
+    graph_parameters $res RADARGUNs1
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
+  elif [[ ($res == *"RADARGUNs3"*) && ($benchmark == *"RADARGUNs3"*)]];then
+    graph_parameters $res RADARGUNs3
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
+  elif [[ ($res == *"SPECJBB"*) && ($benchmark == *"SPECJBB"*)]];then
+    graph_parameters $res SPECJBB
+    echo $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.max-jOPS" "-00001.raw" True $REGEX $IS_LOCAL
+    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.critical-jOPS" "-00001.raw" True $REGEX $IS_LOCAL
   else
     echo "did not find anything"
   fi
