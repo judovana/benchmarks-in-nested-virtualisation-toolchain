@@ -8,10 +8,12 @@
 #!/usr/bin/python2.7
 import os
 import sys
+import matplotlib.pyplot as plt 
 
 args = sys.argv
 invert = args[4]
 containsFilter=args[5]
+isLocal=args[6]
 runsPerJDK  = 5 ### change if needed
 
 def calc_relative_diff(oldVal, newVal, invert):
@@ -90,6 +92,27 @@ def avgmed_alljdks_metric(path, key, result_file):
                 for line in lines:
                     if (line.startswith(key)):
                         geometric_means.append(int(parse_number(line)))
+    print("creating figure")
+    # x axis values 
+    y1 = geometric_means 
+    # corresponding y axis values 
+    x1 = range(0, len(geometric_means))
+    
+    # plotting the points  
+    plt.plot(x1, y1) 
+    
+    # naming the x axis 
+    plt.xlabel('run') 
+    # naming the y axis 
+    plt.ylabel(args[2]) 
+    
+    # giving a title to my graph 
+    plt.title(containsFilter + isLocal) 
+    
+    # function to show the plot 
+    print("GRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + isLocal)
+    name_fig = "bery_good_" + containsFilter + "_" + isLocal + "_" + args[2] + ".png"
+    plt.savefig(name_fig)
     result = []
     result.append(min_max_avg_med(geometric_means, len(geometric_means)))
     return result
