@@ -80,6 +80,30 @@ def printer(list_of_tuples, invert):
         print("AVG-MED: " + str(calc_relative_diff(avg_, med_, invert)) + " %")
         print("")
 
+def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
+    print("creating figure ", y1, " ?? ", x1)
+    # x axis values 
+    #y1 = geometric_means 
+    # corresponding y axis values 
+    #x1 = range(0, len(geometric_means))
+    
+    # plotting the points  
+    plt.plot(x1, y1) 
+    
+    # naming the x axis 
+    plt.xlabel(x_name) 
+    # naming the y axis 
+    plt.ylabel(y_name) 
+    
+    # giving a title to my graph 
+    plt.title(containsFilter + isLocal) 
+    
+    # function to plot the plot 
+    name_fig = "bery_good_" + containsFilter + "_" + isLocal + "_" + args[2] + "_" + name_modifier + ".png"
+    plt.savefig(name_fig)
+    if (clear_plot):
+        plt.clf()
+
 ###1st metric
 def avgmed_alljdks_metric(path, key, result_file):
     geometric_means = []
@@ -92,29 +116,12 @@ def avgmed_alljdks_metric(path, key, result_file):
                 for line in lines:
                     if (line.startswith(key)):
                         geometric_means.append(int(parse_number(line)))
-    print("creating figure")
-    # x axis values 
-    y1 = geometric_means 
-    # corresponding y axis values 
-    x1 = range(0, len(geometric_means))
-    
-    # plotting the points  
-    plt.plot(x1, y1) 
-    
-    # naming the x axis 
-    plt.xlabel('run') 
-    # naming the y axis 
-    plt.ylabel(args[2]) 
-    
-    # giving a title to my graph 
-    plt.title(containsFilter + isLocal) 
-    
-    # function to show the plot 
-    print("GRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + isLocal)
-    name_fig = "bery_good_" + containsFilter + "_" + isLocal + "_" + args[2] + ".png"
-    plt.savefig(name_fig)
+    x = range(0, len(geometric_means))
+    create_figure(x, geometric_means, "run", args[2], "raw values", True)
     result = []
     result.append(min_max_avg_med(geometric_means, len(geometric_means)))
+    x = range(0, len(result[0]))
+    create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
     return result
 
 ###2nd metric
@@ -145,6 +152,11 @@ def avgmed_by_jdk_metric(path, key, result_file):
     result = []
     result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk)))
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk)))
+    create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw values_averages_per_jdk", True)
+    create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw values_medians_per_jdk", True)
+    create_figure(averages_per_jdk, medians_per_jdk, args[2] + "-averages_per_jdk", args[2] + "-medians_per_jdk", "raw values_averages_per_jdk_medians_per_jdk", True)
+    create_figure(range(0, len(result[0])), result[0], "avgmed_by_jdk_metric-averages", args[2], "2nd metric_averages per JDK", False)
+    create_figure(range(0, len(result[1])), result[1], "avgmed_by_jdk_metric-medians (orange)", args[2], "2nd metric_medians per JDK", True)
     return result
 
 print("1st avgmed_alljdks_metric:")
