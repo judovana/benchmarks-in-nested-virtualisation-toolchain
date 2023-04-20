@@ -30,10 +30,12 @@ elif [[ $JDK_ver == "11" ]];then
   REGEX="java-11"
 elif [[ $JDK_ver == "17" ]];then
   REGEX="java-17"
+elif [[ $JDK_ver == "ALL" ]];then
+  REGEX="java-"
 else
   echo $JDK_ver
-  echo "invalid java version, running 1.8.0 as a default"
-  REGEX="java-1.8.0"
+  echo "invalid java version, use 8, 11 or 17"
+  exit 1
 fi
 
 graph_parameters() {

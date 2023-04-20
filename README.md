@@ -9,8 +9,8 @@ Result processing
 1. Make sure that "result_processing.py" and "result_processing_wrapper.sh" are placed inside final_results folder, next to local_results and vm_results.
 2. Make sure you have python with matplotlib installed
 3. Run like this: "sh result_processing_wrapper.sh <JDK_ver> <benchmark>"
-   Valid values for JDK_ver: 8, 11, 17 (default = 8)
+   Valid values for JDK_ver: 8, 11, 17 (fail if invalid parameter is entered)
    Valid values for benchmark: DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB (any subset of them is valid, default = all)
-   Examples: sh result_processing_wrapper.sh                               - no parameters, default = process all results from java 1.8.0
+   Examples: sh result_processing_wrapper.sh                               - no parameters, FAIL
              sh result_processing_wrapper.sh 17                            - process all results from java 17
              sh result_processing_wrapper.sh 11 "DACAPO JMH RADARGUNs3"    - process results from dacapo, jmh and radargun3 from java 11
