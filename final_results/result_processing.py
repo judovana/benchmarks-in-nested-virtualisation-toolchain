@@ -101,6 +101,8 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     # function to plot the plot 
     name_fig = "bery_good_" + containsFilter + "_" + isLocal + "_" + args[2] + "_" + name_modifier + ".png"
     plt.savefig(name_fig)
+    file_path = os.getcwd() + "/" + name_fig
+    print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
 
@@ -152,11 +154,11 @@ def avgmed_by_jdk_metric(path, key, result_file):
     result = []
     result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk)))
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk)))
-    create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw values_averages_per_jdk", True)
-    create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw values_medians_per_jdk", True)
-    create_figure(averages_per_jdk, medians_per_jdk, args[2] + "-averages_per_jdk", args[2] + "-medians_per_jdk", "raw values_averages_per_jdk_medians_per_jdk", True)
-    create_figure(range(0, len(result[0])), result[0], "avgmed_by_jdk_metric-averages", args[2], "2nd metric_averages per JDK", False)
-    create_figure(range(0, len(result[1])), result[1], "avgmed_by_jdk_metric-medians (orange)", args[2], "2nd metric_medians per JDK", True)
+    create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
+    create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
+    create_figure(averages_per_jdk, medians_per_jdk, args[2] + "-averages_per_jdk", args[2] + "-medians_per_jdk", "raw_values_averages_per_jdk_medians_per_jdk", True)
+    create_figure(range(0, len(result[0])), result[0], "avgmed_by_jdk_metric-averages", args[2], "2nd_metric_averages_per_JDK", False)
+    create_figure(range(0, len(result[1])), result[1], "avgmed_by_jdk_metric-medians (orange)", args[2], "2nd_metric_medians_per_JDK", True)
     return result
 
 print("1st avgmed_alljdks_metric:")
