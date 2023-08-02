@@ -42,3 +42,7 @@ for jdk in $JDKS ; do
     fi
   done
 done
+
+if [ "x$NESTED" == "xcontainer" ]; then
+        podman rmi -a -f
+fi
