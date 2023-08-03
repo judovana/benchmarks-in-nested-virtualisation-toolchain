@@ -15,23 +15,10 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -exo pipefail
 
-JDK=$1
-JDK_NAME=`basename ${JDK}`
-echo $JDK
+JDK=$2
 
-#WORKSPACE=/mnt/workspace
-ls -l /mnt/workspace
-ls -l $WORKSPACE
-CONT_WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
-ls -l $CONT_WORKSPACE
-cd $CONT_WORKSPACE
-cp $WORKSPACE/in/$JDK_NAME $CONT_WORKSPACE
-
-JDK_dockerfile=JDK_dockerfile
-rm -rf $JDK_dockerfile
-echo 'FROM preparation-cont' >> $JDK_dockerfile
-echo "RUN rm -rf rpms" >> $JDK_dockerfile
-echo "RUN mkdir /rpms || true" >> $JDK_dockerfile
-echo "COPY $JDK_NAME /rpms" >> $JDK_dockerfile
-
-podman build --tag preparation-cont-jdk -f ./$JDK_dockerfile
+echo pwd
+ls -l /mnt/shared/testsuites
+ls -l
+sh $SCRIPT_ORIGIN/prepare_container.sh True
+sh $SCRIPT_ORIGIN/jdk_container.sh $JDK

@@ -23,7 +23,7 @@ NESTED=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_NESTED_VM= | se
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
 if [ "x$NESTED" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/prepare_container.sh
+        sh $SCRIPT_ORIGIN/prepare_container.sh False
 fi
 
 for jdk in $JDKS ; do
@@ -32,11 +32,13 @@ for jdk in $JDKS ; do
   fi
   for x in `seq 1 $ITER_NUM` ; do
     if [ "x$NESTED" == "xtrue" ]; then
-        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk`
+        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` False
     elif [ "x$NESTED" == "xfalse" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
     elif [ "x$NESTED" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
+    elif [ "x$NESTED" == "xcont_in_VM" ]; then
+        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` True
     else
         sh $SCRIPT_ORIGIN/run_local.sh $JDK_DIR `readlink -f $jdk` $x
     fi

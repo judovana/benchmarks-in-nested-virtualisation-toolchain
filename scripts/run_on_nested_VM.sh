@@ -18,6 +18,7 @@ set -exo pipefail
 JDK=$2
 JDK_NAME=`basename ${JDK}`
 COUNTER=$1
+IS_CONTAINER=$3
 
 export WORKSPACE=`mktemp -d`
 mkdir  $WORKSPACE/in
@@ -52,10 +53,16 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   #Using rsync because permission issues with cp
   #vagrant ssh -c "rsync -av --progress $VIRTUAL_WORKSPACE/in/nested /home/tester/diplomka --exclude .git"
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/create_private_key_symlink.sh"
-  vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
+  if [ $IS_CONTAINER = False ] ; then 
+    vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
+  fi
   vagrant halt
   vagrant up
-  vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
+  if [ $IS_CONTAINER = True ] ; then 
+    vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_container_on_VM.sh $COUNTER $JDK"
+  else
+    vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
+  fi
   find $WORKSPACE
 popd
 
