@@ -15,6 +15,7 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -exo pipefail
 
+IS_NESTED=$1
 ## cleaning any existing podman images and containers
 podman rmi -a -f
 podman rm -a -f
@@ -24,16 +25,21 @@ podman images
 ## create local workspace
 rm -rf $SCRIPT_ORIGIN/../local_workspace
 mkdir $SCRIPT_ORIGIN/../local_workspace
-WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
+CONT_WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
 
 ## copy files necessary for benchmarking
-cd $WORKSPACE
-cp -r $SCRIPT_ORIGIN $WORKSPACE
-cp -r /mnt/shared/TckScripts $WORKSPACE
-cp -r /mnt/shared/testsuites $WORKSPACE
+cd $CONT_WORKSPACE
+cp -r $SCRIPT_ORIGIN $CONT_WORKSPACE
+cp -r /mnt/shared/TckScripts $CONT_WORKSPACE
+cp -r /mnt/shared/testsuites $CONT_WORKSPACE
+
+if [ $IS_NESTED == True ]; then
+  FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^NESTED= | sed "s/.*=//")
+else
+  FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
+fi
 
 ## create the dockerfile for creating the base 
-FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
 preparation_dockerfile=preparation_dockerfile
 echo "FROM $FEDORA_VERSION" >> $preparation_dockerfile
 echo 'RUN dnf -y install bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
@@ -43,6 +49,7 @@ echo "RUN mkdir /mnt/shared || true" >> $preparation_dockerfile
 echo "RUN mkdir /mnt/shared/testsuites || true" >> $preparation_dockerfile
 echo "RUN mkdir /mnt/shared/TckScripts || true" >> $preparation_dockerfile
 echo "RUN mkdir /results || true" >> $preparation_dockerfile
+echo "RUN ls -l /" >> $preparation_dockerfile
 
 echo "COPY TckScripts /mnt/shared/TckScripts" >> $preparation_dockerfile
 echo "COPY scripts /test/scripts" >> $preparation_dockerfile
