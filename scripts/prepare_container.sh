@@ -32,6 +32,7 @@ cp -r $SCRIPT_ORIGIN $WORKSPACE
 cp -r /mnt/shared/TckScripts $WORKSPACE
 cp -r /mnt/shared/testsuites $WORKSPACE
 cp /etc/hosts  $WORKSPACE
+echo "COPY hosts  /etc/hosts" >> $preparation_dockerfile
 
 ## create the dockerfile for creating the base 
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
