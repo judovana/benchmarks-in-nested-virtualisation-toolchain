@@ -31,6 +31,7 @@ cd $WORKSPACE
 cp -r $SCRIPT_ORIGIN $WORKSPACE
 cp -r /mnt/shared/TckScripts $WORKSPACE
 cp -r /mnt/shared/testsuites $WORKSPACE
+cp /etc/hosts  $WORKSPACE
 
 ## create the dockerfile for creating the base 
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
@@ -46,6 +47,7 @@ echo "RUN mkdir /results || true" >> $preparation_dockerfile
 
 echo "COPY TckScripts /mnt/shared/TckScripts" >> $preparation_dockerfile
 echo "COPY scripts /test/scripts" >> $preparation_dockerfile
+echo "COPY hosts  /etc/hosts" >> $preparation_dockerfile
 #improve so only the current benchmark gets copied?
 echo "COPY testsuites /mnt/shared/testsuites" >> $preparation_dockerfile
 
