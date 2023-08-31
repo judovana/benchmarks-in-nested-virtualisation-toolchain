@@ -31,14 +31,12 @@ cd $WORKSPACE
 cp -r $SCRIPT_ORIGIN $WORKSPACE
 cp -r /mnt/shared/TckScripts $WORKSPACE
 cp -r /mnt/shared/testsuites $WORKSPACE
-cp /etc/hosts  $WORKSPACE
-echo "COPY hosts  /etc/hosts" >> $preparation_dockerfile
 
 ## create the dockerfile for creating the base 
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
 preparation_dockerfile=preparation_dockerfile
 echo "FROM $FEDORA_VERSION" >> $preparation_dockerfile
-echo 'RUN dnf -y install hostname /usr/bin/pgrep unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
+echo 'RUN dnf -y install /usr/bin/pgrep unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
 echo "RUN mkdir /test || true" >> $preparation_dockerfile
 echo 'RUN mkdir /test/scripts || true' >> $preparation_dockerfile
 echo "RUN mkdir /mnt/shared || true" >> $preparation_dockerfile
@@ -48,7 +46,6 @@ echo "RUN mkdir /results || true" >> $preparation_dockerfile
 
 echo "COPY TckScripts /mnt/shared/TckScripts" >> $preparation_dockerfile
 echo "COPY scripts /test/scripts" >> $preparation_dockerfile
-echo "COPY hosts  /etc/hosts" >> $preparation_dockerfile
 #improve so only the current benchmark gets copied?
 echo "COPY testsuites /mnt/shared/testsuites" >> $preparation_dockerfile
 
