@@ -29,10 +29,12 @@ podman run --name running-cont-run-uname preparation-cont-jdk uname -a > $RESULT
 podman run --name running-cont-run-cpuinfo preparation-cont-jdk cat /proc/cpuinfo > $RESULT_DIR/cpuinfo_output.txt
 podman run --name running-cont-run-meminfo preparation-cont-jdk cat /proc/meminfo > $RESULT_DIR/meminfo_output.txt
 podman run --name running-cont-run-rri preparation-cont-jdk cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
-podman run --name running-cont-run preparation-cont-jdk sh $(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
+# container alwways gots hostname same as its name, misusing this for radargun which is trying to connect to results
+finalContainerName=results
+podman run --name $finalContainerName preparation-cont-jdk sh $(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 podman ps -all
-podman cp running-cont-run:/results $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
-podman rm running-cont-run
+podman cp $finalContainerName:/results $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
+podman rm $finalContainerName
 
 echo --------------------------------------------------------------------------------------
 echo 									RUN FINISHED									
