@@ -1,0 +1,350 @@
+diff --git a/jenkins/benchmarks/dacapo.sh b/jenkins/benchmarks/dacapo.sh
+index a7b82d66..d7b02233 100644
+--- a/jenkins/benchmarks/dacapo.sh
++++ b/jenkins/benchmarks/dacapo.sh
+@@ -48,7 +48,7 @@ if [ "$JDK_MAJOR" -ge "16" ] ; then
+   export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS --add-opens=java.base/java.lang=ALL-UNNAMED"
+ fi
+ 
+-readonly REPORT_DIR="dacapo-report"
++readonly REPORT_DIR="results"
+ rm -rf ${REPORT_DIR}
+ mkdir ${REPORT_DIR}
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+@@ -66,7 +66,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_90P / 2" | bc -l) )
+     MEM_90P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_90P}M
++MEM=4096M
+ 
+ function runSuite() {
+   SUITE=${1}
+@@ -84,7 +84,7 @@ function runSuite() {
+ }
+ 
+ ## get all suites
+-SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" || true))
++SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" || true))
+ 
+ set +x
+ 
+@@ -114,4 +114,4 @@ fi
+ geom=`echo "e(l($geomMsumm)/$geomCount)" |  bc -l | sed "s/\..*//"`
+ echo "geom=$geom" >> ${REPORT_DIR}/summary.txt
+ 
+-sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
++#sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
+diff --git a/jenkins/benchmarks/radargun/quickstart-radargun.sh b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+index f321890b..edcff8f8 100644
+--- a/jenkins/benchmarks/radargun/quickstart-radargun.sh
++++ b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+@@ -30,7 +30,7 @@ fi
+ 
+ SLAVES=${1}
+ VERIFY_SENTENCE=${2}
+-THREADS=30
++THREADS=12
+ 
+ # calculate 90% of memory in MB and save it in java friendly format
+ MEM_90P=$( sh ${SCRIPT_DIR}/../calcMemoryPercentage.sh )
+@@ -40,6 +40,7 @@ fi
+ if [ "x$OTOOL_BUILD_ARCH" = "xi686" ] ; then
+     MEM_90P=1500
+ fi
++MEM_90P=4096
+ MEM_PER_SLAVE=$( printf %.0f $(echo "$MEM_90P / $SLAVES" | bc -l) )
+ MEM_PER_SLAVE=${MEM_PER_SLAVE}M
+ 
+diff --git a/jenkins/benchmarks/radargun/radargun.sh b/jenkins/benchmarks/radargun/radargun.sh
+index 1b1e9d14..70ef4148 100644
+--- a/jenkins/benchmarks/radargun/radargun.sh
++++ b/jenkins/benchmarks/radargun/radargun.sh
+@@ -121,11 +121,11 @@ function prepareEnv() {
+   readonly RADARGUN_DIR_NAME="RadarGun-3.0.0-SNAPSHOT"
+   readonly RADARGUN_DIR="$HOME/${RADARGUN_DIR_NAME}"
+   readonly RADARGUN_ARCHIVE="${RADARGUN_DIR_NAME}-035c0a2c.zip"
+-  readonly RADARGUN_REPORT="${WORKSPACE}/radargun-report"
++  readonly RADARGUN_REPORT="${WORKSPACE}/results"
+   readonly RADARGUN_ZIP="/mnt/shared/testsuites/${RADARGUN_ARCHIVE}"
+ 
+   # clean everything but rpms dir
+-  find ${WORKSPACE}  -mindepth 1 ! -name 'rpms' -type d -exec rm -rf {} +
++  #find ${WORKSPACE}  -mindepth 1 ! -name 'rpms' -type d -exec rm -rf {} +
+   rm -rf $RADARGUN_DIR
+ 
+   unzip -q "$RADARGUN_ZIP" -d "$HOME"
+diff --git a/jenkins/benchmarks/specjbb.sh b/jenkins/benchmarks/specjbb.sh
+index 6766e484..1564372c 100644
+--- a/jenkins/benchmarks/specjbb.sh
++++ b/jenkins/benchmarks/specjbb.sh
+@@ -60,10 +60,10 @@ readonly JAVA="$( readlink -e '/usr/lib/jvm/java' )/bin/java"
+ rm -rf 'SPECjbb2015_1.00'
+ unzip "$SPECJBB_ZIP"
+ 
+-rm -rf 'jbb-report'
+-mkdir 'jbb-report'
++rm -rf 'results'
++mkdir 'results'
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+-cd 'jbb-report'
++cd 'results'
+ 
+ rpm -qa > rpms
+ sudo su -c "sh $SCRIPT_DIR/memoryProtector.sh memory" &
+@@ -85,7 +85,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_85P / 2" | bc -l) )
+     MEM_85P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_85P}M
++MEM=4096M
+ 
+ ##
+ ## Starting the testsuite:
+diff --git a/jenkins/benchmarks/specjvm.sh b/jenkins/benchmarks/specjvm.sh
+index 60bb85ca..a66a5d26 100644
+--- a/jenkins/benchmarks/specjvm.sh
++++ b/jenkins/benchmarks/specjvm.sh
+@@ -75,7 +75,7 @@ tar -xf "$SPECJVM_TAR"
+     MEM_90P=1500
+   fi
+   MEM_R=${MEM_R}M
+-  MEM=${MEM_90P}M
++  MEM=4096M
+ 
+   export JAVA_OPTS="-Xms$MEM -Xmx$MEM"
+   bash -x ./run-specjvm.sh ${ARGS}
+diff --git a/jenkins/benchmarks/dacapo.sh b/jenkins/benchmarks/dacapo.sh
+index a7b82d66..d7b02233 100644
+--- a/jenkins/benchmarks/dacapo.sh
++++ b/jenkins/benchmarks/dacapo.sh
+@@ -48,7 +48,7 @@ if [ "$JDK_MAJOR" -ge "16" ] ; then
+   export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS --add-opens=java.base/java.lang=ALL-UNNAMED"
+ fi
+ 
+-readonly REPORT_DIR="dacapo-report"
++readonly REPORT_DIR="results"
+ rm -rf ${REPORT_DIR}
+ mkdir ${REPORT_DIR}
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+@@ -66,7 +66,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_90P / 2" | bc -l) )
+     MEM_90P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_90P}M
++MEM=4096M
+ 
+ function runSuite() {
+   SUITE=${1}
+@@ -84,7 +84,7 @@ function runSuite() {
+ }
+ 
+ ## get all suites
+-SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" || true))
++SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" || true))
+ 
+ set +x
+ 
+@@ -114,4 +114,4 @@ fi
+ geom=`echo "e(l($geomMsumm)/$geomCount)" |  bc -l | sed "s/\..*//"`
+ echo "geom=$geom" >> ${REPORT_DIR}/summary.txt
+ 
+-sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
++#sh -x  $SCRIPT_DIR/decapoStatisticGatherer.sh ${REPORT_DIR}/summary.txt  2>${REPORT_DIR}/decapoStatisticGatherer.err.log  > ${REPORT_DIR}/summary-normalized.txt || true
+diff --git a/jenkins/benchmarks/radargun/quickstart-radargun.sh b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+index f321890b..edcff8f8 100644
+--- a/jenkins/benchmarks/radargun/quickstart-radargun.sh
++++ b/jenkins/benchmarks/radargun/quickstart-radargun.sh
+@@ -30,7 +30,7 @@ fi
+ 
+ SLAVES=${1}
+ VERIFY_SENTENCE=${2}
+-THREADS=30
++THREADS=12
+ 
+ # calculate 90% of memory in MB and save it in java friendly format
+ MEM_90P=$( sh ${SCRIPT_DIR}/../calcMemoryPercentage.sh )
+@@ -40,6 +40,7 @@ fi
+ if [ "x$OTOOL_BUILD_ARCH" = "xi686" ] ; then
+     MEM_90P=1500
+ fi
++MEM_90P=4096
+ MEM_PER_SLAVE=$( printf %.0f $(echo "$MEM_90P / $SLAVES" | bc -l) )
+ MEM_PER_SLAVE=${MEM_PER_SLAVE}M
+ 
+diff --git a/jenkins/benchmarks/radargun/radargun.sh b/jenkins/benchmarks/radargun/radargun.sh
+index 1b1e9d14..70ef4148 100644
+--- a/jenkins/benchmarks/radargun/radargun.sh
++++ b/jenkins/benchmarks/radargun/radargun.sh
+@@ -121,11 +121,11 @@ function prepareEnv() {
+   readonly RADARGUN_DIR_NAME="RadarGun-3.0.0-SNAPSHOT"
+   readonly RADARGUN_DIR="$HOME/${RADARGUN_DIR_NAME}"
+   readonly RADARGUN_ARCHIVE="${RADARGUN_DIR_NAME}-035c0a2c.zip"
+-  readonly RADARGUN_REPORT="${WORKSPACE}/radargun-report"
++  readonly RADARGUN_REPORT="${WORKSPACE}/results"
+   readonly RADARGUN_ZIP="/mnt/shared/testsuites/${RADARGUN_ARCHIVE}"
+ 
+   # clean everything but rpms dir
+-  find ${WORKSPACE}  -mindepth 1 ! -name 'rpms' -type d -exec rm -rf {} +
++  #find ${WORKSPACE}  -mindepth 1 ! -name 'rpms' -type d -exec rm -rf {} +
+   rm -rf $RADARGUN_DIR
+ 
+   unzip -q "$RADARGUN_ZIP" -d "$HOME"
+diff --git a/jenkins/benchmarks/specjbb.sh b/jenkins/benchmarks/specjbb.sh
+index 6766e484..1564372c 100644
+--- a/jenkins/benchmarks/specjbb.sh
++++ b/jenkins/benchmarks/specjbb.sh
+@@ -60,10 +60,10 @@ readonly JAVA="$( readlink -e '/usr/lib/jvm/java' )/bin/java"
+ rm -rf 'SPECjbb2015_1.00'
+ unzip "$SPECJBB_ZIP"
+ 
+-rm -rf 'jbb-report'
+-mkdir 'jbb-report'
++rm -rf 'results'
++mkdir 'results'
+ . $SCRIPT_DIR/../settings-source.sh "${BASH_SOURCE[@]}"
+-cd 'jbb-report'
++cd 'results'
+ 
+ rpm -qa > rpms
+ sudo su -c "sh $SCRIPT_DIR/memoryProtector.sh memory" &
+@@ -85,7 +85,7 @@ MEM_R=$( printf %.0f $(echo "$MEM_85P / 2" | bc -l) )
+     MEM_85P=1500
+   fi
+ MEM_R=${MEM_R}M
+-MEM=${MEM_85P}M
++MEM=4096M
+ 
+ ##
+ ## Starting the testsuite:
+diff --git a/jenkins/benchmarks/specjvm.sh b/jenkins/benchmarks/specjvm.sh
+index 60bb85ca..a66a5d26 100644
+--- a/jenkins/benchmarks/specjvm.sh
++++ b/jenkins/benchmarks/specjvm.sh
+@@ -75,7 +75,7 @@ tar -xf "$SPECJVM_TAR"
+     MEM_90P=1500
+   fi
+   MEM_R=${MEM_R}M
+-  MEM=${MEM_90P}M
++  MEM=4096M
+ 
+   export JAVA_OPTS="-Xms$MEM -Xmx$MEM"
+   bash -x ./run-specjvm.sh ${ARGS}
+diff --git a/jenkins/benchmarks/radargun/quickstart-radargun1.sh b/jenkins/benchmarks/radargun/quickstart-radargun1.sh
+new file mode 100644
+index 00000000..778c586a
+--- /dev/null
++++ b/jenkins/benchmarks/radargun/quickstart-radargun1.sh
+@@ -0,0 +1,25 @@
++#!/bin/bash
++#############################################################################################################################
++#  <description>according to http://radargun.github.io/radargun/measuring_performance/understanding_results.html&#xd;
++#SOME results are  bigger==better bot OTHER TWO are smaller==better&#xd;
++#namely:&#xd;
++#  LATENCY - bigger = worse&#xd;
++#  OTHERS  - bigger = better&#xd;
++#</description>
++#############################################################################################################################
++set -e
++set -o pipefail
++
++## resolve folder of this script, following all symlinks,
++## http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
++SCRIPT_SOURCE="${BASH_SOURCE[0]}"
++while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
++  SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
++  SCRIPT_SOURCE="$(readlink "$SCRIPT_SOURCE")"
++  # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
++  [[ $SCRIPT_SOURCE != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
++done
++readonly SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
++source $SCRIPT_DIR/../../../tck/autoruns/common.sh
++
++bash $SCRIPT_DIR/quickstart-radargun.sh 1
+diff --git a/jenkins/benchmarks/radargun/quickstart-radargun3.sh b/jenkins/benchmarks/radargun/quickstart-radargun3.sh
+new file mode 100644
+index 00000000..d565fa48
+--- /dev/null
++++ b/jenkins/benchmarks/radargun/quickstart-radargun3.sh
+@@ -0,0 +1,25 @@
++#!/bin/bash
++#############################################################################################################################
++#  <description>according to http://radargun.github.io/radargun/measuring_performance/understanding_results.html&#xd;
++#SOME results are  bigger==better bot OTHER TWO are smaller==better&#xd;
++#namely:&#xd;
++#  LATENCY - bigger = worse&#xd;
++#  OTHERS  - bigger = better&#xd;
++#</description>
++#############################################################################################################################
++set -e
++set -o pipefail
++
++## resolve folder of this script, following all symlinks,
++## http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
++SCRIPT_SOURCE="${BASH_SOURCE[0]}"
++while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
++  SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
++  SCRIPT_SOURCE="$(readlink "$SCRIPT_SOURCE")"
++  # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
++  [[ $SCRIPT_SOURCE != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
++done
++readonly SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
++source $SCRIPT_DIR/../../../tck/autoruns/common.sh
++
++bash $SCRIPT_DIR/quickstart-radargun.sh 3
+diff --git a/jenkins/run-intree-J2DBench-vagrant.sh b/jenkins/run-intree-J2DBench-vagrant.sh
+index c784df41..f4ebf93d 100644
+--- a/jenkins/run-intree-J2DBench-vagrant.sh
++++ b/jenkins/run-intree-J2DBench-vagrant.sh
+@@ -93,6 +93,32 @@ function htmlToProps() {
+   # graphics.render.tests.shape.fillCubic.geom
+ }
+ 
++#TODO - wget random source from hydra, rename it and add it to RPMS. Rather delete it afterwards. Todo. Jdk17 must use jdk17 sources. So most likley all...
++pushd rpms
++  onlyName=`ls java*`
++  if echo $onlyName | grep java-11-openjdk ; then
++    evilName=java-11-openjdk-jdk.11.0.18.ga-0.ojdk11~upstream~cpu.src.tarxz
++    evilPath=java-11-openjdk/jdk.11.0.18.ga/0.ojdk11~upstream~cpu/src
++  elif echo $onlyName | grep java-1.8.0-openjdk ; then
++    evilName=java-1.8.0-openjdk-jdk8u352.ga-0.ojdk8~upstream~cpu.src.tarxz
++    evilPath=java-1.8.0-openjdk/jdk8u352.ga/0.ojdk8~upstream~cpu/src
++  elif echo $onlyName | grep java-17-openjdk ; then
++    evilName=java-17-openjdk-jdk.17.0.6.ga-0.ojdk17~upstream~cpu.src.tarxz 
++    evilPath=java-17-openjdk/jdk.17.0.6.ga/0.ojdk17~upstream~cpu/src
++  else
++    echo "unknow jdk $onlyName expecte 8,11,17"
++    exit
++  fi	  
++  futureSrc=`echo $onlyName | sed "s/x86_64/src/"`
++  fullPathToRemoveInTrap=`pwd`/$futureSrc
++  wget http://hydra.brq.redhat.com:9849/$evilPath/$evilName
++  mv $evilName $futureSrc
++popd
++function removeFakeSource() {
++  rm -v $fullPathToRemoveInTrap 
++}
++trap removeFakeSource  EXIT ERR
++
+ source ${SCRIPT_DIR}/../tck/autoruns/common.sh
+ source ${SCRIPT_DIR}/jtreg-prep.sh
+ source ${SCRIPT_DIR}/../guiTests/testlib.bash #for vnc session and trap
+@@ -142,6 +168,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
+ if [ ! "x$OTOOL_heap" == "x" ] ; then
+   MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh $OTOOL_heap )
+ fi
++MEM_90P=4096
+ 
+ sudo su -c "sh $SCRIPT_DIR/benchmarks/memoryProtector.sh memory" &
+ rawdata="$PWD/default.res"
+@@ -202,4 +229,10 @@ cd ${WORKSPACE}
+ pwd
+ ls -lR
+ 
++rm -rf results
++mkdir results
++mv J2DBench html-diffs results
++
++ls -lR
++
+ exit $RES
