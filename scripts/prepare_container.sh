@@ -36,7 +36,7 @@ cp -r /mnt/shared/testsuites $WORKSPACE
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
 preparation_dockerfile=preparation_dockerfile
 echo "FROM $FEDORA_VERSION" >> $preparation_dockerfile
-echo 'RUN dnf -y install unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
+echo 'RUN dnf -y install /usr/bin/pgrep unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
 echo "RUN mkdir /test || true" >> $preparation_dockerfile
 echo 'RUN mkdir /test/scripts || true' >> $preparation_dockerfile
 echo "RUN mkdir /mnt/shared || true" >> $preparation_dockerfile
