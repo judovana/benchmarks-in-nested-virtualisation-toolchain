@@ -34,9 +34,17 @@ cp -r /mnt/shared/testsuites $WORKSPACE
 
 ## create the dockerfile for creating the base 
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
+FUTURE_SCRIPT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 preparation_dockerfile=preparation_dockerfile
 echo "FROM $FEDORA_VERSION" >> $preparation_dockerfile
 echo 'RUN dnf -y install unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
+if echo ${SCRIPT} | grep J2DBench ; then
+  if [ "x$DISPLAY" = "x" ] ; then
+    echo "no DISPLAY!!!"
+    exit 11
+  fi
+  echo 'RUN dnf -y install fontconfig xorg-x11-fonts-Type1 libXcomposite ca-certificates javapackages-filesystem tzdata-java lksctp-tools cups-libs crypto-policies nss' >> $preparation_dockerfile
+fi
 echo "RUN mkdir /test || true" >> $preparation_dockerfile
 echo 'RUN mkdir /test/scripts || true' >> $preparation_dockerfile
 echo "RUN mkdir /mnt/shared || true" >> $preparation_dockerfile
