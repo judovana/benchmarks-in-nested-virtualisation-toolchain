@@ -37,7 +37,7 @@ FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
 FUTURE_SCRIPT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 preparation_dockerfile=preparation_dockerfile
 echo "FROM $FEDORA_VERSION" >> $preparation_dockerfile
-echo 'RUN dnf -y install /usr/bin/pgrep unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
+echo 'RUN dnf -y install wget /usr/bin/pgrep unzip bc xz /usr/bin/scp which /usr/bin/find && dnf clean all' >> $preparation_dockerfile
 if echo ${FUTURE_SCRIPT} | grep J2DBench ; then
   if [ "x$DISPLAY" = "x" ] ; then
     echo "no DISPLAY!!!"
