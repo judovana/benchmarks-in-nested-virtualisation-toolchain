@@ -179,7 +179,7 @@ diff --git a/jenkins/run-intree-J2DBench-vagrant.sh b/jenkins/run-intree-J2DBenc
 index c784df41..7dcb7cfd 100644
 --- a/jenkins/run-intree-J2DBench-vagrant.sh
 +++ b/jenkins/run-intree-J2DBench-vagrant.sh
-@@ -93,6 +93,32 @@ function htmlToProps() {
+@@ -93,6 +93,33 @@ function htmlToProps() {
    # graphics.render.tests.shape.fillCubic.geom
  }
  
@@ -198,7 +198,7 @@ index c784df41..7dcb7cfd 100644
 +  else
 +    echo "unknow jdk $onlyName expecte 8,11,17"
 +    exit
-+  fi	  
++  fi     
 +  futureSrc=`echo $onlyName | sed "s/x86_64/src/"`
 +  fullPathToRemoveInTrap=`pwd`/$futureSrc
 +  wget http://hydra.brq.redhat.com:9849/$evilPath/$evilName
@@ -209,10 +209,11 @@ index c784df41..7dcb7cfd 100644
 +}
 +trap removeFakeSource  EXIT ERR
 +
++WORKSPACE=`pwd` #needed for jtreg_prep 
  source ${SCRIPT_DIR}/../tck/autoruns/common.sh
  source ${SCRIPT_DIR}/jtreg-prep.sh
  source ${SCRIPT_DIR}/../guiTests/testlib.bash #for vnc session and trap
-@@ -142,6 +168,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
+@@ -142,6 +169,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
  if [ ! "x$OTOOL_heap" == "x" ] ; then
    MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh $OTOOL_heap )
  fi
@@ -220,7 +221,7 @@ index c784df41..7dcb7cfd 100644
  
  sudo su -c "sh $SCRIPT_DIR/benchmarks/memoryProtector.sh memory" &
  rawdata="$PWD/default.res"
-@@ -202,4 +229,10 @@ cd ${WORKSPACE}
+@@ -202,4 +230,10 @@ cd ${WORKSPACE}
  pwd
  ls -lR
  
