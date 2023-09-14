@@ -25,10 +25,10 @@ RESULT_DIR=$WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
 mkdir $RESULT_DIR
 
 podman ps -all
-podman run --name running-cont-run-uname preparation-cont-jdk uname -a > $RESULT_DIR/uname_output.txt
-podman run --name running-cont-run-cpuinfo preparation-cont-jdk cat /proc/cpuinfo > $RESULT_DIR/cpuinfo_output.txt
-podman run --name running-cont-run-meminfo preparation-cont-jdk cat /proc/meminfo > $RESULT_DIR/meminfo_output.txt
-podman run --name running-cont-run-rri preparation-cont-jdk cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
+podman run --rm --name running-cont-run-uname preparation-cont-jdk uname -a > $RESULT_DIR/uname_output.txt
+podman run --rm --name running-cont-run-cpuinfo preparation-cont-jdk cat /proc/cpuinfo > $RESULT_DIR/cpuinfo_output.txt
+podman run --rm --name running-cont-run-meminfo preparation-cont-jdk cat /proc/meminfo > $RESULT_DIR/meminfo_output.txt
+podman run --rm --name running-cont-run-rri preparation-cont-jdk cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
 SCRIPT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 GUI_PART=""
 if echo ${SCRIPT} | grep J2DBench ; then
