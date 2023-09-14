@@ -176,7 +176,7 @@ index 60bb85ca..a66a5d26 100644
    export JAVA_OPTS="-Xms$MEM -Xmx$MEM"
    bash -x ./run-specjvm.sh ${ARGS}
 diff --git a/jenkins/run-intree-J2DBench-vagrant.sh b/jenkins/run-intree-J2DBench-vagrant.sh
-index c784df41..7dcb7cfd 100644
+index c784df41..58ba0892 100644
 --- a/jenkins/run-intree-J2DBench-vagrant.sh
 +++ b/jenkins/run-intree-J2DBench-vagrant.sh
 @@ -93,12 +93,45 @@ function htmlToProps() {
@@ -233,14 +233,20 @@ index c784df41..7dcb7cfd 100644
 
  sudo su -c "sh $SCRIPT_DIR/benchmarks/memoryProtector.sh memory" &
  rawdata="$PWD/default.res"
-@@ -202,4 +236,10 @@ cd ${WORKSPACE}
- pwd
- ls -lR
+@@ -199,7 +233,13 @@ set -xe
 
+ cd ${WORKSPACE}
+ # print pwd (should be workspace) and list files there
+-pwd
+-ls -lR
++pwd  || true
++ls -lR || true
++
 +rm -rf results
 +mkdir results
 +mv J2DBench html-diffs results
 +
-+ls -lR
-+
++ls -lR || true
+
  exit $RES
+
