@@ -43,7 +43,7 @@ if echo ${FUTURE_SCRIPT} | grep J2DBench ; then
     echo "no DISPLAY!!!"
     exit 11
   fi
-  echo 'RUN dnf -y install fontconfig xorg-x11-fonts-Type1 libXcomposite ca-certificates javapackages-filesystem tzdata-java lksctp-tools cups-libs crypto-policies nss && dnf clean all' >> $preparation_dockerfile
+  echo 'RUN dnf -y install make fontconfig xorg-x11-fonts-Type1 libXcomposite ca-certificates javapackages-filesystem tzdata-java lksctp-tools cups-libs crypto-policies nss && dnf clean all' >> $preparation_dockerfile
   echo "RUN mkdir /mnt/ramdisk " >> $preparation_dockerfile #jtreg prep seems to b needing this
 fi
 echo "RUN mkdir /test || true" >> $preparation_dockerfile
