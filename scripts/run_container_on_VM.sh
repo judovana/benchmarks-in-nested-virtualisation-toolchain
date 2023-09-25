@@ -15,6 +15,7 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -exo pipefail
 
+COUNTER=$1
 JDK=$2
 
 echo pwd
@@ -22,3 +23,4 @@ ls -l /mnt/shared/testsuites
 ls -l
 sh $SCRIPT_ORIGIN/prepare_container.sh True
 sh $SCRIPT_ORIGIN/jdk_container.sh $JDK
+sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER `readlink -f $jdk`

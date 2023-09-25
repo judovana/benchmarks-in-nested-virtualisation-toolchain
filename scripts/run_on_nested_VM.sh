@@ -19,13 +19,15 @@ JDK=$2
 JDK_NAME=`basename ${JDK}`
 COUNTER=$1
 IS_CONTAINER=$3
+TOP_LEVEL_HOST=$(cat $SCRIPT_ORIGIN/../config | grep ^TOP_LEVEL_HOST= | sed "s/.*=//")
 
-export WORKSPACE=`mktemp -d`
+mkdir $SCRIPT_ORIGIN/../../middle-point || true
+export WORKSPACE=$SCRIPT_ORIGIN/../../middle-point
 mkdir  $WORKSPACE/in
 mkdir  $WORKSPACE/out
 
 VAGRANTFILES_ORIGIN=$SCRIPT_ORIGIN/../vagrantfiles
-VIRTUAL_WORKSPACE=/mnt/workspace
+VIRTUAL_WORKSPACE=/home/tester/diplomka
 cp  ~/.ssh/tester_rsa  $WORKSPACE/in
 cp -r $REPO_DIR  $WORKSPACE/in
 cp $JDK $WORKSPACE/in
@@ -51,7 +53,8 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   fi
   vagrant up
   #Using rsync because permission issues with cp
-  #vagrant ssh -c "rsync -av --progress $VIRTUAL_WORKSPACE/in/nested /home/tester/diplomka --exclude .git"
+  vagrant ssh -c "mkdir $VIRTUAL_WORKSPACE"
+  vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git tester@$TOP_LEVEL_HOST:$SCRIPT_ORIGIN/../../middle-point/in $VIRTUAL_WORKSPACE"
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/create_private_key_symlink.sh"
   if [ $IS_CONTAINER = False ] ; then 
     vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"

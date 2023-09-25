@@ -16,6 +16,7 @@ readonly REPO_NAME=`basename $REPO_DIR`
 JDK=$2
 JDK_NAME=`basename ${JDK}`
 COUNTER=$1
+TOP_LEVEL_HOST=$(cat $SCRIPT_ORIGIN/../config | grep ^TOP_LEVEL_HOST= | sed "s/.*=//")
 
 WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
 cd $WORKSPACE
@@ -45,6 +46,8 @@ finalContainerName=results
 podman run $GUI_PART --name $finalContainerName preparation-cont-jdk sh ${SCRIPT}
 podman ps -all
 podman cp $finalContainerName:/results $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
+ls -l $RESULT_DIR
+rsync -av -e "ssh -o StrictHostKeyChecking=no" --progress --exclude .git $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER} tester@$TOP_LEVEL_HOST:/home/tester/diplomka/results/${JDK_NAME}/${COUNTER}
 podman rm $finalContainerName
 
 echo --------------------------------------------------------------------------------------
