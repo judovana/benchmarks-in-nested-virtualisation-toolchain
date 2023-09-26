@@ -21,8 +21,11 @@ COUNTER=$1
 IS_CONTAINER=$3
 TOP_LEVEL_HOST=$(cat $SCRIPT_ORIGIN/../config | grep ^TOP_LEVEL_HOST= | sed "s/.*=//")
 
-mkdir $SCRIPT_ORIGIN/../../middle-point || true
-export WORKSPACE=$SCRIPT_ORIGIN/../../middle-point
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep MIDDLE_POINT | sed "s/.*=//")
+rm -rf $MIDDLE_POINT
+mkdir $MIDDLE_POINT || true
+
+export WORKSPACE=$MIDDLE_POINT
 mkdir  $WORKSPACE/in
 mkdir  $WORKSPACE/out
 
@@ -32,9 +35,15 @@ cp  ~/.ssh/tester_rsa  $WORKSPACE/in
 cp -r $REPO_DIR  $WORKSPACE/in
 cp $JDK $WORKSPACE/in
 
-mkdir $SCRIPT_ORIGIN/../results || true
-mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME} || true
-mkdir $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
+if [ $IS_CONTAINER = True ] ; then 
+  RESULTS_PATH=$SCRIPT_ORIGIN/../containers_in_vm_results
+else
+  RESULTS_PATH=$SCRIPT_ORIGIN/../results
+fi
+mkdir $RESULTS_PATH || true
+mkdir $RESULTS_PATH/${JDK_NAME} || true
+RESULTS_PATH_NJDK=$RESULTS_PATH/${JDK_NAME}/${COUNTER}
+mkdir $RESULTS_PATH_NJDK
 
 pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
   if [ ! "x$DEV" = "x" ] ; then
@@ -54,7 +63,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   vagrant up
   #Using rsync because permission issues with cp
   vagrant ssh -c "mkdir $VIRTUAL_WORKSPACE"
-  vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git tester@$TOP_LEVEL_HOST:$SCRIPT_ORIGIN/../../middle-point/in $VIRTUAL_WORKSPACE"
+  vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git tester@$TOP_LEVEL_HOST:$MIDDLE_POINT/in $VIRTUAL_WORKSPACE"
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/create_private_key_symlink.sh"
   if [ $IS_CONTAINER = False ] ; then 
     vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/install_components.sh"
@@ -63,6 +72,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   vagrant up
   if [ $IS_CONTAINER = True ] ; then 
     vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_container_on_VM.sh $COUNTER $JDK"
+    vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git $VIRTUAL_WORKSPACE/in/benchmarks-in-nested-virtualisation-toolchain/container-results/${JDK_NAME}/${COUNTER}/ tester@$TOP_LEVEL_HOST:$RESULTS_PATH_NJDK"
   else
     vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
   fi

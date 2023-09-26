@@ -13,7 +13,16 @@ readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 	readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 readonly REPO_NAME=`basename $REPO_DIR`
 
-set -exo pipefail
+set -x
+
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep ^MIDDLE_POINT= | sed "s/.*=//")
+if [ "x$MIDDLE_POINT" == "x" ] ; then
+  MIDDLE_POINT=$HOME/middle_point
+  echo "#try not to commit the middle_point line unless you really wish" >> $SCRIPT_ORIGIN/../config
+  echo "MIDDLE_POINT=$MIDDLE_POINT" >> $SCRIPT_ORIGIN/../config
+fi
+
+set -eo pipefail
 
 JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep ^JDK_DIR= | sed "s/.*=//")
 ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ^ITER_NUM= | sed "s/.*=//")

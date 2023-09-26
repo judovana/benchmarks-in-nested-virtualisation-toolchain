@@ -50,12 +50,6 @@ podman ps -all
 podman cp $finalContainerName:/results $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
 ls -l $RESULT_DIR
 
-if [ "x$3" == "xTrue" ] ; then
-  FINAL_DEST=/home/tester/diplomka/containers_in_vm_results
-  ssh -o StrictHostKeyChecking=no tester@$TOP_LEVEL_HOST "mkdir -p $FINAL_DEST"
-  rsync -av -e "ssh -o StrictHostKeyChecking=no" --progress --exclude .git $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER} tester@$TOP_LEVEL_HOST:$FINAL_DEST/${JDK_NAME}/
-fi
-
 podman rm $finalContainerName
 
 echo --------------------------------------------------------------------------------------

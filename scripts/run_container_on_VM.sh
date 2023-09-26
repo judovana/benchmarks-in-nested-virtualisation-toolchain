@@ -23,4 +23,4 @@ ls -l /mnt/shared/testsuites
 ls -l
 sh $SCRIPT_ORIGIN/prepare_container.sh True
 sh $SCRIPT_ORIGIN/jdk_container.sh $JDK
-sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER `readlink -f $JDK` True
+sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER $JDK True
