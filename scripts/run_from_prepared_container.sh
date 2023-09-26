@@ -10,8 +10,10 @@ while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer 
   [[ $SCRIPT_SOURCE != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
 done
 readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
-	readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
+readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 readonly REPO_NAME=`basename $REPO_DIR`
+
+set -exo pipefail
 
 JDK=$2
 JDK_NAME=`basename ${JDK}`
