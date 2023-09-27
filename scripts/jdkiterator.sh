@@ -13,7 +13,16 @@ readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 	readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 readonly REPO_NAME=`basename $REPO_DIR`
 
-set -exo pipefail
+set -x
+
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep ^MIDDLE_POINT= | sed "s/.*=//")
+if [ "x$MIDDLE_POINT" == "x" ] ; then
+  MIDDLE_POINT=$HOME/middle_point
+  echo "#try not to commit the middle_point line unless you really wish" >> $SCRIPT_ORIGIN/../config
+  echo "MIDDLE_POINT=$MIDDLE_POINT" >> $SCRIPT_ORIGIN/../config
+fi
+
+set -eo pipefail
 
 JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep ^JDK_DIR= | sed "s/.*=//")
 ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ^ITER_NUM= | sed "s/.*=//")
@@ -23,7 +32,7 @@ NESTED=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_NESTED_VM= | se
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
 if [ "x$NESTED" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/prepare_container.sh
+        sh $SCRIPT_ORIGIN/prepare_container.sh False
 fi
 
 for jdk in $JDKS ; do
@@ -32,11 +41,13 @@ for jdk in $JDKS ; do
   fi
   for x in `seq 1 $ITER_NUM` ; do
     if [ "x$NESTED" == "xtrue" ]; then
-        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk`
+        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` False
     elif [ "x$NESTED" == "xfalse" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
     elif [ "x$NESTED" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
+    elif [ "x$NESTED" == "xcont_in_VM" ]; then
+        sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` True
     else
         sh $SCRIPT_ORIGIN/run_local.sh $JDK_DIR `readlink -f $jdk` $x
     fi

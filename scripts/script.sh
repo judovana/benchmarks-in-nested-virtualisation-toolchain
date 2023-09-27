@@ -28,10 +28,12 @@ cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
 JDK=`basename $1`
 rm -rf /mnt/workspace/rpms
 mkdir /mnt/workspace/rpms
-rm -rf /home/tester/middle_point
-mkdir /home/tester/middle_point
-cp $WORKSPACE/in/$JDK /home/tester/middle_point
-cp /home/tester/middle_point/$JDK /mnt/workspace/rpms
+
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep MIDDLE_POINT | sed "s/.*=//")
+rm -rf $MIDDLE_POINT
+mkdir $MIDDLE_POINT
+cp $WORKSPACE/in/$JDK /$MIDDLE_POINT
+cp $MIDDLE_POINT/$JDK /mnt/workspace/rpms
 # run script swt as EXECUTED_SCRIPT in config
 sh $(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 

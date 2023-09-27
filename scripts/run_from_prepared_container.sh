@@ -10,12 +10,15 @@ while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer 
   [[ $SCRIPT_SOURCE != /* ]] && SCRIPT_SOURCE="$SCRIPT_DIR/$SCRIPT_SOURCE"
 done
 readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
-	readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
+readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 readonly REPO_NAME=`basename $REPO_DIR`
+
+set -exo pipefail
 
 JDK=$2
 JDK_NAME=`basename ${JDK}`
 COUNTER=$1
+TOP_LEVEL_HOST=$(cat $SCRIPT_ORIGIN/../config | grep ^TOP_LEVEL_HOST= | sed "s/.*=//")
 
 WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
 cd $WORKSPACE
@@ -45,6 +48,8 @@ finalContainerName=results
 podman run $GUI_PART --name $finalContainerName preparation-cont-jdk sh ${SCRIPT}
 podman ps -all
 podman cp $finalContainerName:/results $WORKSPACE/../container-results/${JDK_NAME}/${COUNTER}
+ls -l $RESULT_DIR
+
 podman rm $finalContainerName
 
 echo --------------------------------------------------------------------------------------
