@@ -1,5 +1,5 @@
 diff --git a/jenkins/benchmarks/dacapo.sh b/jenkins/benchmarks/dacapo.sh
-index a7b82d66..d7b02233 100644
+index a7b82d66..d7ab1f2b 100644
 --- a/jenkins/benchmarks/dacapo.sh
 +++ b/jenkins/benchmarks/dacapo.sh
 @@ -48,7 +48,7 @@ if [ "$JDK_MAJOR" -ge "16" ] ; then
@@ -29,6 +29,19 @@ index a7b82d66..d7b02233 100644
  
  set +x
  
+@@ -95,10 +95,10 @@ geomCount=0
+ for SUITE in ${SUITES[@]}; do
+   #trim trailing whitespace from SUITE
+   SUITE="${SUITE%"${SUITE##*[![:space:]]}"}"
+-  echo "running [${SUITE}] ... "
++  echo "`date` running [${SUITE}] ... "
+   SUITE_LOG=${REPORT_DIR}/${SUITE}.log
+   RESULT=$( runSuite ${SUITE} ${SUITE_LOG} )
+-  echo "... ${RESULT}ms"
++  echo "`date` ... ${RESULT}ms"
+   echo "${SUITE}=${RESULT}" >> ${REPORT_DIR}/summary.txt
+   if [ ${RESULT} -gt 0 ] ; then
+     geomMsumm=`echo "$geomMsumm*${RESULT}" | bc -l`
 @@ -114,4 +114,4 @@ fi
  geom=`echo "e(l($geomMsumm)/$geomCount)" |  bc -l | sed "s/\..*//"`
  echo "geom=$geom" >> ${REPORT_DIR}/summary.txt
@@ -163,7 +176,7 @@ index 6766e484..1564372c 100644
  ##
  ## Starting the testsuite:
 diff --git a/jenkins/benchmarks/specjvm.sh b/jenkins/benchmarks/specjvm.sh
-index 60bb85ca..a66a5d26 100644
+index 60bb85ca..1e3a94f6 100644
 --- a/jenkins/benchmarks/specjvm.sh
 +++ b/jenkins/benchmarks/specjvm.sh
 @@ -75,7 +75,7 @@ tar -xf "$SPECJVM_TAR"
@@ -175,14 +188,20 @@ index 60bb85ca..a66a5d26 100644
  
    export JAVA_OPTS="-Xms$MEM -Xmx$MEM"
    bash -x ./run-specjvm.sh ${ARGS}
+@@ -121,4 +121,4 @@ fi
+ 
+ 
+ pwd
+-ls -lR
++#ls -lR 
 diff --git a/jenkins/run-intree-J2DBench-vagrant.sh b/jenkins/run-intree-J2DBench-vagrant.sh
-index c784df41..58ba0892 100644
+index c784df41..739badba 100644
 --- a/jenkins/run-intree-J2DBench-vagrant.sh
 +++ b/jenkins/run-intree-J2DBench-vagrant.sh
 @@ -93,12 +93,45 @@ function htmlToProps() {
    # graphics.render.tests.shape.fillCubic.geom
  }
-
+ 
 +#TODO - wget random source from hydra, rename it and add it to RPMS. Rather delete it afterwards. Todo. Jdk17 must use jdk17 sources. So most likley all...
 +pushd rpms
 +  onlyName=`ls java*`
@@ -216,25 +235,25 @@ index c784df41..58ba0892 100644
  source ${SCRIPT_DIR}/../tck/autoruns/common.sh
  source ${SCRIPT_DIR}/jtreg-prep.sh
  source ${SCRIPT_DIR}/../guiTests/testlib.bash #for vnc session and trap
-
+ 
 +export DISPLAY=:0
  setup # from guiTests/testlib.bash
-
+ 
 +echo DISPLAY2=$DISPLAY
 +export DISPLAY=:0
  genCommonArtifactsPre
-
+ 
  # from jtreg-prep.sh
 @@ -142,6 +175,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
  if [ ! "x$OTOOL_heap" == "x" ] ; then
    MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh $OTOOL_heap )
  fi
 +MEM_90P=4096
-
+ 
  sudo su -c "sh $SCRIPT_DIR/benchmarks/memoryProtector.sh memory" &
  rawdata="$PWD/default.res"
 @@ -199,7 +233,13 @@ set -xe
-
+ 
  cd ${WORKSPACE}
  # print pwd (should be workspace) and list files there
 -pwd
@@ -247,6 +266,5 @@ index c784df41..58ba0892 100644
 +mv J2DBench html-diffs results
 +
 +ls -lR || true
-
+ 
  exit $RES
-
