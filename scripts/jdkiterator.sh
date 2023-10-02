@@ -40,7 +40,7 @@ fi
 
 for jdk in $JDKS ; do
   if [ "x$RUN_TYPE" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/jdk_container.sh `readlink -f $jdk`
+        sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk`
   fi
   for x in `seq 1 $ITER_NUM` ; do
     if [ "x$RUN_TYPE" == "xtrue" ]; then
