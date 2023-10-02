@@ -15,6 +15,7 @@ readonly REPO_NAME=`basename $REPO_DIR`
 
 set -x
 
+#this folder is used as a gather point for things that need to be copied from host into VM/container
 MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep ^MIDDLE_POINT= | sed "s/.*=//")
 if [ "x$MIDDLE_POINT" == "x" ] ; then
   MIDDLE_POINT=$HOME/middle_point
@@ -24,29 +25,31 @@ fi
 
 set -eo pipefail
 
+#get path of folder containing JDKs from config
 JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep ^JDK_DIR= | sed "s/.*=//")
+#get how many times will the selected benchmark run on each JDK in JDK_DIR
 ITER_NUM=$(cat $SCRIPT_ORIGIN/../config | grep ^ITER_NUM= | sed "s/.*=//")
 
 JDKS=`find  $JDK_DIR -type f | sort -V`
-NESTED=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_NESTED_VM= | sed "s/.*=//")
+RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_TYPE= | sed "s/.*=//")
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
-if [ "x$NESTED" == "xcontainer" ]; then
+if [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/prepare_container.sh False
 fi
 
 for jdk in $JDKS ; do
-  if [ "x$NESTED" == "xcontainer" ]; then
+  if [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/jdk_container.sh `readlink -f $jdk`
   fi
   for x in `seq 1 $ITER_NUM` ; do
-    if [ "x$NESTED" == "xtrue" ]; then
+    if [ "x$RUN_TYPE" == "xtrue" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` False
-    elif [ "x$NESTED" == "xfalse" ]; then
+    elif [ "x$RUN_TYPE" == "xfalse" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
-    elif [ "x$NESTED" == "xcontainer" ]; then
+    elif [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
-    elif [ "x$NESTED" == "xcont_in_VM" ]; then
+    elif [ "x$RUN_TYPE" == "xcont_in_VM" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` True
     else
         sh $SCRIPT_ORIGIN/run_local.sh $JDK_DIR `readlink -f $jdk` $x
@@ -54,6 +57,6 @@ for jdk in $JDKS ; do
   done
 done
 
-if [ "x$NESTED" == "xcontainer" ]; then
+if [ "x$RUN_TYPE" == "xcontainer" ]; then
         podman rmi -a -f
 fi
