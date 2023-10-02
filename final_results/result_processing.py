@@ -8,12 +8,13 @@
 #!/usr/bin/python2.7
 import os
 import sys
+import re
 import matplotlib.pyplot as plt 
 
 args = sys.argv
 invert = args[4]
 containsFilter=args[5]
-isLocal=args[6]
+runType=args[6]
 runsPerJDK  = 5 ### change if needed
 
 def calc_relative_diff(oldVal, newVal, invert):
@@ -47,13 +48,21 @@ def parse_number(line):
     #print("rounded number: ", round(float(parsed_number)))
     return round(float(parsed_number))
 
-def min_max_avg_med(list_, of_values):
+def calculate_crash_rate(list_, path, JDKs_expected):
+    of_runs_expected = int(re.sub("[^0-9]", "", get_num_of_iterations(path))) * JDKs_expected
+    crash_rate = of_runs_expected / len(list_) 
+    pass_rate = '{:.1%}'.format(len(list_)/of_runs_expected)
+    print("final number of values: ", len(list_), " out of ", of_runs_expected)  
+    print("Pass rate: ", pass_rate)
+
+def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
     #to_delete = (of_values // 10)
     #print("PASSED: ", of_values, " out of 100 ", "deleting: ",  to_delete, " from top and bottom")
     #del list_[(of_values - to_delete):]
     #del list_[:to_delete]
-    print("final number of values: ", len(list_))  
+    if to_print == True:
+        calculate_crash_rate(list_, path, JDKs_expected)
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
 
@@ -96,10 +105,10 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     plt.ylabel(y_name) 
     
     # giving a title to my graph 
-    plt.title(containsFilter + isLocal) 
+    plt.title(containsFilter + runType) 
     
     # function to plot the plot 
-    name_fig = "bery_good_" + containsFilter + "_" + isLocal + "_" + args[2] + "_" + name_modifier + ".png"
+    name_fig = "bery_good_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
     plt.savefig(name_fig)
     file_path = os.getcwd() + "/" + name_fig
     print("file: ", file_path.strip())
@@ -107,7 +116,7 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
         plt.clf()
 
 ###1st metric
-def avgmed_alljdks_metric(path, key, result_file):
+def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
     geometric_means = []
     for root, dirs, files in os.walk(path, topdown=False):
         for name in files:
@@ -121,13 +130,13 @@ def avgmed_alljdks_metric(path, key, result_file):
     x = range(0, len(geometric_means))
     create_figure(x, geometric_means, "run", args[2], "raw values", True)
     result = []
-    result.append(min_max_avg_med(geometric_means, len(geometric_means)))
+    result.append(min_max_avg_med(geometric_means, len(geometric_means), path, JDKs_expected, True))
     x = range(0, len(result[0]))
     create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
     return result
 
 ###2nd metric
-def avgmed_by_jdk_metric(path, key, result_file):
+def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
     geometric_means = []
     averages_per_jdk = []
     medians_per_jdk = []
@@ -152,8 +161,8 @@ def avgmed_by_jdk_metric(path, key, result_file):
                             medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
                             del geometric_means[:]
     result = []
-    result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk)))
-    result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk)))
+    result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk), path, JDKs_expected, False))
+    result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
     create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
     create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "avgmed_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
     create_figure(averages_per_jdk, medians_per_jdk, args[2] + "-averages_per_jdk", args[2] + "-medians_per_jdk", "raw_values_averages_per_jdk_medians_per_jdk", True)
@@ -161,11 +170,38 @@ def avgmed_by_jdk_metric(path, key, result_file):
     create_figure(range(0, len(result[1])), result[1], "avgmed_by_jdk_metric-medians (orange)", args[2], "2nd_metric_medians_per_JDK", True)
     return result
 
+def get_num_of_iterations(path):
+    file = open(path + "/../../../config").readlines()
+    of_iterations = 5
+    for line in file:
+        if 'ITER_NUM' in line:                                                                                         
+            of_iterations = line.split(":")[-1].strip()                                                                     
+    print ("Expected number of iterations: " + of_iterations)
+    return of_iterations
+    
+def get_expected_number_of_JDKs():
+    if containsFilter == "java-1.8.0":
+        print("Expected number of java 1.8.0 JDKs: ", 7)
+        return 7
+    elif containsFilter == "java-11":
+        print("Expected number of java 11 JDKs: ", 7)
+        return 7
+    elif containsFilter == "java-17":
+        print("Expected number of java 17 JDKs: ", 5)
+        return 5
+    elif containsFilter == "java-":
+        print("Expected number of java 1.8.0 + 11 + 17 JDKs: ", 19)
+        return 19
+    else:
+        print("Error, invalid REGEX")
+        return 0
+        
+JDKs_expected = get_expected_number_of_JDKs()
 print("1st avgmed_alljdks_metric:")
 print(args[0], args[1], args[2], invert)
-printer(avgmed_alljdks_metric(args[1], args[2], args[3]), invert)
+printer(avgmed_alljdks_metric(args[1], args[2], args[3], JDKs_expected), invert)
 print("")
 print("2nd avgmed_by_jdk_metric:")
 #printer(avgmed_by_jdk_metric(path1, "geom", "summary.txt"), invert)
-printer(avgmed_by_jdk_metric(args[1], args[2], args[3]), invert)
+printer(avgmed_by_jdk_metric(args[1], args[2], args[3], JDKs_expected), invert)
 print("")

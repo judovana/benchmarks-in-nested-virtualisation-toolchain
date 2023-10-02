@@ -40,7 +40,7 @@ fi
 
 graph_parameters() {
 ##GRAPH_NAME="LOCAL" ##necessary for graph naming
-echo "running graph parameters"
+echo "running function: graph parameters"
 if [[ ($1 == *"local"*) ]];then
   graph_name=local"$2"
 else
