@@ -43,9 +43,9 @@ for jdk in $JDKS ; do
         sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk`
   fi
   for x in `seq 1 $ITER_NUM` ; do
-    if [ "x$RUN_TYPE" == "xtrue" ]; then
+    if [ "x$RUN_TYPE" == "xnested_VM" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` False
-    elif [ "x$RUN_TYPE" == "xfalse" ]; then
+    elif [ "x$RUN_TYPE" == "xVM" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
