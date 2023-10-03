@@ -179,24 +179,17 @@ def get_num_of_iterations(path):
     print ("Expected number of iterations: " + of_iterations)
     return of_iterations
     
-def get_expected_number_of_JDKs():
-    if containsFilter == "java-1.8.0":
-        print("Expected number of java 1.8.0 JDKs: ", 7)
-        return 7
-    elif containsFilter == "java-11":
-        print("Expected number of java 11 JDKs: ", 7)
-        return 7
-    elif containsFilter == "java-17":
-        print("Expected number of java 17 JDKs: ", 5)
-        return 5
-    elif containsFilter == "java-":
-        print("Expected number of java 1.8.0 + 11 + 17 JDKs: ", 19)
-        return 19
-    else:
-        print("Error, invalid REGEX")
-        return 0
+#prerequisite: Every JDK has at least its root folder in the result folder
+def get_expected_number_of_JDKs(JDK_path):
+    OfJDKFiles = 0
+    for file_name in os.listdir(JDK_path):
+        if containsFilter in file_name:
+            OfJDKFiles += 1
+    print("\n")        
+    print("Expected number of ", containsFilter, " JDKs: ", OfJDKFiles)
+    return OfJDKFiles
         
-JDKs_expected = get_expected_number_of_JDKs()
+JDKs_expected = get_expected_number_of_JDKs(args[1])
 print("1st avgmed_alljdks_metric:")
 print(args[0], args[1], args[2], invert)
 printer(avgmed_alljdks_metric(args[1], args[2], args[3], JDKs_expected), invert)
