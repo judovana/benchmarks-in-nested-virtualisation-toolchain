@@ -172,9 +172,10 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
 
 def get_num_of_iterations(path):
     file = open(path + "/../../../config").readlines()
+    #default value is 5 iterations
     of_iterations = 5
     for line in file:
-        if 'ITER_NUM' in line:                                                                                         
+        if not line.startswith("#") and 'ITER_NUM' in line:
             of_iterations = line.split(":")[-1].strip()                                                                     
     print ("Expected number of iterations: " + of_iterations)
     return of_iterations
