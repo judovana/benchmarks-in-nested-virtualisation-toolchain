@@ -175,8 +175,8 @@ def get_num_of_iterations(path):
     #default value is 5 iterations
     of_iterations = 5
     for line in file:
-        if not line.startswith("#") and 'ITER_NUM' in line:
-            of_iterations = line.split(":")[-1].strip()                                                                     
+        if line.startswith("ITER_NUM="):
+            of_iterations = line.split("=")[-1].strip()
     print ("Expected number of iterations: " + of_iterations)
     return of_iterations
     
