@@ -34,13 +34,18 @@ JDKS=`find  $JDK_DIR -type f | sort -V`
 RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_TYPE= | sed "s/.*=//")
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
-if [ "x$RUN_TYPE" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/prepare_container.sh False
+if [ "x$RUN_TYPE" == "xcontainer" ]; then 
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
+fi
+if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
 fi
 
 for jdk in $JDKS ; do
   if [ "x$RUN_TYPE" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk`
+        sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk` False $JDK_DIR
+  elif [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
+        sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk` True $JDK_DIR
   fi
   for x in `seq 1 $ITER_NUM` ; do
     if [ "x$RUN_TYPE" == "xnested_VM" ]; then
@@ -49,6 +54,8 @@ for jdk in $JDKS ; do
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
+    elif [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
+        sh $SCRIPT_ORIGIN/run_VM_on_container.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xcont_in_VM" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` True
     else
