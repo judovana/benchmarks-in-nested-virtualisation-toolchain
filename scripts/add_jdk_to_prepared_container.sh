@@ -27,8 +27,6 @@ ls -l $CONT_WORKSPACE
 cd $CONT_WORKSPACE
 JDK_DIR=$3
 cp $JDK_DIR/$JDK_NAME $CONT_WORKSPACE
-cp $SCRIPT_ORIGIN/../config $CONT_WORKSPACE
-cp -r $SCRIPT_ORIGIN/../vagrantfiles $CONT_WORKSPACE
 
 VM_in_cont=$2
 JDK_dockerfile=JDK_dockerfile
@@ -36,6 +34,8 @@ rm -rf $JDK_dockerfile
 echo 'FROM preparation-cont' >> $JDK_dockerfile
 
 if [ "x$VM_in_cont" == "xTrue" ]; then
+  cp $SCRIPT_ORIGIN/../config $CONT_WORKSPACE
+  cp -r $SCRIPT_ORIGIN/../vagrantfiles $CONT_WORKSPACE
   echo "RUN rm -rf $JDK_DIR" >> $JDK_dockerfile
   echo "RUN mkdir -p $JDK_DIR || true" >> $JDK_dockerfile
   echo "RUN mkdir /test/vagrantfiles || true" >> $JDK_dockerfile
