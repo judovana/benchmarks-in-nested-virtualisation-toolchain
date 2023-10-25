@@ -17,6 +17,9 @@ containsFilter=args[5]
 runType=args[6]
 runsPerJDK  = 5 ### change if needed
 
+def is_html():
+    return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
+
 def calc_relative_diff(oldVal, newVal, invert):
      #newVal is 100%
      percent = round((newVal / 100.0), 3)
@@ -49,11 +52,15 @@ def parse_number(line):
     return round(float(parsed_number))
 
 def calculate_crash_rate(list_, path, JDKs_expected):
+    if is_html:
+        print("<pre>")
     of_runs_expected = int(re.sub("[^0-9]", "", get_num_of_iterations(path))) * JDKs_expected
     crash_rate = of_runs_expected / len(list_) 
     pass_rate = '{:.1%}'.format(len(list_)/of_runs_expected)
     print("final number of values: ", len(list_), " out of ", of_runs_expected)  
     print("Pass rate: ", pass_rate)
+    if is_html:
+        print("</pre>")
 
 def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
@@ -74,7 +81,12 @@ def printer(list_of_tuples, invert):
         max_ = list_of_tuples[i][1]
         avg_ = list_of_tuples[i][2]
         med_ = list_of_tuples[i][3]
+        if is_html:
+            print("<h3>")
         print(" ** ", x)
+        if is_html:
+            print("</h3>")
+            print("<pre>")
         print("MIN: ", min_)
         print("MAX: ", max_)
         print("AVG: ", avg_)
@@ -88,6 +100,8 @@ def printer(list_of_tuples, invert):
         print("MAX-MED: " + str(calc_relative_diff(max_, med_, invert)) + " %")
         print("AVG-MED: " + str(calc_relative_diff(avg_, med_, invert)) + " %")
         print("")
+        if is_html:
+            print("</pre>")
 
 def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     print("creating figure ", y1, " ?? ", x1)
@@ -108,10 +122,13 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     plt.title(containsFilter + runType) 
     
     # function to plot the plot 
-    name_fig = "bery_good_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
+    name_fig = "chart_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
     plt.savefig(name_fig)
     file_path = os.getcwd() + "/" + name_fig
-    print("file: ", file_path.strip())
+    if is_html():
+        print("<br/><a href='"+file_path.strip()+"'><img src='"+file_path.strip()+"'></img></a><br/>")
+    else:
+        print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
 
@@ -182,20 +199,35 @@ def get_num_of_iterations(path):
     
 #prerequisite: Every JDK has at least its root folder in the result folder
 def get_expected_number_of_JDKs(JDK_path):
+    if is_html:
+        print("<pre>")
     OfJDKFiles = 0
     for file_name in os.listdir(JDK_path):
         if containsFilter in file_name:
             OfJDKFiles += 1
     print("\n")        
     print("Expected number of ", containsFilter, " JDKs: ", OfJDKFiles)
+    if is_html:
+        print("</pre>")
     return OfJDKFiles
         
 JDKs_expected = get_expected_number_of_JDKs(args[1])
+if is_html:
+    print("<h4>")
 print("1st avgmed_alljdks_metric:")
+if is_html:
+    print("</h4>")
+    print("<pre>")
 print(args[0], args[1], args[2], invert)
+if is_html:
+    print("</pre>")
 printer(avgmed_alljdks_metric(args[1], args[2], args[3], JDKs_expected), invert)
 print("")
+if is_html:
+    print("<h4>")
 print("2nd avgmed_by_jdk_metric:")
+if is_html:
+    print("</h4>")
 #printer(avgmed_by_jdk_metric(path1, "geom", "summary.txt"), invert)
 printer(avgmed_by_jdk_metric(args[1], args[2], args[3], JDKs_expected), invert)
 print("")

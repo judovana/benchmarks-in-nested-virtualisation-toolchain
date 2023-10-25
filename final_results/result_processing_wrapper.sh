@@ -24,6 +24,31 @@ fi
 
 RESULTS=`find  $RESULT_DIR -maxdepth 2 -mindepth 2 -type d`
 
+export HTML=true
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "<html><head></head><body>"
+fi
+
+title1() {
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "<h1>"
+  fi
+  echo " ${@} "
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "</h1>"
+  fi
+}
+
+title2() {
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "<h2>"
+  fi
+  echo " ${@} "
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "</h2>"
+  fi
+}
+
 if [[ $JDK_ver == "8" ]];then
   REGEX="java-1.8.0"
 elif [[ $JDK_ver == "11" ]];then
@@ -33,58 +58,69 @@ elif [[ $JDK_ver == "17" ]];then
 elif [[ $JDK_ver == "ALL" ]];then
   REGEX="java-"
 else
-  echo $JDK_ver
-  echo "invalid java version, use 8, 11 or 17"
+  title1 $JDK_ver
+  echo "invalid java version, use 8, 11 or 17" >&2
   exit 1
 fi
 
+
+
 graph_parameters() {
-##GRAPH_NAME="LOCAL" ##necessary for graph naming
-echo "running function: graph parameters"
-if [[ ($1 == *"local"*) ]];then
-  graph_name=local"$2"
-else
-  graph_name=virtual"$2"
-fi
+  ##GRAPH_NAME necessary for graph naming
+  ##it requires virtualisation type and benchamrk,
+  ##otherwise the cahrts will overwrite each other
+  ##curently it is all in top level dir of virtualisation/virutliasation_benchamrk
+  ## so using that
+  graph_name=$(basename ${1})
 }
 
 for res in $RESULTS ; do
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "<pre>"
+  fi
   echo $res
   echo $REGEX
   echo $benchmark
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "</pre>"
+  fi
 
   if [[ ($res == *"DACAPO"*) && ($benchmark == *"DACAPO"*)]];then   
     graph_parameters $res DACAPO
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" True $REGEX $graph_name
   elif [[ ($res == *"J2DBENCH"*) && ($benchmark == *"J2DBENCH"*)]];then
     graph_parameters $res J2DBENCH
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" True $REGEX $graph_name
   elif [[ ($res == *"JMH"*) && ($benchmark == *"JMH"*)]];then
     graph_parameters $res JMH
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" True $REGEX $graph_name
   elif [[ ($res == *"RADARGUNs1"*) && ($benchmark == *"RADARGUNs1"*)]];then
     graph_parameters $res RADARGUNs1
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
   elif [[ ($res == *"RADARGUNs3"*) && ($benchmark == *"RADARGUNs3"*)]];then
     graph_parameters $res RADARGUNs3
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $IS_LOCAL
   elif [[ ($res == *"SPECJBB"*) && ($benchmark == *"SPECJBB"*)]];then
     graph_parameters $res SPECJBB
-    echo $graph_name
+    title2 $graph_name
     python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.max-jOPS" "-00001.raw" True $REGEX $IS_LOCAL
     python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.critical-jOPS" "-00001.raw" True $REGEX $IS_LOCAL
   else
-    echo "did not find anything"
+    echo "did not find anything" >&2
   fi
 done
+
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "</body>"
+fi
