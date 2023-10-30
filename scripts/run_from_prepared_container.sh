@@ -47,7 +47,8 @@ GUI_PART=""
 if echo ${SCRIPT} | grep J2DBench ; then
   if [ "x$DISPLAY" = "x" ] ; then
     echo "no DISPLAY!!!"
-    exit 12
+    export DISPLAY=:0
+    #exit 12
   fi
   echo "DISPLAY=$DISPLAY"
   xhost +"local:podman@" #<- normal user !!! mandatory
