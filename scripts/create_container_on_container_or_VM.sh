@@ -17,10 +17,17 @@ set -exo pipefail
 
 COUNTER=$1
 JDK=$2
+SCRIPT_RUN_FROM_VM=$3
 
-echo pwd
-ls -l /mnt/shared/testsuites
+#get path of folder containing JDKs from config
+JDK_DIR=$(cat $SCRIPT_ORIGIN/../config | grep ^JDK_DIR= | sed "s/.*=//")
+
+if [ "x$SCRIPT_RUN_FROM_VM" == "xTrue" ] ; then
+  echo pwd
+  ls -l /mnt/shared/testsuites
+fi
+
 ls -l
 sh $SCRIPT_ORIGIN/prepare_container.sh True
-sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh $JDK
+sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh $JDK False $JDK_DIR
 sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER $JDK True

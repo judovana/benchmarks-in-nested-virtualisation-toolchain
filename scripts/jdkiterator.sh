@@ -53,7 +53,9 @@ for jdk in $JDKS ; do
     elif [ "x$RUN_TYPE" == "xVM" ]; then
         sh $SCRIPT_ORIGIN/run_on_VM.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xcontainer" ]; then
-        sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk`
+        sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $x `readlink -f $jdk` False
+    elif [ "x$RUN_TYPE" == "xnested_container" ]; then
+        sh $SCRIPT_ORIGIN/run_on_nested_container.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
         sh $SCRIPT_ORIGIN/run_VM_on_container.sh $x `readlink -f $jdk`
     elif [ "x$RUN_TYPE" == "xcont_in_VM" ]; then
