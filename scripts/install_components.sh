@@ -15,12 +15,12 @@ RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_TYPE= | sed "
 
 set -exo pipefail
 
-sudo dnf install -y virt-manager
-sudo dnf install -y rubygem-rexml
-sudo dnf install -y vagrant
-sudo dnf install -y gcc libvirt libvirt-devel libxml2-devel make ruby-devel libguestfs-tools
-sudo dnf install -y qemu qemu-kvm bridge-utils
-sudo yum install -y libvirt-client
+sudo dnf install -y --disablerepo fedora-modular virt-manager
+sudo dnf install -y --disablerepo fedora-modular rubygem-rexml
+sudo dnf install -y --disablerepo fedora-modular vagrant
+sudo dnf install -y --disablerepo fedora-modular gcc libvirt libvirt-devel libxml2-devel make ruby-devel libguestfs-tools
+sudo dnf install -y --disablerepo fedora-modular qemu qemu-kvm bridge-utils
+sudo yum install -y --disablerepo fedora-modular libvirt-client
 
 #sudo systemctl enable libvirtd
 #sudo systemctl start libvirtd
