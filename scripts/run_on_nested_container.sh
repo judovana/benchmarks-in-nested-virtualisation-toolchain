@@ -48,11 +48,13 @@ host_preparation_dockerfile=host_preparation_dockerfile
 FEDORA_VERSION=$(cat $SCRIPT_ORIGIN/../config | grep ^MAINVM= | sed "s/.*=//")
 FUTURE_SCRIPT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
 
+EVIL_JDKS=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep JDK_DIR | sed "s/.*=//")
+
 echo "FROM $FEDORA_VERSION" >> $host_preparation_dockerfile
 
 echo "RUN mkdir /local_workspace || true" >> $host_preparation_dockerfile
 echo "RUN mkdir /local_workspace/local_workspace || true" >> $host_preparation_dockerfile
-echo "RUN mkdir -p /home/tester/diplomka/JDKs/8 || true" >> $host_preparation_dockerfile
+echo "RUN mkdir -p $EVIL_JDKS || true" >> $host_preparation_dockerfile
 echo "RUN mkdir /results || true" >> $host_preparation_dockerfile
 
 echo "COPY TckScripts /mnt/shared/TckScripts" >> $host_preparation_dockerfile
@@ -60,9 +62,9 @@ echo "COPY scripts /local_workspace/scripts" >> $host_preparation_dockerfile
 #improve so only the current benchmark gets copied?
 echo "COPY testsuites /mnt/shared/testsuites" >> $host_preparation_dockerfile
 echo "COPY config /local_workspace" >> $host_preparation_dockerfile
-echo "COPY $JDK_NAME /home/tester/diplomka/JDKs/8" >> $host_preparation_dockerfile
+echo "COPY $JDK_NAME $EVIL_JDKS" >> $host_preparation_dockerfile
 
-echo "RUN ls -l /home/tester/diplomka/JDKs/8" >> $host_preparation_dockerfile
+echo "RUN ls -l $EVIL_JDKS" >> $host_preparation_dockerfile
 echo "RUN ls -l /local_workspace" >> $host_preparation_dockerfile
 echo "RUN ls -l /" >> $host_preparation_dockerfile
 echo "RUN pwd " >> $host_preparation_dockerfile
