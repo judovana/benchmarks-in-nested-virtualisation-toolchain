@@ -13,8 +13,8 @@ done
 readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 
-RESULT_DIR=$REPO_DIR/final_results
-SCRIPT_DIR=$REPO_DIR/final_results # todo, move them both: s$REPO_DIR/cripts
+RESULT_DIR=$SCRIPT_ORIGIN
+SCRIPT_DIR=$SCRIPT_ORIGIN
 
 JDK_ver=$1
 benchmark=$2
