@@ -1,0 +1,10 @@
+    PID USER     CPU  SIZE   RSS CMD
+    556 root       - 4440972 1476076 /usr/lib/jvm/java//bin/java -Xms4096M -Xmx4096M -jar /mnt/ramdisk/srcs/openjdk/jdk/src/share/demo/java2d/J2DBench/dist/J2DBench.jar -batch -loadopts /mnt/ramdisk/srcs/openjdk/jdk/src/share/demo/java2d/J2DBench/options/default.opt -saveres //default.res -title Rendering - Default ppl -desc Rendering tests with the default pipeline
+    555 root       -  1376  7956 sudo su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+      2 root       -  1076  3820 sh /mnt/shared/TckScripts/jenkins/run-intree-J2DBench-vagrant.sh
+    755 root       -  1076  1572 ps -e -o pid,user,cpu,size,rss,cmd --sort -size,-rss
+    568 root       -   924  6504 su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+    572 root       -   416  3040 sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh memory
+      1 root       -   416  2928 bash -c sh /mnt/shared/TckScripts/jenkins/run-intree-J2DBench-vagrant.sh;ls -l /;ls -l /results;dnf -y install --disablerepo fedora-modular rsync openssh-server openssh-clients;mkdir -p /root/.ssh;cp /mnt/shared/TckScripts/ssh-keys/priv-keys/tester_rsa /root/.ssh;chmod 600 /root/.ssh/tester_rsa;chmod 700 /root/.ssh;rsync -av -e "ssh -o StrictHostKeyChecking=no -i /root/.ssh/tester_rsa"  --progress --exclude .git --mkpath /results/ tester@jfabo-main.usersys.redhat.com:/home/tester/middle_point/java-1.8.0-openjdk-jdk8u232.b05-0.ojdk8~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz/3;
+    558 root       -   336   944 tee stderr.log
+    557 root       -   336   940 tee stdout.log
