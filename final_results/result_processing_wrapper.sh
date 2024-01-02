@@ -1,8 +1,15 @@
 #!/bin/bash
 
+#########################################
+# call in some report dir (charts will be generated in it)
+# redirect to some html file (will be overwritten)
+# first parameter - jdk. eg 8,17 or ALL for all jdks
+# second parameter - benchamrk or "set of benchmarks" (space dlimited)
+#                    or ALL for all known benchmarksS
+#########################################
+
 ## resolve folder of this script, following all symlinks,
 ## http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
-
 SCRIPT_SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SCRIPT_SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   SCRIPT_DIR="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
@@ -13,8 +20,9 @@ done
 readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 
-RESULT_DIR=$SCRIPT_ORIGIN
-SCRIPT_DIR=$SCRIPT_ORIGIN
+# this is just for readability
+RESULT_DIR=$REPO_DIR/final_results
+SCRIPT_DIR=$REPO_DIR/final_results
 
 JDK_ver=$1
 benchmark=$2
@@ -31,7 +39,7 @@ fi
 
 title1() {
   if [ "x$HTML" == "xtrue" ] ; then
-    echo "<h1>"
+    echo "<h1 id='${@}'>"
   fi
   echo " ${@} "
   if [ "x$HTML" == "xtrue" ] ; then
@@ -41,13 +49,14 @@ title1() {
 
 title2() {
   if [ "x$HTML" == "xtrue" ] ; then
-    echo "<h2>"
+    echo "<h2 id='${@}'>"
   fi
   echo " ${@} "
   if [ "x$HTML" == "xtrue" ] ; then
     echo "</h2>"
   fi
 }
+
 
 if [[ $JDK_ver == "8" ]];then
   REGEX="java-1.8.0"
@@ -58,13 +67,15 @@ elif [[ $JDK_ver == "17" ]];then
 elif [[ $JDK_ver == "ALL" ]];then
   REGEX="java-"
 else
-  title1 $JDK_ver
+  title1 "invalid $JDK_ver"
   echo "invalid java version, use 8, 11 or 17" >&2
   exit 1
 fi
 
+title1 "$REGEX $benchmark"
+echo "<a href='#Context:'>Context at bottom</a><br/>"
 
-
+titles=""
 graph_parameters() {
   ##GRAPH_NAME necessary for graph naming
   ##it requires virtualisation type and benchamrk,
@@ -72,6 +83,7 @@ graph_parameters() {
   ##curently it is all in top level dir of virtualisation/virutliasation_benchamrk
   ## so using that
   graph_name=$(basename ${1})
+  titles="$titles $(basename  $(dirname $1)):$(basename  $1)"
 }
 
 for res in $RESULTS ; do
@@ -122,5 +134,23 @@ for res in $RESULTS ; do
 done
 
 if [ "x$HTML" == "xtrue" ] ; then
+  title1 Context:
+  echo "<ol>"
+  echo "<ol>"
+  current_title=""
+  for title in $titles ; do
+    future_title=`echo $title | sed "s/:.*//"`
+    full_name=`echo $title | sed "s/.*://"`
+    name=`echo $title | sed "s/.*_//"`
+    if [ ! "$current_title" == "$future_title" ] ; then
+      current_title="$future_title"
+      echo "</ol>"
+      echo "<li>"$future_title"</li>"
+      echo "<ol>"
+    fi
+    echo "  <li><a href='#$full_name'>$name</a></li>"
+  done
+  echo "</ol>"
+  echo "</ol>"
   echo "</body>"
 fi
