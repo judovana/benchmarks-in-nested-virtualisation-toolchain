@@ -17,6 +17,15 @@ containsFilter=args[5]
 runType=args[6]
 runsPerJDK  = 5 ### change if needed
 
+class NvrRunValue(object):
+    value = 0
+    nvr = ""
+    run = ""
+    def __init__(self, value, nvr, run):
+        self.value = value
+        self.nvr = nvr
+        self.run = run
+
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
 
@@ -144,11 +153,12 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                     lines = [one_line.rstrip() for one_line in f]
                 for line in lines:
                     if (line.startswith(key)):
-                        geometric_means.append(int(parse_number(line)))
-    x = range(0, len(geometric_means))
-    create_figure(x, geometric_means, "run", args[2], "raw values", True)
+                        #'someNvr/home/jvanek/git/benchmarks-in-nested-virtualisation-toolchain/final_results/vm_results/vm_results_JMH/java-1.8.0-openjdk-jdk8u342.b06-0.ojdk8~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz/3/results:SPECjvm2008.001.sub;someNumbergeom=369
+                        geometric_means.append(NvrRunValue(int(parse_number(line)), "someNvr"+root+":"+name, "someNumber"+line))
+    x = list(map(lambda title: title.nvr+";"+title.run, geometric_means))
+    create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
-    result.append(min_max_avg_med(geometric_means, len(geometric_means), path, JDKs_expected, True))
+    result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
     x = range(0, len(result[0]))
     create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
     return result
