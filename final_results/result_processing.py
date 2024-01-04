@@ -112,15 +112,21 @@ def printer(list_of_tuples, invert):
         if is_html:
             print("</pre>")
 
-def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
-    print("creating figure ", y1, " ?? ", x1)
+def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
+    print("creating figure. y:", y1, ", x:", x1)
     # x axis values 
     #y1 = geometric_means 
     # corresponding y axis values 
     #x1 = range(0, len(geometric_means))
-    
+
+    # enabling labels rotations
+    if (figg is None):
+      fig = plt.figure()
+    else:
+      fig = figg
+    ax = plt.gca()
     # plotting the points  
-    plt.plot(x1, y1) 
+    ax.plot(x1, y1) 
     
     # naming the x axis 
     plt.xlabel(x_name) 
@@ -130,6 +136,12 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     # giving a title to my graph 
     plt.title(containsFilter + runType) 
     
+    # rotate x axe labels by vertically and making room for them
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    fig.subplots_adjust(top=0.9)
+    fig.subplots_adjust(bottom=0.3)
+    fig.tight_layout()
+
     # function to plot the plot 
     if (clear_plot):
         name_fig = "chart_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
@@ -141,6 +153,7 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
             print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
+    return fig
 
 ###1st metric
 def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
@@ -193,8 +206,8 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
     create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
     create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
-    create_figure(range(0, len(result[0])), result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
-    create_figure(range(0, len(result[1])), result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True)
+    fig_transfer = create_figure(range(0, len(result[0])), result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
+    create_figure(range(0, len(result[1])), result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
     return result
 
 def get_num_of_iterations(path):
