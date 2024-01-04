@@ -133,9 +133,9 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None
 
     # enabling labels rotations
     if (figg is None):
-      fig = plt.figure()
+        fig = plt.figure(figsize=(max(len(x1)/5+1,5),5))
     else:
-      fig = figg
+        fig = figg
     ax = plt.gca()
     # plotting the points  
     ax.plot(x1, y1) 
