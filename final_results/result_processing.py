@@ -81,6 +81,7 @@ def calculate_crash_rate(list_, path, JDKs_expected):
     print("Pass rate: ", pass_rate)
     if is_html:
         print("</pre>")
+    return pass_rate
 
 def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
@@ -89,7 +90,15 @@ def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     #del list_[(of_values - to_delete):]
     #del list_[:to_delete]
     if to_print == True:
-        calculate_crash_rate(list_, path, JDKs_expected)
+        passRate=calculate_crash_rate(list_, path, JDKs_expected)
+        filename = 'passrates.properties'
+        if os.path.exists(filename):
+            append_write = 'a' # append if already exists
+        else:
+            append_write = 'w' # make a new file if not
+        f = open(filename,append_write)
+        f.write('todoVirtualisationAndBenchmark=' + passRate + "\n")
+        f.close()
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
 
