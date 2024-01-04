@@ -17,6 +17,8 @@ containsFilter=args[5]
 runType=args[6]
 runsPerJDK  = 5 ### change if needed
 
+lastSuite="none"
+
 class NvrRunValue(object):
     value = 0
     nvr = ""
@@ -97,7 +99,7 @@ def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
         else:
             append_write = 'w' # make a new file if not
         f = open(filename,append_write)
-        f.write('todoVirtualisationAndBenchmark=' + passRate + "\n")
+        f.write(lastSuite+'=' + passRate + "\n")
         f.close()
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
@@ -196,6 +198,9 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                         nvrDir=os.path.dirname(runDir)
                         nvr=os.path.basename(nvrDir)
                         nvr=shortenNvr(nvr)
+                        lastSuiteDir=os.path.dirname(nvrDir)
+                        global lastSuite
+                        lastSuite=os.path.basename(lastSuiteDir)
                         geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, run))
     x = list(map(lambda title: title.nvr+":"+title.run, geometric_means))
     create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)

@@ -85,7 +85,8 @@ fi
 title1 "$REGEX $benchmark"
 echo "<a href='#Context:'>Context at bottom</a><br/>"
 
-rmk -f passrates.properties # to store cross-python run values of pass rates for future processing. sort | uniq it after it is finished
+PRF=passrates.properties
+rm -f $PRF # to store cross-python run values of pass rates for future processing. sort | uniq it after it is finished
 
 titles=""
 graph_parameters() {
@@ -180,6 +181,16 @@ for res in $RESULTS ; do
   fi
 done
 
+
+title1 "pass rates:"
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "<pre>"
+fi
+cat $PRF | sort | uniq 
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "</pre>"
+fi
+
 if [ "x$HTML" == "xtrue" ] ; then
   title1 Context:
   echo "<ol>"
@@ -201,3 +212,5 @@ if [ "x$HTML" == "xtrue" ] ; then
   echo "</ol>"
   echo "</body>"
 fi
+
+
