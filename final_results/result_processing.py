@@ -29,6 +29,17 @@ class NvrRunValue(object):
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+def shortenNvr(val):
+    val = re.sub("[^0-9]", "-", val);
+    val = re.sub("-+", "-", val);
+    val = re.sub("^-", "", val);
+    val = re.sub("-$", "", val);
+    val = re.sub("-", ".", val);
+    return val;
+
 def calc_relative_diff(oldVal, newVal, invert):
      #newVal is 100%
      percent = round((newVal / 100.0), 3)
@@ -113,7 +124,8 @@ def printer(list_of_tuples, invert):
             print("</pre>")
 
 def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
-    print("creating figure. y:", y1, ", x:", x1)
+    eprint("creating figure. x:", y1, ", y:", x1)
+    print("values:", y1)
     # x axis values 
     #y1 = geometric_means 
     # corresponding y axis values 
@@ -166,9 +178,17 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                     lines = [one_line.rstrip() for one_line in f]
                 for line in lines:
                     if (line.startswith(key)):
-                        #'someNvr/home/jvanek/git/benchmarks-in-nested-virtualisation-toolchain/final_results/vm_results/vm_results_JMH/java-1.8.0-openjdk-jdk8u342.b06-0.ojdk8~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz/3/results:SPECjvm2008.001.sub;someNumbergeom=369
-                        geometric_means.append(NvrRunValue(int(parse_number(line)), "someNvr"+root+":"+name, "someNumber"+line))
-    x = list(map(lambda title: title.nvr+";"+title.run, geometric_means))
+                        # we have to find the NVR/number parent which is always there, and is the id of run
+                        runDir=root
+                        run=os.path.basename(runDir)
+                        while not run.isdigit():
+                            runDir=os.path.dirname(runDir)
+                            run=os.path.basename(runDir)
+                        nvrDir=os.path.dirname(runDir)
+                        nvr=os.path.basename(nvrDir)
+                        nvr=shortenNvr(nvr)
+                        geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, run))
+    x = list(map(lambda title: title.nvr+":"+title.run, geometric_means))
     create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
     result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
