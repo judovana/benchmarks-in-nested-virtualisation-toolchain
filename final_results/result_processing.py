@@ -17,8 +17,30 @@ containsFilter=args[5]
 runType=args[6]
 runsPerJDK  = 5 ### change if needed
 
+lastSuite="none"
+
+class NvrRunValue(object):
+    value = 0
+    nvr = ""
+    run = ""
+    def __init__(self, value, nvr, run):
+        self.value = value
+        self.nvr = nvr
+        self.run = run
+
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+def shortenNvr(val):
+    val = re.sub("[^0-9]", "-", val);
+    val = re.sub("-+", "-", val);
+    val = re.sub("^-", "", val);
+    val = re.sub("-$", "", val);
+    val = re.sub("-", ".", val);
+    return val;
 
 def calc_relative_diff(oldVal, newVal, invert):
      #newVal is 100%
@@ -61,6 +83,7 @@ def calculate_crash_rate(list_, path, JDKs_expected):
     print("Pass rate: ", pass_rate)
     if is_html:
         print("</pre>")
+    return pass_rate
 
 def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
@@ -69,7 +92,15 @@ def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     #del list_[(of_values - to_delete):]
     #del list_[:to_delete]
     if to_print == True:
-        calculate_crash_rate(list_, path, JDKs_expected)
+        passRate=calculate_crash_rate(list_, path, JDKs_expected)
+        filename = 'passrates.properties'
+        if os.path.exists(filename):
+            append_write = 'a' # append if already exists
+        else:
+            append_write = 'w' # make a new file if not
+        f = open(filename,append_write)
+        f.write(lastSuite+'=' + passRate + "\n")
+        f.close()
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
 
@@ -103,15 +134,22 @@ def printer(list_of_tuples, invert):
         if is_html:
             print("</pre>")
 
-def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
-    print("creating figure ", y1, " ?? ", x1)
+def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
+    eprint("creating figure. x:", y1, ", y:", x1)
+    print("values:", y1)
     # x axis values 
     #y1 = geometric_means 
     # corresponding y axis values 
     #x1 = range(0, len(geometric_means))
-    
+
+    # enabling labels rotations
+    if (figg is None):
+        fig = plt.figure(figsize=(max(len(x1)/5+1,5),5))
+    else:
+        fig = figg
+    ax = plt.gca()
     # plotting the points  
-    plt.plot(x1, y1) 
+    ax.plot(x1, y1) 
     
     # naming the x axis 
     plt.xlabel(x_name) 
@@ -121,6 +159,12 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
     # giving a title to my graph 
     plt.title(containsFilter + runType) 
     
+    # rotate x axe labels by vertically and making room for them
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    fig.subplots_adjust(top=0.9)
+    fig.subplots_adjust(bottom=0.3)
+    fig.tight_layout()
+
     # function to plot the plot 
     if (clear_plot):
         name_fig = "chart_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
@@ -132,6 +176,7 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot):
             print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
+    return fig
 
 ###1st metric
 def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
@@ -144,11 +189,23 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                     lines = [one_line.rstrip() for one_line in f]
                 for line in lines:
                     if (line.startswith(key)):
-                        geometric_means.append(int(parse_number(line)))
-    x = range(0, len(geometric_means))
-    create_figure(x, geometric_means, "run", args[2], "raw values", True)
+                        # we have to find the NVR/number parent which is always there, and is the id of run
+                        runDir=root
+                        run=os.path.basename(runDir)
+                        while not run.isdigit():
+                            runDir=os.path.dirname(runDir)
+                            run=os.path.basename(runDir)
+                        nvrDir=os.path.dirname(runDir)
+                        nvr=os.path.basename(nvrDir)
+                        nvr=shortenNvr(nvr)
+                        lastSuiteDir=os.path.dirname(nvrDir)
+                        global lastSuite
+                        lastSuite=os.path.basename(lastSuiteDir)
+                        geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, run))
+    x = list(map(lambda title: title.nvr+":"+title.run, geometric_means))
+    create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
-    result.append(min_max_avg_med(geometric_means, len(geometric_means), path, JDKs_expected, True))
+    result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
     x = range(0, len(result[0]))
     create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
     return result
@@ -183,8 +240,8 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
     create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
     create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
-    create_figure(range(0, len(result[0])), result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
-    create_figure(range(0, len(result[1])), result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True)
+    fig_transfer = create_figure(range(0, len(result[0])), result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
+    create_figure(range(0, len(result[1])), result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
     return result
 
 def get_num_of_iterations(path):

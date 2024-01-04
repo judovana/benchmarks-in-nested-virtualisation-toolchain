@@ -57,6 +57,16 @@ title2() {
   fi
 }
 
+title3() {
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "<h3 id='${@}'>"
+  fi
+  echo " ${@} "
+  if [ "x$HTML" == "xtrue" ] ; then
+    echo "</h3>"
+  fi
+}
+
 
 if [[ $JDK_ver == "8" ]];then
   REGEX="java-1.8.0"
@@ -74,6 +84,9 @@ fi
 
 title1 "$REGEX $benchmark"
 echo "<a href='#Context:'>Context at bottom</a><br/>"
+
+PRF=passrates.properties
+rm -f $PRF # to store cross-python run values of pass rates for future processing. sort | uniq it after it is finished
 
 titles=""
 graph_parameters() {
@@ -100,38 +113,83 @@ for res in $RESULTS ; do
   if [[ ($res == *"DACAPO"*) && ($benchmark == *"DACAPO"*)]];then   
     graph_parameters $res DACAPO
     title2 $graph_name
+    title3 "final score"
     python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" True $REGEX $graph_name
   elif [[ ($res == *"J2DBENCH"*) && ($benchmark == *"J2DBENCH"*)]];then
     graph_parameters $res J2DBENCH
     title2 $graph_name
+    title3 "final score"
     python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" True $REGEX $graph_name
   elif [[ ($res == *"JMH"*) && ($benchmark == *"JMH"*)]];then
     graph_parameters $res JMH
     title2 $graph_name
+    title3 "final score"
     python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" True $REGEX $graph_name
   elif [[ ($res == *"RADARGUNs1"*) && ($benchmark == *"RADARGUNs1"*)]];then
     graph_parameters $res RADARGUNs1
     title2 $graph_name
+    if [ "x$HTML" == "xtrue" ] ; then
+      echo "<ol>"
+      echo "  <li><a href='#$graph_name - throughput get'>$graph_name - throughput get</a></li>"
+      echo "  <li><a href='#$graph_name - throughput put'>$graph_name - throughput put</a></li>"
+      echo "  <li><a href='#$graph_name - response mean time get'>$graph_name - response mean time get</a></li>"
+      echo "  <li><a href='#$graph_name - response mean time put'>$graph_name - response mean time put</a></li>"
+      echo "</ol>"
+    fi
+    title3 "$graph_name - throughput get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $graph_name
+    title3 "$graph_name - throughput put"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $graph_name
+    title3 "$graph_name - response mean time get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $graph_name
+    title3 "$graph_name - response mean time put"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $graph_name
   elif [[ ($res == *"RADARGUNs3"*) && ($benchmark == *"RADARGUNs3"*)]];then
     graph_parameters $res RADARGUNs3
     title2 $graph_name
+    if [ "x$HTML" == "xtrue" ] ; then
+      echo "<ol>"
+      echo "  <li><a href='#$graph_name - throughput get'>$graph_name - throughput get</a></li>"
+      echo "  <li><a href='#$graph_name - throughput put'>$graph_name - throughput put</a></li>"
+      echo "  <li><a href='#$graph_name - response mean time get'>$graph_name - response mean time get</a></li>"
+      echo "  <li><a href='#$graph_name - response mean time put'>$graph_name - response mean time put</a></li>"
+      echo "</ol>"
+    fi
+    title3 "$graph_name - throughput get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $graph_name
+    title3 "$graph_name - throughput put"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $graph_name
+    title3 "$graph_name - response mean time get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $graph_name
+    title3 "$graph_name - response mean time put"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.ResponseTimeMean" "stres" True $REGEX $graph_name
   elif [[ ($res == *"SPECJBB"*) && ($benchmark == *"SPECJBB"*)]];then
     graph_parameters $res SPECJBB
     title2 $graph_name
+    if [ "x$HTML" == "xtrue" ] ; then
+      echo "<ol>"
+      echo "  <li><a href='#$graph_name - max-jops'>$graph_name - max-jops</a></li>"
+      echo "  <li><a href='#$graph_name - critical jops'>$graph_name - critical jops</a></li>"
+      echo "</ol>"
+    fi
+    title3 "$graph_name - max-jops"
     python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.max-jOPS" "-00001.raw" True $REGEX $graph_name
+    title3 "$graph_name - critical jops"
     python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.critical-jOPS" "-00001.raw" True $REGEX $graph_name
   else
     echo "did not find anything" >&2
   fi
 done
+
+
+title1 "pass rates:"
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "<pre>"
+fi
+cat $PRF | sort | uniq 
+if [ "x$HTML" == "xtrue" ] ; then
+  echo "</pre>"
+fi
 
 if [ "x$HTML" == "xtrue" ] ; then
   title1 Context:
@@ -154,3 +212,5 @@ if [ "x$HTML" == "xtrue" ] ; then
   echo "</ol>"
   echo "</body>"
 fi
+
+
