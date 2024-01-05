@@ -238,6 +238,7 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
         nvrRoot=path+"/"+nvr
         for run in os.listdir(nvrRoot):
             runRoot=nvrRoot+"/"+run
+            #find the result file of givrn  root/nvr/run
             for root, dirs, files in os.walk(runRoot, topdown=False):
                 for name in files:
                     filename = os.path.join(root, name)
@@ -256,8 +257,9 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
     create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
     create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
-    fig_transfer = create_figure(range(0, len(result[0])), result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
-    create_figure(range(0, len(result[1])), result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
+    x = ["min", "max", "avg", "med"]
+    fig_transfer = create_figure(x, result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
+    create_figure(x, result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
     return result
 
 def get_num_of_iterations(path):
