@@ -9,6 +9,7 @@
 import os
 import sys
 import re
+from functools import cmp_to_key
 import matplotlib.pyplot as plt 
 
 args = sys.argv
@@ -29,8 +30,15 @@ class NvrRunValue(object):
         self.run = run
 
 def compareNvrs(item1, item2):
-    # Calling list.sort(key=compare)
-    item1.nvr.split("\\.")
+    # Calling list.sort(key=compareNvrs)
+    # this will return for jdk8 - 1.8... - 1 but as we have 8,11 and 17, it is ok
+    major1=int(item1.nvr.split(".")[0]);
+    major2=int(item2.nvr.split(".")[0]);
+    r1=(major1-major2)
+    if (item1.nvr == item2.nvr):
+        return item1.run-item2.run
+    else:
+        return r1;
 
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
@@ -220,6 +228,7 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                         global lastSuite
                         lastSuite=os.path.basename(lastSuiteDir)
                         geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, int(run)))
+    geometric_means=sorted(geometric_means, key=cmp_to_key(compareNvrs))
     x = list(map(lambda title: title.nvr+":"+str(title.run), geometric_means))
     create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
@@ -255,6 +264,8 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
             nvrShort=shortenNvr(nvr)
             averages_per_jdk.append(NvrRunValue(avgg, nvrShort, len(geometric_means)))
             medians_per_jdk.append(NvrRunValue(medd, nvrShort, len(geometric_means)))
+    averages_per_jdk=sorted(averages_per_jdk, key=cmp_to_key(compareNvrs))
+    medians_per_jdk=sorted(medians_per_jdk, key=cmp_to_key(compareNvrs))
     result = []
     result.append(min_max_avg_med(list(map(lambda num: num.value, averages_per_jdk)), len(averages_per_jdk), path, JDKs_expected, False))
     result.append(min_max_avg_med(list(map(lambda num: num.value, medians_per_jdk)), len(medians_per_jdk), path, JDKs_expected, False))
