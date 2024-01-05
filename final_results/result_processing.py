@@ -5,7 +5,7 @@
 ### run as: \result_processing.py "path_to_result_folder" "key" "result_fileName" True/False(invert values)
 ### key is the beginning of the line in which the result in result file is (geom for dacapo)
 
-#!/usr/bin/python2.7
+#!/usr/bin/python
 import os
 import sys
 import re
@@ -95,10 +95,6 @@ def calculate_crash_rate(list_, path, JDKs_expected):
 
 def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
-    #to_delete = (of_values // 10)
-    #print("PASSED: ", of_values, " out of 100 ", "deleting: ",  to_delete, " from top and bottom")
-    #del list_[(of_values - to_delete):]
-    #del list_[:to_delete]
     if to_print == True:
         passRate=calculate_crash_rate(list_, path, JDKs_expected)
         filename = 'passrates.properties'
@@ -250,13 +246,18 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
                                     geometric_means.append(int(parse_number(line)))
         if len(geometric_means) > 0:
             geometric_means.sort()
-            averages_per_jdk.append(sum(geometric_means) / len(geometric_means))
-            medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
+            avgg=sum(geometric_means) / len(geometric_means)
+            medd=geometric_means[len(geometric_means) // 2]
+            nvrShort=shortenNvr(nvr)
+            averages_per_jdk.append(NvrRunValue(avgg, nvrShort, len(geometric_means)))
+            medians_per_jdk.append(NvrRunValue(medd, nvrShort, len(geometric_means)))
     result = []
-    result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk), path, JDKs_expected, False))
-    result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
-    create_figure(range(0, len(averages_per_jdk)), averages_per_jdk, "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
-    create_figure(range(0, len(medians_per_jdk)), medians_per_jdk, "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
+    result.append(min_max_avg_med(list(map(lambda num: num.value, averages_per_jdk)), len(averages_per_jdk), path, JDKs_expected, False))
+    result.append(min_max_avg_med(list(map(lambda num: num.value, medians_per_jdk)), len(medians_per_jdk), path, JDKs_expected, False))
+    x1 = list(map(lambda title: title.nvr+"("+str(title.run)+")", averages_per_jdk))
+    create_figure(x1, list(map(lambda num: num.value, averages_per_jdk)), "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
+    x2 = list(map(lambda title: title.nvr+"("+str(title.run)+")", medians_per_jdk))
+    create_figure(x2, list(map(lambda num: num.value, medians_per_jdk)), "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
     x = ["min", "max", "avg", "med"]
     fig_transfer = create_figure(x, result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
     create_figure(x, result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
