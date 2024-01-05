@@ -15,9 +15,9 @@ args = sys.argv
 invert = args[4]
 containsFilter=args[5]
 runType=args[6]
-runsPerJDK  = 5 ### change if needed
+runsPerJDK  = 5 ### overwritten from config properties
 
-lastSuite="none"
+lastSuite="none" # this is lazy hack to propagate benchmark and virtualisationm to statistics of pass rate. Do not missues please!
 
 class NvrRunValue(object):
     value = 0
@@ -41,6 +41,14 @@ def shortenNvr(val):
     val = re.sub("-$", "", val);
     val = re.sub("-", ".", val);
     return val;
+
+def getRunsPerJdkFromConfig():
+    finalResultsDir=os.path.abspath(os.path.dirname(__file__)) 
+    with open(finalResultsDir+"/../config", "r", encoding="utf-8") as f:
+        props = {e[0]: e[1] for e in [line.split('#')[0].strip().split('=') for line in f] if len(e) == 2}
+    return props["ITER_NUM"]
+
+
 
 def calc_relative_diff(oldVal, newVal, invert):
      #newVal is 100%
@@ -267,8 +275,10 @@ def get_expected_number_of_JDKs(JDK_path):
     if is_html:
         print("</pre>")
     return OfJDKFiles
-        
+
+runsPerJDK=getRunsPerJdkFromConfig()
 JDKs_expected = get_expected_number_of_JDKs(args[1])
+
 if is_html:
     print("<h4>")
 print("1st avgmed_alljdks_metric:")
