@@ -233,26 +233,25 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
     geometric_means = []
     averages_per_jdk = []
     medians_per_jdk = []
-    for root, dirs, files in os.walk(path, topdown=False):
-        for name in files:
-            filename = os.path.join(root, name)
-            if (filename.endswith(result_file) and containsFilter in filename):
-                #print("///////////////////////////////////////////////////////////")
-                #print(os.path.abspath(name), "   ---   ", filename, "---------------------", containsFilter)
-                #print("///////////////////////////////////////////////////////////")
-                with open(filename) as f:
-                    lines = [one_line.rstrip() for one_line in f]
-                for line in lines:
-                    if (line.startswith(key)):
-                        geometric_means.append(int(parse_number(line)))
-                        if len(geometric_means) == runsPerJDK:
-                            geometric_means.sort()
-                            #to_delete = (runsPerJDK // 10)
-                            #del geometric_means[(runsPerJDK - to_delete):]
-                            #del geometric_means[:to_delete]
-                            averages_per_jdk.append(sum(geometric_means) / len(geometric_means))
-                            medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
-                            del geometric_means[:]
+    #to allow precise med/avg from unfinished runs, this expects to start in benchmark folder. nowhere else
+    for nvr in os.listdir(path):
+        nvrRoot=path+"/"+nvr
+        for run in os.listdir(nvrRoot):
+            runRoot=nvrRoot+"/"+run
+            for root, dirs, files in os.walk(runRoot, topdown=False):
+                for name in files:
+                    filename = os.path.join(root, name)
+                    if (filename.endswith(result_file) and containsFilter in filename):
+                        with open(filename) as f:
+                            lines = [one_line.rstrip() for one_line in f]
+                            for line in lines:
+                                if (line.startswith(key)):
+                                    geometric_means.append(int(parse_number(line)))
+        if len(geometric_means) > 0:
+            geometric_means.sort()
+            averages_per_jdk.append(sum(geometric_means) / len(geometric_means))
+            medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
+        del geometric_means[:]
     result = []
     result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk), path, JDKs_expected, False))
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
