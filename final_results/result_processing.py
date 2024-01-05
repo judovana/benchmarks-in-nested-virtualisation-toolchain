@@ -214,7 +214,7 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
     create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
     result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
-    x = range(0, len(result[0]))
+    x = ["min", "max", "avg", "med"]
     create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
     return result
 
