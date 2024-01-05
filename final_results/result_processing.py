@@ -28,6 +28,10 @@ class NvrRunValue(object):
         self.nvr = nvr
         self.run = run
 
+def compareNvrs(item1, item2):
+    # Calling list.sort(key=compare)
+    item1.nvr.split("\\.")
+
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
 
@@ -215,8 +219,8 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                         lastSuiteDir=os.path.dirname(nvrDir)
                         global lastSuite
                         lastSuite=os.path.basename(lastSuiteDir)
-                        geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, run))
-    x = list(map(lambda title: title.nvr+":"+title.run, geometric_means))
+                        geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, int(run)))
+    x = list(map(lambda title: title.nvr+":"+str(title.run), geometric_means))
     create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
     result = []
     result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
