@@ -230,11 +230,11 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
 
 ###2nd metric
 def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
-    geometric_means = []
     averages_per_jdk = []
     medians_per_jdk = []
     #to allow precise med/avg from unfinished runs, this expects to start in benchmark folder. nowhere else
     for nvr in os.listdir(path):
+        geometric_means = []
         nvrRoot=path+"/"+nvr
         for run in os.listdir(nvrRoot):
             runRoot=nvrRoot+"/"+run
@@ -251,7 +251,6 @@ def avgmed_by_jdk_metric(path, key, result_file, JDKs_expected):
             geometric_means.sort()
             averages_per_jdk.append(sum(geometric_means) / len(geometric_means))
             medians_per_jdk.append(geometric_means[len(geometric_means) // 2])
-        del geometric_means[:]
     result = []
     result.append(min_max_avg_med(averages_per_jdk, len(averages_per_jdk), path, JDKs_expected, False))
     result.append(min_max_avg_med(medians_per_jdk, len(medians_per_jdk), path, JDKs_expected, False))
