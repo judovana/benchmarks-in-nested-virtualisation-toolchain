@@ -276,7 +276,7 @@ def get_expected_number_of_JDKs(JDK_path):
         print("</pre>")
     return OfJDKFiles
 
-runsPerJDK=getRunsPerJdkFromConfig()
+runsPerJDK=int(getRunsPerJdkFromConfig())
 JDKs_expected = get_expected_number_of_JDKs(args[1])
 
 if is_html:
