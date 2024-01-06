@@ -26,11 +26,17 @@ SCRIPT_DIR=$REPO_DIR/final_results
 
 JDK_ver=$1
 benchmark=$2
+virtualisation=$3
+
 if [[ $benchmark == "" ]];then
   benchmark="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 fi
 
-RESULTS=`find  $RESULT_DIR -maxdepth 2 -mindepth 2 -type d`
+if [[ $virtualisation == "" ]];then
+  virtualisation=".*"
+fi
+
+RESULTS=`find  $RESULT_DIR -maxdepth 2 -mindepth 2 -type d | grep "$virtualisation"`
 
 export HTML=true
 if [ "x$HTML" == "xtrue" ] ; then
