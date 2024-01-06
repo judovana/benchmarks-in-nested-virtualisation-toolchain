@@ -28,11 +28,11 @@ JDK_ver=$1
 benchmark=$2
 virtualisation=$3
 
-if [[ $benchmark == "" ]];then
+if [[ $benchmark == "" || $benchmark == "ALL" ]];then
   benchmark="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 fi
 
-if [[ $virtualisation == "" ]];then
+if [[ $virtualisation == "" || $virtualisation == "ALL"  ]];then
   virtualisation=".*"
 fi
 
@@ -81,6 +81,8 @@ elif [[ $JDK_ver == "11" ]];then
 elif [[ $JDK_ver == "17" ]];then
   REGEX="java-17"
 elif [[ $JDK_ver == "ALL" ]];then
+  REGEX="java-"
+elif [[ $JDK_ver == "" ]];then
   REGEX="java-"
 else
   title1 "invalid $JDK_ver"
