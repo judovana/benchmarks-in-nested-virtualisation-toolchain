@@ -161,11 +161,30 @@ pushd _pregenerated_reports
     done
   popd
 
-indexes=`find . -mindepth 2 | grep /index.html$ | sort`
-rm -rf index.html
-for index in $indexes ; do
-  echo "<a href='$index'>`dirname $index`</a><br/>" >> index.html
-done
+  set +x
+  (
+    indexes=`find . -mindepth 2 | grep /index.html$ | sort`
+    echo "<ol>"
+    echo "<ol>"
+    current_title=""
+    for index in $indexes ; do
+      dir1=`dirname $index`
+      name=`basename $dir1`
+      dir2=`dirname $dir1`
+      future_title=`basename $dir2`
+      if [ ! "$current_title" == "$future_title" ] ; then
+        current_title="$future_title"
+        echo "</ol>"
+        echo "<li>"$future_title"</li>"
+        echo "<ol>"
+      fi
+      echo "  <li><a href='$index'>$name</a></li>"
+    done
+    echo "</ol>"
+    echo "</ol>"
+  ) > index.html
+
+
 popd
 
 
