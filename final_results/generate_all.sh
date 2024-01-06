@@ -1,13 +1,5 @@
 #!/bin/bash
 
-#########################################
-# call in some report dir (charts will be generated in it)
-# redirect to some html file (will be overwritten)
-# first parameter - jdk. eg 8,17 or ALL for all jdks
-# second parameter - benchamrk or "set of benchmarks" (space dlimited)
-#                    or ALL for all known benchmarksS
-#########################################
-
 ## resolve folder of this script, following all symlinks,
 ## http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 SCRIPT_SOURCE="${BASH_SOURCE[0]}"
@@ -44,8 +36,53 @@ pushd _pregenerated_reports
   fi
 
   #all jdks x all benchmarks x virt one by one
+  dir3=allJ_allB_oneV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+        for virt in $virts ; do
+          dir2=all"_"all"_"`basename $virt`
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} ALL ALL $virt > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+        done
+  popd
   #all jdks x benchmarks one by one x all virts
+  dir3=allJ_oneB_allV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+      for bench in $benchmarks ; do
+          dir2=all"_"$bench"_"all
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} ALL $bench ALL > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+      done
+  popd
   #jdks one by one x all benchmarks x all virts
+  dir3=oneJ_allB_allV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+    for jdk in $jdks ; do
+          dir2=jdk$jdk"_"all"_"all
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} $jdk ALL ALL > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+    done
+  popd
 
   #all jdks x benchmarks one by one x virt one by one
   dir3=allJ_oneB_oneV
