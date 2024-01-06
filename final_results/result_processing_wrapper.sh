@@ -114,17 +114,17 @@ for res in $RESULTS ; do
     graph_parameters $res DACAPO
     title2 $graph_name
     title3 "final score"
-    python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "geom" "summary.txt" False $REGEX $graph_name
   elif [[ ($res == *"J2DBENCH"*) && ($benchmark == *"J2DBENCH"*)]];then
     graph_parameters $res J2DBENCH
     title2 $graph_name
     title3 "final score"
-    python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "j2dbench.geom" "j2dbench.properties" False $REGEX $graph_name
   elif [[ ($res == *"JMH"*) && ($benchmark == *"JMH"*)]];then
     graph_parameters $res JMH
     title2 $graph_name
     title3 "final score"
-    python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "geom" "SPECjvm2008.001.sub" False $REGEX $graph_name
   elif [[ ($res == *"RADARGUNs1"*) && ($benchmark == *"RADARGUNs1"*)]];then
     graph_parameters $res RADARGUNs1
     title2 $graph_name
@@ -137,9 +137,9 @@ for res in $RESULTS ; do
       echo "</ol>"
     fi
     title3 "$graph_name - throughput get"
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" False $REGEX $graph_name
     title3 "$graph_name - throughput put"
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" False $REGEX $graph_name
     title3 "$graph_name - response mean time get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $graph_name
     title3 "$graph_name - response mean time put"
@@ -156,9 +156,9 @@ for res in $RESULTS ; do
       echo "</ol>"
     fi
     title3 "$graph_name - throughput get"
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.Throughput=" "stres" False $REGEX $graph_name
     title3 "$graph_name - throughput put"
-    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Put.Throughput=" "stres" False $REGEX $graph_name
     title3 "$graph_name - response mean time get"
     python $SCRIPT_DIR/result_processing.py "$res" "BasicOperations.Get.ResponseTimeMean" "stres" True $REGEX $graph_name
     title3 "$graph_name - response mean time put"
@@ -173,9 +173,9 @@ for res in $RESULTS ; do
       echo "</ol>"
     fi
     title3 "$graph_name - max-jops"
-    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.max-jOPS" "-00001.raw" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.max-jOPS" "-00001.raw" False $REGEX $graph_name
     title3 "$graph_name - critical jops"
-    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.critical-jOPS" "-00001.raw" True $REGEX $graph_name
+    python $SCRIPT_DIR/result_processing.py "$res" "jbb2015.result.metric.critical-jOPS" "-00001.raw" False $REGEX $graph_name
   else
     echo "did not find anything" >&2
   fi
