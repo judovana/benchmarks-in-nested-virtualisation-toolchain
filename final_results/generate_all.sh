@@ -31,7 +31,6 @@ worker=${SCRIPT_ORIGIN}/result_processing_wrapper.sh
 
 mkdir _pregenerated_reports || echo "_pregenerated_reports already exists"
 pushd _pregenerated_reports
-# TODO generate top level index.hml here with crossroads to all
 
   #all jdks x all benchmarks x all virts
   dir1=allJ_allB_allV
@@ -49,7 +48,42 @@ pushd _pregenerated_reports
   #jdks one by one x all benchmarks x all virts
 
   #all jdks x benchmarks one by one x virt one by one
+  dir3=allJ_oneB_oneV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+      for bench in $benchmarks ; do
+        for virt in $virts ; do
+          dir2=all"_"$bench"_"`basename $virt`
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} ALL $bench $virt > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+        done
+      done
+  popd
   #jdks one by one x benchmarks one by one x all virts
+  dir3=oneJ_oneB_allV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+    for jdk in $jdks ; do
+      for bench in $benchmarks ; do
+          dir2=jdk$jdk"_"$bench"_"all
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} $jdk $bench ALL > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+      done
+    done
+  popd
+
   #jdks one by one x all benchmarks x virt one by one
   dir3=oneJ_allB_oneV
   mkdir $dir3 || echo "$dir3 already exists"
@@ -68,7 +102,6 @@ pushd _pregenerated_reports
         done
     done
   popd
-
 
   #jdks one by one x benchamrks one by one x virt one by one
   dir3=oneJ_oneB_oneV
@@ -90,6 +123,12 @@ pushd _pregenerated_reports
       done
     done
   popd
+
+indexes=`find . -mindepth 2 | grep /index.html$ | sort`
+rm -rf index.html
+for index in $indexes ; do
+  echo "<a href='$index'>`dirname $index`</a><br/>" >> index.html
+done
 popd
 
 
