@@ -12,8 +12,14 @@ import re
 from functools import cmp_to_key
 import matplotlib.pyplot as plt 
 
+def StrToBool(string):
+    if string.lower() == "true":
+        return True
+    else:
+        return False
+    
 args = sys.argv
-invert = args[4]
+invert = StrToBool(args[4])
 containsFilter=args[5]
 runType=args[6]
 runsPerJDK  = 5 ### overwritten from config properties
@@ -127,8 +133,12 @@ def printer(list_of_tuples, invert):
     maxX=len(list_of_tuples)
     for i in range(len(list_of_tuples)):
         x=x+1
-        min_ = list_of_tuples[i][0]
-        max_ = list_of_tuples[i][1]
+        if (not invert):
+            min_ = list_of_tuples[i][0]
+            max_ = list_of_tuples[i][1]
+        else:   
+            min_ = list_of_tuples[i][1]
+            max_ = list_of_tuples[i][0]
         avg_ = list_of_tuples[i][2]
         med_ = list_of_tuples[i][3]
         if is_html:
@@ -146,6 +156,10 @@ def printer(list_of_tuples, invert):
         if is_html:
             print("</h3>")
             print("<pre>")
+        if (not invert):
+            print("more is better")
+        else:   
+            print("more is worse")
         print("MIN: ", min_)
         print("MAX: ", max_)
         print("AVG: ", avg_)
@@ -323,6 +337,5 @@ if is_html:
 print("2nd avgmed_by_jdk_metric:")
 if is_html:
     print("</h4>")
-#printer(avgmed_by_jdk_metric(path1, "geom", "summary.txt"), invert)
 printer(avgmed_by_jdk_metric(args[1], args[2], args[3], JDKs_expected), invert)
 print("")
