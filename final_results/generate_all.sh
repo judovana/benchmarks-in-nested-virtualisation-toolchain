@@ -21,7 +21,7 @@ readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 
 set -exo pipefail
 
-# ALL or "" shoudl be unsrestood as all in all three cases
+# ALL or "" shoudl be understood as all in all three cases
 benchmarks="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 jdks="8 11 17"
 # the / is needed for precission; for subdirs, use `basename` on them
@@ -31,6 +31,8 @@ worker=${SCRIPT_ORIGIN}/result_processing_wrapper.sh
 
 mkdir _pregenerated_reports || echo "_pregenerated_reports already exists"
 pushd _pregenerated_reports
+# TODO generate top level index.hml here with crossroads to all
+
   #all jdks x all benchmarks x all virts
   dir1=allJ_allB_allV
   if [ ! -e $dir1 ] ; then
@@ -49,6 +51,24 @@ pushd _pregenerated_reports
   #all jdks x benchmarks one by one x virt one by one
   #jdks one by one x benchmarks one by one x all virts
   #jdks one by one x all benchmarks x virt one by one
+  dir3=oneJ_allB_oneV
+  mkdir $dir3 || echo "$dir3 already exists"
+  pushd $dir3
+    for jdk in $jdks ; do
+        for virt in $virts ; do
+          dir2=jdk$jdk"_"all"_"`basename $virt`
+          if [ ! -e $dir2 ] ; then
+            mkdir $dir2
+            pushd $dir2
+              sh ${worker} $jdk ALL $virt > index.html
+            popd
+          else
+            echo  "skipping $dir2, alreadye exists"
+          fi
+        done
+    done
+  popd
+
 
   #jdks one by one x benchamrks one by one x virt one by one
   dir3=oneJ_oneB_oneV
