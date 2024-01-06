@@ -10,10 +10,15 @@ Prerequisites for running
 6. adjsut config
     1. type of virtualisation
     2. used OSes xor VMs xor container
+        1. only  containers are morevoer automated, others you have to preprepare
     3. directories with JDKs
     4. used benchamrk (ti: script laucnehd on final evironment which `results` dir is then collected`)
     5. hostname of top-level pernament run which stores results over individual runs
 7. run then usually `cd .../benchmarks-in-nested-virtualisation-toolchain/scripts && nohup jdkiterator.sh > log`
+    1. dont forget, that for j2dbench you need DISPLAY (unless it runs in full VM)
+    2. that usually means looged in gui session
+    3. for RADARGUNS you may need playng with /etc/hosts in both vm and HW
+    4. there is magical `results` host, I do no longer recall where it comes from (container?)
 
 
 Result processing
