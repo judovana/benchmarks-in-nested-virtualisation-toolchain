@@ -163,6 +163,8 @@ pushd _pregenerated_reports
 
   set +x
   (
+    echo "<div>J - jdk, B - benchmark, V - virtualization</div>"
+    echo "<div>all - all in one chart/report, one - iterated one by one</div>"
     indexes=`find . -mindepth 2 | grep /index.html$ | sort`
     echo "<ol>"
     echo "<ol>"
