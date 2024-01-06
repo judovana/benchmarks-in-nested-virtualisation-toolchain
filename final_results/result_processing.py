@@ -31,14 +31,16 @@ class NvrRunValue(object):
 
 def compareNvrs(item1, item2):
     # Calling list.sort(key=compareNvrs)
-    # this will return for jdk8 - 1.8... - 1 but as we have 8,11 and 17, it is ok
-    major1=int(item1.nvr.split(".")[0]);
-    major2=int(item2.nvr.split(".")[0]);
-    r1=(major1-major2)
     if (item1.nvr == item2.nvr):
         return item1.run-item2.run
-    else:
-        return r1;
+    # this will return for jdk8 - 1.8... - 1 but as we have 8,11 and 17, it is ok
+    major1=re.split(r'\D+', item1.nvr);
+    major2=re.split(r'\D+', item2.nvr);
+    for x in range(0,min(len(major1), len(major2))):
+        r1=int(major1[x])-int(major2[x])
+        if r1 != 0:
+            return r1
+    return 0
 
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
