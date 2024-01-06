@@ -14,8 +14,9 @@ Prerequisites for running
     3. directories with JDKs
     4. used benchamrk (ti: script laucnehd on final evironment which `results` dir is then collected`)
     5. hostname of top-level pernament run which stores results over individual runs
-7. run then usually `cd .../benchmarks-in-nested-virtualisation-toolchain/scripts && nohup jdkiterator.sh > log`
+7. run is then `cd .../benchmarks-in-nested-virtualisation-toolchain/scripts && nohup jdkiterator.sh > log`
     1. dont forget, that for j2dbench you need DISPLAY (unless it runs in full VM)
+        1. I'm afraid the :0 is hardcoded as fallback on several places, although educated guess is alwaysdoen first
     2. that usually means looged in gui session
     3. for RADARGUNS you may need playng with /etc/hosts in both vm and HW
     4. there is magical `results` host, I do no longer recall where it comes from (container?)
@@ -33,4 +34,4 @@ Result processing
              sh result_processing_wrapper.sh 11 "DACAPO JMH RADARGUNs3"    - process results from dacapo, jmh and radargun3 from java 11
 ```
 4. you may use `_pregenerated_reports` or run `genrate_all.sh` to generate various combinations.
-    1. tehy may bee seen same, but are not. The resulting statistics heavily differs based on input stats
+    1. they may seem same, but are not. The resulting statistics heavily differs based on input subset
