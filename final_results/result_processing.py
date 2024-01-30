@@ -117,16 +117,18 @@ def min_max_avg_med(list_, of_values, path, JDKs_expected, to_print):
     list_.sort()
     if to_print == True:
         passRate=calculate_crash_rate(list_, path, JDKs_expected)
-        filename = 'passrates.properties'
-        if os.path.exists(filename):
-            append_write = 'a' # append if already exists
-        else:
-            append_write = 'w' # make a new file if not
-        f = open(filename,append_write)
-        f.write(lastSuite+'=' + passRate + "\n")
-        f.close()
+        createOrAddToFile('passrates.properties', lastSuite+'=' + passRate)
     result = (min(list_), max(list_), sum(list_) / len(list_), list_[len(list_) // 2])
     return result
+
+def createOrAddToFile(filename, value):
+    if os.path.exists(filename):
+        append_write = 'a' # append if already exists
+    else:
+        append_write = 'w' # make a new file if not
+    f = open(filename,append_write)
+    f.write(value + "\n")
+    f.close()
 
 def printer(list_of_tuples, invert):
     x=-1
