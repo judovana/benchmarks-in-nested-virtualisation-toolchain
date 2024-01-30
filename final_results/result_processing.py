@@ -133,7 +133,7 @@ def createOrAddToFile(filename, value):
     f.write(value + "\n")
     f.close()
 
-def printer(list_of_tuples, invert):
+def printer(list_of_tuples, invert, metricId):
     x=-1
     maxX=len(list_of_tuples)
     for i in range(len(list_of_tuples)):
@@ -186,18 +186,18 @@ def printer(list_of_tuples, invert):
             virtualization=runType
             name=jdk+".properties"
             lfile=invertedDir+"/"+name
-            key=args[2]
-            createOrAddToFile(lfile, virtualization+":"+key+":MIN=" + str(min_))
-            createOrAddToFile(lfile, virtualization+":"+key+":MAX=" + str(max_))
-            createOrAddToFile(lfile, virtualization+":"+key+":AVG=" + str(avg_))
-            createOrAddToFile(lfile, virtualization+":"+key+":MED=" + str(med_))
-            createOrAddToFile(lfile, virtualization+":"+key+":MIN-MAX=" + str(calc_relative_diff(min_, max_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":MIN-AVG=" + str(calc_relative_diff(min_,avg_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":MIN-MED=" + str(calc_relative_diff(min_,med_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":MAX-MIN=" + str(calc_relative_diff(max_, min_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":MAX-AVG=" + str(calc_relative_diff(max_,avg_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":MAX-MED=" + str(calc_relative_diff(max_,med_, invert)))
-            createOrAddToFile(lfile, virtualization+":"+key+":AVG-MED=" + str(calc_relative_diff(avg_,med_, invert)))
+            key=virtualization+":"+args[2]+":"+metricId  #arg[2] is key of benchmark value n properties. eg radarguns have 4, specjbb 2, other 1.
+            createOrAddToFile(lfile, key+":MIN=" + str(min_))
+            createOrAddToFile(lfile, key+":MAX=" + str(max_))
+            createOrAddToFile(lfile, key+":AVG=" + str(avg_))
+            createOrAddToFile(lfile, key+":MED=" + str(med_))
+            createOrAddToFile(lfile, key+":MIN-MAX=" + str(calc_relative_diff(min_, max_, invert)))
+            createOrAddToFile(lfile, key+":MIN-AVG=" + str(calc_relative_diff(min_,avg_, invert)))
+            createOrAddToFile(lfile, key+":MIN-MED=" + str(calc_relative_diff(min_,med_, invert)))
+            createOrAddToFile(lfile, key+":MAX-MIN=" + str(calc_relative_diff(max_, min_, invert)))
+            createOrAddToFile(lfile, key+":MAX-AVG=" + str(calc_relative_diff(max_,avg_, invert)))
+            createOrAddToFile(lfile, key+":MAX-MED=" + str(calc_relative_diff(max_,med_, invert)))
+            createOrAddToFile(lfile, key+":AVG-MED=" + str(calc_relative_diff(avg_,med_, invert)))
             linkFile=re.sub(r'.*inverted_results',"inverted_results", lfile) #default naming convention making nicer
             while True:
                 if os.path.exists(linkFile):
@@ -359,12 +359,12 @@ if is_html:
 print(args[0], args[1], args[2], invert)
 if is_html:
     print("</pre>")
-printer(avgmed_alljdks_metric(args[1], args[2], args[3], JDKs_expected), invert)
+printer(avgmed_alljdks_metric(args[1], args[2], args[3], JDKs_expected), invert, "m1")
 print("")
 if is_html:
     print("<h4>")
 print("2nd avgmed_by_jdk_metric:")
 if is_html:
     print("</h4>")
-printer(avgmed_by_jdk_metric(args[1], args[2], args[3], JDKs_expected), invert)
+printer(avgmed_by_jdk_metric(args[1], args[2], args[3], JDKs_expected), invert, "m2")
 print("")
