@@ -23,6 +23,15 @@ readonly REPO_DIR=`dirname $SCRIPT_ORIGIN`
 # this is just for readability
 RESULT_DIR=$REPO_DIR/final_results
 SCRIPT_DIR=$REPO_DIR/final_results
+SCRIPT_DIR_FULL=`readlink -f $SCRIPT_DIR`
+
+if [ "x$INVERTED_RESULT_DIR" == "x" ] ; then
+  # this one is enforcing append of secondary results to this dir
+  # that is abs path, as we need to merge all runs to that
+  export INVERTED_RESULT_DIR="`pwd`/inverted_results"
+  rm -rf $INVERTED_RESULT_DIR
+  mkdir $INVERTED_RESULT_DIR
+fi
 
 JDK_ver=$1
 benchmark=$2
@@ -194,7 +203,12 @@ title1 "pass rates:"
 if [ "x$HTML" == "xtrue" ] ; then
   echo "<pre>"
 fi
-cat $PRF | sort | uniq 
+echo "Summing up $PRF for future processing" >&2
+cat $PRF | sort | uniq > $PRF.sort.uniq
+cat $PRF | wc -l >&2
+cat $PRF.sort.uniq
+echo "sort uniq to:" >&2
+cat $PRF.sort.uniq | wc -l >&2
 if [ "x$HTML" == "xtrue" ] ; then
   echo "</pre>"
 fi

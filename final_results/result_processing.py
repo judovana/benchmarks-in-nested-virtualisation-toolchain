@@ -51,6 +51,9 @@ def compareNvrs(item1, item2):
 def is_html():
     return os.environ.get('HTML') is not None and os.environ.get('HTML') == "true"
 
+def saveInvertedResults():
+    return os.environ.get('INVERTED_RESULT_DIR')
+
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
@@ -177,6 +180,30 @@ def printer(list_of_tuples, invert):
         print("")
         if is_html:
             print("</pre>")
+        invertedDir=saveInvertedResults()
+        if (invertedDir is not None):
+            jdk=containsFilter
+            virtualization=runType
+            name=jdk+".properties"
+            lfile=invertedDir+"/"+name
+            key=args[2]
+            createOrAddToFile(lfile, virtualization+":"+key+":MIN=" + str(min_))
+            createOrAddToFile(lfile, virtualization+":"+key+":MAX=" + str(max_))
+            createOrAddToFile(lfile, virtualization+":"+key+":AVG=" + str(avg_))
+            createOrAddToFile(lfile, virtualization+":"+key+":MED=" + str(med_))
+            createOrAddToFile(lfile, virtualization+":"+key+":MIN-MAX=" + str(calc_relative_diff(min_, max_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":MIN-AVG=" + str(calc_relative_diff(min_,avg_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":MIN-MED=" + str(calc_relative_diff(min_,med_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":MAX-MIN=" + str(calc_relative_diff(max_, min_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":MAX-AVG=" + str(calc_relative_diff(max_,avg_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":MAX-MED=" + str(calc_relative_diff(max_,med_, invert)))
+            createOrAddToFile(lfile, virtualization+":"+key+":AVG-MED=" + str(calc_relative_diff(avg_,med_, invert)))
+            linkFile=re.sub(r'.*inverted_results',"inverted_results", lfile) #default naming convention making nicer
+            while True:
+                if os.path.exists(linkFile):
+                    break
+                linkFile="../"+linkFile
+            print("<a href='"+linkFile+"'>stored to " + name + ". sort | uniq that!</a><br/>")
 
 def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
     eprint("creating figure. x:", y1, ", y:", x1)

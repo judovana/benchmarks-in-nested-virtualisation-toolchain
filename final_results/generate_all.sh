@@ -24,6 +24,11 @@ worker=${SCRIPT_ORIGIN}/result_processing_wrapper.sh
 mkdir _pregenerated_reports || echo "_pregenerated_reports already exists"
 pushd _pregenerated_reports
 
+# this one is enforcing append og secondary results to this dir
+export INVERTED_RESULT_DIR="`pwd`/inverted_results"
+rm -rf $INVERTED_RESULT_DIR
+mkdir $INVERTED_RESULT_DIR
+
   #all jdks x all benchmarks x all virts
   dir1=allJ_allB_allV
   if [ ! -e $dir1 ] ; then
