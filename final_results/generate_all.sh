@@ -168,6 +168,7 @@ mkdir $INVERTED_RESULT_DIR
 
   set +x
   (
+    echo "<html><body>"
     echo "<div>J - jdk, B - benchmark, V - virtualization</div>"
     echo "<div>all - all in one chart/report, one - iterated one by one</div>"
     indexes=`find . -mindepth 2 | grep /index.html$ | sort`
@@ -189,6 +190,17 @@ mkdir $INVERTED_RESULT_DIR
     done
     echo "</ol>"
     echo "</ol>"
+    echo "<h3>Final stability data:</h3>"
+    finalData=`find $INVERTED_RESULT_DIR | grep "properties$" | sort`
+    finalDataDirName=`basename $INVERTED_RESULT_DIR`
+    echo "</ul>"
+    for index in $finalData ; do
+      fileName=`basename $index`
+      cat $index | sort | uniq > $index.sort.uniq
+      echo "  <li><a href='$finalDataDirName/$fileName.sort.uniq'>$finalDataDirName/$fileName - sorted, uniqued</a></li>"
+    done
+    echo "</ul>"
+    echo "</body></html>"
   ) > index.html
 
 
