@@ -32,20 +32,28 @@ class xJxBxV(object):
     originalDir = ""
     originalKey = ""
     value = 0
-    virtualisationFromKey=""
-    benchamrkFromKey=""
+    virtualizationFromKey=""
+    benchmarkFromKey=""
 
     # the file always contains  virtualisation_benchamrk=value% (the percentage must be filtered out)
     # and is in directory, which says, which jdks and which benchamrsk and which virtualisations were used
     # so we need the parent dir name, and the value read from it
     def __init__(self, dirName, keyName, value):
-        self.value = re.sub("%","",value)
+        self.value = parse_number(re.sub("%","",value))
         self.originalDir = dirName
         self.originalKey = keyName
-        eprint(self.value + " " + self.originalDir + " " + self.originalKey)
+        #eprint(str(self.value) + " " + self.originalDir + " " + self.originalKey)
         # now parse origDir and Key. The final benchamrk and virtualisation should match
         # if not, use one (and with other objects) use it consitently.
         # Benchmark name may contain several _ :(
+        self.jdkFromDir = dirName.split("_")[0];
+        self.benchmarkFromDir = dirName.split("_")[1];
+        # NO! this virt is not used in JVbkmr; dont use
+        self.virtualizationFromDir = re.sub(self.jdkFromDir+"_"+self.benchmarkFromDir+"_", "", dirName) #container_results  containers_in_container_results
+        self.benchmarkFromKey = self.originalKey.split("_")[-1];
+        #Y ES, this  is shared with JVbkmr; use this
+        self.virtualizationFromKey = re.sub("_"+self.benchmarkFromKey, "", self.originalKey)  #container-results  containers_in_container
+        #eprint(str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")")
 
 # object to keep values of inverted_results/*properties.sort.uniq
 # name contains jdks in measurment
@@ -63,11 +71,19 @@ class JVbkmr(object):
     resultType=""
 
     def __init__(self, fileName, keyName, value):
-        self.value = re.sub("%","",value)
+        self.value = parse_number(re.sub("%","",value))
         self.jdkFromName = re.sub("\.properties.*","",fileName)
         self.originalKey = keyName
-        eprint(self.value + " " + self.jdkFromName + " " + self.originalKey)
+        #eprint(str(self.value) + " " + self.jdkFromName + " " + self.originalKey)
         # now parse originalKey
+        splited = self.originalKey.split(":");
+        self.resultType=splited[3]
+        self.metric=splited[2]
+        self.key=splited[1]
+        virtAndbench=splited[0]
+        self.benchmark = virtAndbench.split("_")[-1];
+        self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #
+        #eprint(str(self.value) +" " + self.jdkFromName + " (" + self.virtualisation+ " " + self.benchmark+" " + self.key + " " + self.metric + " " +self.resultType+")")
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -86,7 +102,7 @@ def parse_number(line):
     if parsed_number == "":
         return 0
     #print("rounded number: ", round(float(parsed_number)))
-    return round(float(parsed_number))
+    return float(parsed_number)
 
 
 def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
@@ -167,7 +183,6 @@ def readFinals(root, filename, name):
     for line in file:
         value = line.split("=")[-1].strip()
         key = re.sub("="+value+"\n", "", line); # there can be = in key:(
-        eprint(key+"|"+value);
         finals.append(JVbkmr(name, key, value))
 
 passrates = [];
@@ -178,10 +193,10 @@ for parentdir, dirs, files in os.walk(path, topdown=False):
         filename = os.path.join(parentdir, name)
         if (filename.endswith(".properties.sort.uniq")):
             if (name == "passrates.properties.sort.uniq"):
-                eprint("found: " + name + " in " + parentdir);
+                #eprint("found: " + name + " in " + parentdir);
                 readPassRates(parentdir, filename, name)
             else:
-                eprint("found holly grail of " + name +" in " + parentdir)
+                #eprint("found holly grail of " + name +" in " + parentdir)
                 readFinals(parentdir, filename, name)
 eprint("loaded passrates: " + str(len(passrates)))
 eprint("loaded finals: " + str(len(finals)))
