@@ -89,11 +89,16 @@ class JVbkmr(object):
         splited = self.originalKey.split(":");
         self.resultType=splited[3]
         self.metric=splited[2]
+        allMetrics.add(self.metric)
         self.key=splited[1]
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
         self.benchamrk = sanitizeAll(self.benchmark)
         initOrAdd(allBenchmarks, self.benchmark)
+        if (self.benchamrk in allKeysPerBenchmark):
+            allKeysPerBenchmark[self.benchamrk].add(self.key)
+        else:
+            allKeysPerBenchmark[self.benchamrk]={self.key}
         self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
         self.virtualisation = sanitizeAll(self.virtualisation)
         initOrAdd(allVirtualisations, self.virtualisation)
@@ -218,6 +223,9 @@ finals = []
 allJdks = {}
 allVirtualisations = {}
 allBenchmarks = {}
+allKeysPerBenchmark = {}
+allMetrics = {"set"}
+allMetrics.clear()
 path="_pregenerated_reports"
 for parentdir, dirs, files in os.walk(path, topdown=False):
     for name in files:
@@ -234,3 +242,6 @@ eprint("loaded finals: " + str(len(finals)))
 eprint(allJdks)
 eprint(allVirtualisations)
 eprint(allBenchmarks)
+eprint(allKeysPerBenchmark)
+eprint(allMetrics)
+
