@@ -46,13 +46,21 @@ class xJxBxV(object):
         # now parse origDir and Key. The final benchamrk and virtualisation should match
         # if not, use one (and with other objects) use it consitently.
         # Benchmark name may contain several _ :(
-        self.jdkFromDir = dirName.split("_")[0];
-        self.benchmarkFromDir = dirName.split("_")[1];
+        self.jdkFromDir = dirName.split("_")[0];  # eg jdk11, all, allJ
+        self.jdkFromDir = sanitizeAll(self.jdkFromDir)
+        initOrAdd(allJdks, self.jdkFromDir);
+        self.benchmarkFromDir = dirName.split("_")[1]; 
+        self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir)
+        initOrAdd(allBenchmarks, self.benchmarkFromDir)
         # NO! this virt is not used in JVbkmr; dont use
         self.virtualizationFromDir = re.sub(self.jdkFromDir+"_"+self.benchmarkFromDir+"_", "", dirName) #container_results  containers_in_container_results
         self.benchmarkFromKey = self.originalKey.split("_")[-1];
-        #Y ES, this  is shared with JVbkmr; use this
+        self.benchmarkFromKey = sanitizeAll(self.benchmarkFromKey)
+        initOrAdd(allBenchmarks, self.benchmarkFromKey)
+        #YES, this  is shared with JVbkmr; use this
         self.virtualizationFromKey = re.sub("_"+self.benchmarkFromKey, "", self.originalKey)  #container-results  containers_in_container
+        self.virtualizationFromKey = sanitizeAll(self.virtualizationFromKey)
+        initOrAdd(allVirtualisations, self.virtualizationFromKey)
         #eprint(str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")")
 
 # object to keep values of inverted_results/*properties.sort.uniq
@@ -73,6 +81,8 @@ class JVbkmr(object):
     def __init__(self, fileName, keyName, value):
         self.value = parse_number(re.sub("%","",value))
         self.jdkFromName = re.sub("\.properties.*","",fileName)
+        self.jdkFromName = sanitizeAll(self.jdkFromName)
+        initOrAdd(allJdks, self.jdkFromName); # eg java-11
         self.originalKey = keyName
         #eprint(str(self.value) + " " + self.jdkFromName + " " + self.originalKey)
         # now parse originalKey
@@ -82,8 +92,26 @@ class JVbkmr(object):
         self.key=splited[1]
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
-        self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #
+        self.benchamrk = sanitizeAll(self.benchmark)
+        initOrAdd(allBenchmarks, self.benchmark)
+        self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
+        self.virtualisation = sanitizeAll(self.virtualisation)
+        initOrAdd(allVirtualisations, self.virtualisation)
         #eprint(str(self.value) +" " + self.jdkFromName + " (" + self.virtualisation+ " " + self.benchmark+" " + self.key + " " + self.metric + " " +self.resultType+")")
+
+def initOrAdd(hashmap, key):
+        if (key in hashmap):
+            hashmap[key]+=1
+        else:
+            hashmap[key]=1
+
+def sanitizeAll(where):
+    # this function sanitize small differences in various names. It may appear that they do not belong together. we will see
+    q = re.sub(".*all.*","all",where)
+    q = re.sub("jdk8.*","java-1.8.0",q)
+    q = re.sub("jdk","java-",q)
+    q = re.sub("java-$","all-javas",q)# currenlty all x all-javas may mean something different. will be investigated
+    return q;
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
@@ -187,6 +215,9 @@ def readFinals(root, filename, name):
 
 passrates = [];
 finals = []
+allJdks = {}
+allVirtualisations = {}
+allBenchmarks = {}
 path="_pregenerated_reports"
 for parentdir, dirs, files in os.walk(path, topdown=False):
     for name in files:
@@ -200,3 +231,6 @@ for parentdir, dirs, files in os.walk(path, topdown=False):
                 readFinals(parentdir, filename, name)
 eprint("loaded passrates: " + str(len(passrates)))
 eprint("loaded finals: " + str(len(finals)))
+eprint(allJdks)
+eprint(allVirtualisations)
+eprint(allBenchmarks)
