@@ -12,6 +12,10 @@ import re
 from functools import cmp_to_key
 import matplotlib.pyplot as plt 
 
+def is_html():
+    #if not defined then true, it no longer have sense without it
+    return (os.environ.get('HTML') is  None or os.environ.get('HTML') == "true")
+
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
 # thus we can show impact of virtualisation on performance
@@ -35,15 +39,15 @@ class xJxBxV(object):
     virtualizationFromKey=""
     benchmarkFromKey=""
 
-    # the file always contains  virtualisation_benchamrk=value% (the percentage must be filtered out)
-    # and is in directory, which says, which jdks and which benchamrsk and which virtualisations were used
+    # the file always contains  virtualisation_benchmark=value% (the percentage must be filtered out)
+    # and is in directory, which says, which jdks and which benchmarks and which virtualisations were used
     # so we need the parent dir name, and the value read from it
     def __init__(self, dirName, keyName, value):
         self.value = parse_number(re.sub("%","",value))
         self.originalDir = dirName
         self.originalKey = keyName
         #eprint(str(self.value) + " " + self.originalDir + " " + self.originalKey)
-        # now parse origDir and Key. The final benchamrk and virtualisation should match
+        # now parse origDir and Key. The final benchmark and virtualisation should match
         # if not, use one (and with other objects) use it consitently.
         # Benchmark name may contain several _ :(
         self.jdkFromDir = dirName.split("_")[0];  # eg jdk11, all, allJ
@@ -97,12 +101,12 @@ class JVbkmr(object):
         self.key=splited[1]
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
-        self.benchamrk = sanitizeAll(self.benchmark)
+        self.benchmark = sanitizeAll(self.benchmark)
         initOrAdd(allBenchmarks, self.benchmark)
-        if (self.benchamrk in allKeysPerBenchmark):
-            allKeysPerBenchmark[self.benchamrk].add(self.key)
+        if (self.benchmark in allKeysPerBenchmark):
+            allKeysPerBenchmark[self.benchmark].add(self.key)
         else:
-            allKeysPerBenchmark[self.benchamrk]={self.key}
+            allKeysPerBenchmark[self.benchmark]={self.key}
         self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
         self.virtualisation = sanitizeAll(self.virtualisation)
         initOrAdd(allVirtualisations, self.virtualisation)
@@ -239,6 +243,43 @@ def readFinals(root, filename, name):
         key = re.sub("="+value+"\n", "", line); # there can be = in key:(
         finals.append(JVbkmr(name, key, value))
 
+def metricToString(m):
+    if (m=="m1"):
+        return "all runs of one jdk are treated as INDIVIDUAL items"
+    if (m=="m2a"):
+        return "all runs of one jdk were made AVARAGE before processing"
+    if(m=="m2m"):
+        return "all runs of one jdk were made MEDIAN before processing"
+    return "unknown metric: " + m;
+
+def tag(t,s):
+    if (is_html()):
+        print("<"+t+">")
+    print(s)
+    if (is_html()):
+        print("</"+t+">")
+
+def h(i,s):
+    tag("h"+str(i),s)
+
+def h1(s):
+    h(1,s)
+
+def h2(s):
+    h(2,s)
+
+def h3(s):
+    h(3,s)
+
+def h4(s):
+    h(4,s)
+
+def h5(s):
+    h(5,s)
+
+def pre(s):
+    tag("pre",s)
+
 passrates = [];
 finals = []
 allJdks = {}
@@ -269,6 +310,29 @@ eprint(allKeysPerBenchmark)
 eprint(allMetrics)
 eprint(allTypes)
 
-subset = selectFinals("java-11", None, None, None, None, "MAX")
-for item in subset:
-    eprint(item.niceString())
+SCENARIO=1;
+
+if (SCENARIO ==  1):
+    h1("absolute velues of benchmarks per virtualisation")
+    for jdk in allJdks:
+        if (jdk == "all"):
+            pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
+        for benchmark in allBenchmarks:
+            if (benchmark == "all"):
+                continue
+            h2(jdk)
+            for metric in allMetrics:
+                h3(metricToString(metric))
+                for key in allKeysPerBenchmark[benchmark]:
+                    h4(key)
+                    pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
+                    if (is_html()): 
+                            print("<pre>")  
+                    for x in ["MIN", "MAX", "AVG", "MED"]:
+                        subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                        for item in subset:
+                            # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
+                            print(x+ " " + str(item.value)+" "+item.virtualisation )
+                    if (is_html()):
+                        print("</pre>")
+
