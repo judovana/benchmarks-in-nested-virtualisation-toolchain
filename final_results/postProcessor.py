@@ -39,11 +39,13 @@ class xJxBxV(object):
     # and is in directory, which says, which jdks and which benchamrsk and which virtualisations were used
     # so we need the parent dir name, and the value read from it
     def __init__(self, dirName, keyName, value):
-        self.value = value  # remove %
+        self.value = re.sub("%","",value)
         self.originalDir = dirName
         self.originalKey = keyName
+        eprint(self.value + " " + self.originalDir + " " + self.originalKey)
         # now parse origDir and Key. The final benchamrk and virtualisation should match
-        # if not, use one (and with other objects) use it consitently
+        # if not, use one (and with other objects) use it consitently.
+        # Benchmark name may contain several _ :(
 
 # object to keep values of inverted_results/*properties.sort.uniq
 # name contains jdks in measurment
@@ -61,9 +63,10 @@ class JVbkmr(object):
     resultType=""
 
     def __init__(self, fileName, keyName, value):
-        self.value = value # remove %
-        self.jdkFromName = fileName #TODO, remove \.properrties.*
+        self.value = re.sub("%","",value)
+        self.jdkFromName = re.sub("\.properties.*","",fileName)
         self.originalKey = keyName
+        eprint(self.value + " " + self.jdkFromName + " " + self.originalKey)
         # now parse originalKey
 
 def eprint(*args, **kwargs):
@@ -152,12 +155,33 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None
 #    create_figure(x, result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
 
 
+def readPassRates(root, filename, name):
+    file = open(filename).readlines()
+    for line in file:
+        value = line.split("=")[1].strip()
+        key = line.split("=")[0].strip()
+        passrates.append(xJxBxV(os.path.basename(root), key, value))
+
+def readFinals(root, filename, name):
+    file = open(filename).readlines()
+    for line in file:
+        value = line.split("=")[-1].strip()
+        key = re.sub("="+value+"\n", "", line); # there can be = in key:(
+        eprint(key+"|"+value);
+        finals.append(JVbkmr(name, key, value))
+
+passrates = [];
+finals = []
 path="_pregenerated_reports"
-for root, dirs, files in os.walk(path, topdown=False):
+for parentdir, dirs, files in os.walk(path, topdown=False):
     for name in files:
-        filename = os.path.join(root, name)
+        filename = os.path.join(parentdir, name)
         if (filename.endswith(".properties.sort.uniq")):
             if (name == "passrates.properties.sort.uniq"):
-                eprint("found passrate:" + filename);
+                eprint("found: " + name + " in " + parentdir);
+                readPassRates(parentdir, filename, name)
             else:
-                eprint("found holly grail" + filename);
+                eprint("found holly grail of " + name +" in " + parentdir)
+                readFinals(parentdir, filename, name)
+eprint("loaded passrates: " + str(len(passrates)))
+eprint("loaded finals: " + str(len(finals)))
