@@ -99,6 +99,10 @@ class JVbkmr(object):
         self.metric=splited[2]
         allMetrics.add(self.metric)
         self.key=splited[1]
+        if (self.key.find("Time")>=0):
+            self.value=-1*self.value
+        if (self.resultType.find("-")>=0):
+            self.value=abs(self.value)
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
         self.benchmark = sanitizeAll(self.benchmark)
@@ -163,17 +167,13 @@ def selectFinals(jdkFromName, key, virtualisation, benchmark, metric, resultType
     return subset
 
 
-def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
+def create_figure(x1, y1, x_name, y_name, name, clear_plot, figg = None):
     eprint("creating figure. x:", y1, ", y:", x1)
-    print("values:", y1)
-    # x axis values 
-    #y1 = geometric_means 
-    # corresponding y axis values 
-    #x1 = range(0, len(geometric_means))
+    #print("values:", y1)
 
     # enabling labels rotations
     if (figg is None):
-        fig = plt.figure(figsize=(max(len(x1)/5+1,5),5))
+        fig = plt.figure(figsize=(max(len(x1)/5+1,10),5))
     else:
         fig = figg
     ax = plt.gca()
@@ -186,7 +186,7 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None
     plt.ylabel(y_name) 
     
     # giving a title to my graph 
-    plt.title(containsFilter + runType) 
+    plt.title(name) 
     
     # rotate x axe labels by vertically and making room for them
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
@@ -196,38 +196,16 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None
 
     # function to plot the plot 
     if (clear_plot):
-        name_fig = "chart_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
+        name_fig = name + ".png"
         plt.savefig(name_fig)
         file_path = os.getcwd() + "/" + name_fig
         if is_html():
-            print("<br/><a href='"+file_path.strip()+"'><img src='"+file_path.strip()+"'></img></a><br/>")
+            print("<br/><a href='"+name_fig+"'><img src='"+name_fig+"'></img></a><br/>")
         else:
             print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
     return fig
-
-#    geometric_means=sorted(geometric_means, key=cmp_to_key(compareNvrs))
-#    x = list(map(lambda title: title.nvr+":"+str(title.run), geometric_means))
-#    create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
-#    result = []
-#    result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
-#    x = ["min", "max", "avg", "med"]
-#    create_figure(x, result[0], "avgmed_alljdks_metric", args[2], "1st metric", True)
-
-#    averages_per_jdk=sorted(averages_per_jdk, key=cmp_to_key(compareNvrs))
-#    medians_per_jdk=sorted(medians_per_jdk, key=cmp_to_key(compareNvrs))
-#    result = []
-#    result.append(min_max_avg_med(list(map(lambda num: num.value, averages_per_jdk)), len(averages_per_jdk), path, JDKs_expected, False))
-#    result.append(min_max_avg_med(list(map(lambda num: num.value, medians_per_jdk)), len(medians_per_jdk), path, JDKs_expected, False))
-#    x1 = list(map(lambda title: title.nvr+"("+str(title.run)+")", averages_per_jdk))
-#    create_figure(x1, list(map(lambda num: num.value, averages_per_jdk)), "avg_by_jdk_metric-raw", args[2], "raw_values_averages_per_jdk", True)
-#    x2 = list(map(lambda title: title.nvr+"("+str(title.run)+")", medians_per_jdk))
-#    create_figure(x2, list(map(lambda num: num.value, medians_per_jdk)), "med_by_jdk_metric-raw", args[2], "raw_values_medians_per_jdk", True)
-#    x = ["min", "max", "avg", "med"]
-#    fig_transfer = create_figure(x, result[0], "averages (blue) - rewritten", args[2], "2nd_metric_averages_per_JDK", False) #this one is not saved, and is appended by the below and thens aved.. the weird True/False is doing that
-#    create_figure(x, result[1], "averages (blue) ; medians (orange)", args[2], "2nd_metric_medians_per_JDK", True, fig_transfer)
-
 
 def readPassRates(root, filename, name):
     file = open(filename).readlines()
@@ -314,13 +292,15 @@ SCENARIO=1;
 
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
+    tag("hr","");
     for jdk in allJdks:
+        h1(jdk)
         if (jdk == "all"):
             pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
         for benchmark in allBenchmarks:
             if (benchmark == "all"):
                 continue
-            h2(jdk)
+            h2(benchmark)
             for metric in allMetrics:
                 h3(metricToString(metric))
                 for key in allKeysPerBenchmark[benchmark]:
@@ -330,9 +310,16 @@ if (SCENARIO ==  1):
                             print("<pre>")  
                     for x in ["MIN", "MAX", "AVG", "MED"]:
                         subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                        xAxe = list(map(lambda final: final.virtualisation, subset))
+                        yAxe = list(map(lambda final: final.value, subset))
+                        fig_transfer = None
                         for item in subset:
                             # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
                             print(x+ " " + str(item.value)+" "+item.virtualisation )
-                    if (is_html()):
-                        print("</pre>")
+                        if (not (x == "MED")):
+                            fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, jdk + "_" + benchmark + "_" + metric+"_"+key, False, fig_transfer)
+                        else:
+                            create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg ; med", key, jdk + "_" + benchmark + "_" + metric+"_"+key, True, fig_transfer)
+                            if (is_html()):
+                                print("</pre>")
 
