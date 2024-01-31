@@ -61,7 +61,10 @@ class xJxBxV(object):
         self.virtualizationFromKey = re.sub("_"+self.benchmarkFromKey, "", self.originalKey)  #container-results  containers_in_container
         self.virtualizationFromKey = sanitizeAll(self.virtualizationFromKey)
         initOrAdd(allVirtualisations, self.virtualizationFromKey)
-        #eprint(str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")")
+        #eprint(niceString(self))
+
+def niceString(self):
+    return str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")"
 
 # object to keep values of inverted_results/*properties.sort.uniq
 # name contains jdks in measurment
@@ -88,6 +91,7 @@ class JVbkmr(object):
         # now parse originalKey
         splited = self.originalKey.split(":");
         self.resultType=splited[3]
+        allTypes.add(self.resultType)
         self.metric=splited[2]
         allMetrics.add(self.metric)
         self.key=splited[1]
@@ -102,7 +106,10 @@ class JVbkmr(object):
         self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
         self.virtualisation = sanitizeAll(self.virtualisation)
         initOrAdd(allVirtualisations, self.virtualisation)
-        #eprint(str(self.value) +" " + self.jdkFromName + " (" + self.virtualisation+ " " + self.benchmark+" " + self.key + " " + self.metric + " " +self.resultType+")")
+        #eprint(niceString(self))
+    
+    def niceString(self):
+        return str(self.value) +" " + self.jdkFromName + " (" + self.virtualisation+ " " + self.benchmark+" " + self.key + " " + self.metric + " " +self.resultType+")"
 
 def initOrAdd(hashmap, key):
         if (key in hashmap):
@@ -115,7 +122,8 @@ def sanitizeAll(where):
     q = re.sub(".*all.*","all",where)
     q = re.sub("jdk8.*","java-1.8.0",q)
     q = re.sub("jdk","java-",q)
-    q = re.sub("java-$","all-javas",q)# currenlty all x all-javas may mean something different. will be investigated
+    #q = re.sub("java-$","all-javas",q)# currenlty all x all-javas may mean something different. will be investigated
+    q = re.sub("java-$","all",q)
     return q;
 
 def eprint(*args, **kwargs):
@@ -136,6 +144,19 @@ def parse_number(line):
         return 0
     #print("rounded number: ", round(float(parsed_number)))
     return float(parsed_number)
+
+def selectFinals(jdkFromName, key, virtualisation, benchmark, metric, resultType):
+    subset=[];
+    for final in finals:
+        if ((jdkFromName is None or jdkFromName == final.jdkFromName)
+        and (key is None or key == final.key)
+        and (virtualisation is None or virtualisation == final.virtualisation)
+        and (benchmark is None or benchmark == final.benchmark)
+        and (metric is None or metric == final.metric)
+        and (resultType is None or resultType == final.resultType)
+        ):
+            subset.append(final);
+    return subset
 
 
 def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None):
@@ -226,6 +247,8 @@ allBenchmarks = {}
 allKeysPerBenchmark = {}
 allMetrics = {"set"}
 allMetrics.clear()
+allTypes = {"set"}
+allTypes.clear()
 path="_pregenerated_reports"
 for parentdir, dirs, files in os.walk(path, topdown=False):
     for name in files:
@@ -244,4 +267,8 @@ eprint(allVirtualisations)
 eprint(allBenchmarks)
 eprint(allKeysPerBenchmark)
 eprint(allMetrics)
+eprint(allTypes)
 
+subset = selectFinals("java-11", None, None, None, None, "MAX")
+for item in subset:
+    eprint(item.niceString())
