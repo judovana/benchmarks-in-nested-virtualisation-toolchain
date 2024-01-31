@@ -196,13 +196,13 @@ def printer(list_of_tuples, invert, metricId):
             createOrAddToFile(lfile, key+":MAX=" + str(max_))
             createOrAddToFile(lfile, key+":AVG=" + str(avg_))
             createOrAddToFile(lfile, key+":MED=" + str(med_))
-            createOrAddToFile(lfile, key+":MIN-MAX=" + str(calc_relative_diff(min_, max_, invert)))
-            createOrAddToFile(lfile, key+":MIN-AVG=" + str(calc_relative_diff(min_,avg_, invert)))
-            createOrAddToFile(lfile, key+":MIN-MED=" + str(calc_relative_diff(min_,med_, invert)))
-            createOrAddToFile(lfile, key+":MAX-MIN=" + str(calc_relative_diff(max_, min_, invert)))
-            createOrAddToFile(lfile, key+":MAX-AVG=" + str(calc_relative_diff(max_,avg_, invert)))
-            createOrAddToFile(lfile, key+":MAX-MED=" + str(calc_relative_diff(max_,med_, invert)))
-            createOrAddToFile(lfile, key+":AVG-MED=" + str(calc_relative_diff(avg_,med_, invert)))
+            createOrAddToFile(lfile, key+":MIN-MAX=" + str(calc_relative_diff(min_, max_, invert))+ "%")
+            createOrAddToFile(lfile, key+":MIN-AVG=" + str(calc_relative_diff(min_,avg_, invert))+ "%")
+            createOrAddToFile(lfile, key+":MIN-MED=" + str(calc_relative_diff(min_,med_, invert))+ "%")
+            createOrAddToFile(lfile, key+":MAX-MIN=" + str(calc_relative_diff(max_, min_, invert))+ "%")
+            createOrAddToFile(lfile, key+":MAX-AVG=" + str(calc_relative_diff(max_,avg_, invert))+ "%")
+            createOrAddToFile(lfile, key+":MAX-MED=" + str(calc_relative_diff(max_,med_, invert))+ "%")
+            createOrAddToFile(lfile, key+":AVG-MED=" + str(calc_relative_diff(avg_,med_, invert))+ "%")
             linkFile=re.sub(r'.*inverted_results',"inverted_results", lfile) #default naming convention making nicer
             while True:
                 if os.path.exists(linkFile):
