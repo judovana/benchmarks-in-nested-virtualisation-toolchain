@@ -24,9 +24,13 @@ def is_html():
 # there we can show which jdk was most/less stable under which virtualisation
 # there we can show, which virtualisation generally improveds stability, and which degraded it
 
-#scenario 3: the final answer from inverted_results/*properties.sort.uniq
+# scenario 3: the final answer from inverted_results/*properties.sort.uniq
 # here we have relative stability results per jdk and per virtualisation
 # there is hidden final answer of imapct of (nested) virtualisation to accuracy
+
+# scenario 4: should substitue various missing "all" from RELATIVE values only
+# for passrates, it can be incorporated in 2
+# for 3..IDK, maybe to... 
 
 # object to keep values of passrates.properties.sort.uniq
 class xJxBxV(object):
