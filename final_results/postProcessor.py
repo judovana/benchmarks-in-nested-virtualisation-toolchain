@@ -30,7 +30,9 @@ def is_html():
 
 # scenario 4: should substitue various missing "all" from RELATIVE values only
 # for passrates, it can be incorporated in 2
-# for 3..IDK, maybe to... 
+# for 3..IDK, maybe to... It should be separate goal for both. varisou all x all x N and all all all needs a lot fof computing and not all is applicable (and some are duplicate din original raw reports)
+#     gosh.. and metrics Maybe drop them... avg and med are nearly identical m1 to...
+ 
 
 # object to keep values of passrates.properties.sort.uniq
 class xJxBxV(object):
@@ -333,6 +335,48 @@ def lio():
 def lie():
     tage("li")
 
+def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
+    h1(title1)
+    pre(title2)
+    tableOfContext13()
+    for jdk in allJdks:
+        h1(jdk, jdk)
+        if (jdk == "all"):
+            pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
+        for benchmark in allBenchmarks:
+            if (benchmark == "all"):
+                continue
+            h2(benchmark, jdk+"_"+benchmark)
+            for metric in allMetrics:
+                h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
+                for key in allKeysPerBenchmark[benchmark]:
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
+                    h4(key, iddqd)
+                    pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
+                    if (is_html()): 
+                            print("<pre>")  
+                    fig_transfer = None
+                    i=-1
+                    for x in interestedTypes:
+                        i+=1
+                        if x in allTypes:
+                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                            # if to sort, then by virtualization name
+                            subset = sorted(subset,  key=lambda r: r.virtualisation)
+                            xAxe = list(map(lambda final: final.virtualisation, subset))
+                            yAxe = list(map(lambda final: final.value+(i*shift), subset))
+                            for item in subset:
+                                print(x+ " " + str(item.value)+" "+item.virtualisation )
+                            if (not (i == len(interestedTypes)-1)):
+                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key+decorator, preffix+iddqd, False, fig_transfer)
+                            else:
+                                create_figure(xAxe, yAxe, legend, key+decorator, preffix+iddqd, True, fig_transfer)
+                                if (is_html()):
+                                    print("</pre>")
+                        else:
+                            pre("missing value: " + x)
+
+
 passrates = [];
 finals = []
 allJdks = {}
@@ -364,49 +408,33 @@ eprint(allMetrics)
 eprint(allTypes)
 
 absVals=["MIN", "MAX", "AVG", "MED"]
+allAbsLegend="min (blue) ; max (orange) ; avg(green) ; med(red)",
+relVals=['MAX-MIN', 'MIN-MED', 'MIN-MAX','MAX-AVG', 'MAX-MED','AVG-MED', 'MIN-AVG']
+allRelLegend="MAX-MIN(blue);MIN-MED(orange);MIN-MAX(green);MAX-AVG(red);MAX-MED(purple);AVG-MED(brown);MIN-AVG(pink)"
 
 SCENARIO=round(parse_number(sys.argv[1]))
 
 if (SCENARIO ==  1):
-    h1("absolute velues of benchmarks per virtualisation")
-    pre("time and other 'less is better` are shown inverted, so the view of charts is comaprable")
-    tableOfContext13()
-    for jdk in allJdks:
-        h1(jdk, jdk)
-        if (jdk == "all"):
-            pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
-        for benchmark in allBenchmarks:
-            if (benchmark == "all"):
-                continue
-            h2(benchmark, jdk+"_"+benchmark)
-            for metric in allMetrics:
-                h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
-                for key in allKeysPerBenchmark[benchmark]:
-                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
-                    h4(key, iddqd)
-                    pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
-                    if (is_html()): 
-                            print("<pre>")  
-                    fig_transfer = None
-                    i=-1
-                    for x in absVals:
-                        i+=1
-                        if x in allTypes:
-                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
-                            # if to sort, then by virtualization name
-                            subset = sorted(subset,  key=lambda r: r.virtualisation)
-                            xAxe = list(map(lambda final: final.virtualisation, subset))
-                            yAxe = list(map(lambda final: final.value, subset))
-                            for item in subset:
-                                print(x+ " " + str(item.value)+" "+item.virtualisation )
-                            if (not (i == len(absVals)-1)):
-                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, "abs_"+iddqd, False, fig_transfer)
-                            else:
-                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, "abs_"+iddqd, True, fig_transfer)
-                                if (is_html()):
-                                    print("</pre>")
-                        else:
-                            pre("missing value: " + x)
+    jvbkmrprinter(
+        "absolute values of benchmarks per virtualisation",
+        "time and other 'less is better` are shown inverted, so the view of charts is comaprable",
+        "abs_",
+        "",
+        allAbsLegend,
+        absVals,
+        0
+        )
+
+if (SCENARIO ==  3):
+    jvbkmrprinter(
+        "relative accuracy of benchmarks per virtualisation. Most pointable is MIN-MAX and MAX-MIN.",
+        "The values are slightly shifted, so they can be readable even if linnes are identical",
+        "rel_",
+        "%",
+        allRelLegend,
+        relVals,
+        0.05
+        )
 
 if (SCENARIO ==  2):
     h1("crash rates - how much percent of the benchmarks actually finished. 100% all.")
