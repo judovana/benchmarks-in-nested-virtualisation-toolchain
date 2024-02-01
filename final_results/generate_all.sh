@@ -215,6 +215,8 @@ fi
     echo "  <li><a href='passratesCharts/index.html'>pass rates</a></li>" 
     echo "  <li><a href='absCharts/index.html'>absolute values</a></li>" 
     echo "  <li><a href='relCharts/index.html'>holly grail - relative values</a></li>" 
+    echo "  <hr>" 
+    echo "  <hr>" 
     echo "</body></html>"
   ) > index.html
 
