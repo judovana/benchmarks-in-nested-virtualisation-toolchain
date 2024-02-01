@@ -288,10 +288,13 @@ eprint(allKeysPerBenchmark)
 eprint(allMetrics)
 eprint(allTypes)
 
+absVals=["MIN", "MAX", "AVG", "MED"]
+
 SCENARIO=1;
 
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
+    pre("time and other 'less is better` are shown inverted, so the view of charts is comaprable")
     tag("hr","");
     for jdk in allJdks:
         h1(jdk)
@@ -308,18 +311,23 @@ if (SCENARIO ==  1):
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     if (is_html()): 
                             print("<pre>")  
-                    for x in ["MIN", "MAX", "AVG", "MED"]:
-                        subset = selectFinals(jdk, key, None, benchmark, metric, x)
-                        xAxe = list(map(lambda final: final.virtualisation, subset))
-                        yAxe = list(map(lambda final: final.value, subset))
-                        fig_transfer = None
-                        for item in subset:
-                            # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
-                            print(x+ " " + str(item.value)+" "+item.virtualisation )
-                        if (not (x == "MED")):
-                            fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, jdk + "_" + benchmark + "_" + metric+"_"+key, False, fig_transfer)
+                    fig_transfer = None
+                    i=-1
+                    for x in absVals:
+                        i+=1
+                        if x in allTypes:
+                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                            xAxe = list(map(lambda final: final.virtualisation, subset))
+                            yAxe = list(map(lambda final: final.value, subset))
+                            for item in subset:
+                                # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
+                                print(x+ " " + str(item.value)+" "+item.virtualisation )
+                            if (not (i == len(absVals)-1)):
+                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, jdk + "_" + benchmark + "_" + metric+"_"+key, False, fig_transfer)
+                            else:
+                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, jdk + "_" + benchmark + "_" + metric+"_"+key, True, fig_transfer)
+                                if (is_html()):
+                                    print("</pre>")
                         else:
-                            create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg ; med", key, jdk + "_" + benchmark + "_" + metric+"_"+key, True, fig_transfer)
-                            if (is_html()):
-                                print("</pre>")
+                            pre("missing value: " + x)
 
