@@ -32,7 +32,7 @@ def is_html():
 class xJxBxV(object):
     jdkFromDir = ""
     benchmarkFromDir = ""
-    virtualizationFromDir = ""
+    virtualizationFromDir = "" # dont use!
     originalDir = ""
     originalKey = ""
     value = 0
@@ -166,6 +166,16 @@ def selectFinals(jdkFromName, key, virtualisation, benchmark, metric, resultType
             subset.append(final);
     return subset
 
+def selectCrashrate(jdkFromDir, virtualizationFromKey, benchmarkFromKey):
+    subset=[];
+    for final in passrates:
+        if ((jdkFromDir is None or jdkFromDir == final.jdkFromDir)
+        and (virtualizationFromKey is None or virtualizationFromKey == final.virtualizationFromKey)
+        and (benchmarkFromKey is None or benchmarkFromKey == final.benchmarkFromKey)
+        ):
+            subset.append(final);
+    return subset
+
 
 def create_figure(x1, y1, x_name, y_name, name, clear_plot, figg = None):
     eprint("creating figure. x:", y1, ", y:", x1)
@@ -230,7 +240,7 @@ def metricToString(m):
         return "all runs of one jdk were made MEDIAN before processing"
     return "unknown metric: " + m;
 
-def tableOfContext():
+def tableOfContext13():
     olo()
     for jdk in allJdks:
         lio();ahref(jdk, jdk);lie()
@@ -248,6 +258,17 @@ def tableOfContext():
                     lio();ahref(key, iddqd);lie()
                 ole()
             ole()
+        ole()
+    ole()
+    tag("hr","");
+
+def tableOfContext2():
+    olo()
+    for jdk in allJdks:
+        lio();ahref(jdk, jdk);lie()
+        olo()
+        for benchmark in allBenchmarks:
+            lio();ahref(benchmark, jdk+"_"+benchmark);lie()
         ole()
     ole()
     tag("hr","");
@@ -340,12 +361,12 @@ eprint(allTypes)
 
 absVals=["MIN", "MAX", "AVG", "MED"]
 
-SCENARIO=1;
+SCENARIO=2;
 
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
     pre("time and other 'less is better` are shown inverted, so the view of charts is comaprable")
-    tableOfContext()
+    tableOfContext13()
     for jdk in allJdks:
         h1(jdk, jdk)
         if (jdk == "all"):
@@ -368,17 +389,50 @@ if (SCENARIO ==  1):
                         i+=1
                         if x in allTypes:
                             subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                            # if to sort, then by virtualization name
+                            subset = sorted(subset,  key=lambda r: r.virtualisation)
                             xAxe = list(map(lambda final: final.virtualisation, subset))
                             yAxe = list(map(lambda final: final.value, subset))
                             for item in subset:
-                                # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
                                 print(x+ " " + str(item.value)+" "+item.virtualisation )
                             if (not (i == len(absVals)-1)):
-                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, iddqd, False, fig_transfer)
+                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, "abs_"+iddqd, False, fig_transfer)
                             else:
-                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, iddqd, True, fig_transfer)
+                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, "abs_"+iddqd, True, fig_transfer)
                                 if (is_html()):
                                     print("</pre>")
                         else:
                             pre("missing value: " + x)
 
+if (SCENARIO ==  2):
+    h1("crash rates - how much percent of the benchmarks actually finished. 100% all.")
+    tableOfContext2()
+    for jdk in allJdks:
+        h1(jdk, jdk)
+        for benchmark in allBenchmarks:
+            h2(benchmark, jdk+"_"+benchmark)
+            if (benchmark == "all"):
+                h3("all is not defined? TODO, resolve by manual select and some calcualtion")
+                continue
+            fullSubset = selectCrashrate(jdk, None, benchmark)
+            fullSubset = sorted(fullSubset,  key=lambda key: key.virtualizationFromKey)
+            reSorted = sorted(fullSubset,  key=lambda key: key.value)
+            subset = [] # there are duplicated values. In addition, plot is trasnforming list to set!
+            usedKeys=[]
+            for x in fullSubset:
+                if not x.virtualizationFromKey in usedKeys:
+                    usedKeys.append(x.virtualizationFromKey)
+                    subset.append(x)
+            reSorted = sorted(subset,  key=lambda key: key.value, reverse=True)
+            xAxe=list(map(lambda xjxbxv: xjxbxv.virtualizationFromKey, subset))
+            yAxe = list(map(lambda xjxbxv: xjxbxv.value, subset))
+            if (is_html()): 
+                    print("<pre>") 
+            for item in subset:
+                print(str(item.value)+"% "+item.virtualizationFromKey)
+            print("--reordered--")
+            for item in reSorted:
+                print(str(item.value)+"% "+item.virtualizationFromKey)
+            if (is_html()): 
+                print("</pre>")
+            create_figure(xAxe, yAxe, "pass rate", "%", "passrate_"+jdk+"_"+benchmark, True)
