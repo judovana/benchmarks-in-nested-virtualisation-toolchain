@@ -230,6 +230,27 @@ def metricToString(m):
         return "all runs of one jdk were made MEDIAN before processing"
     return "unknown metric: " + m;
 
+def tableOfContext():
+    olo()
+    for jdk in allJdks:
+        lio();ahref(jdk, jdk);lie()
+        olo()
+        for benchmark in allBenchmarks:
+            if (benchmark == "all"):
+                continue
+            lio();ahref(benchmark, jdk+"_"+benchmark);lie()
+            olo()
+            for metric in allMetrics:
+                lio();ahref(metric, jdk+"_"+benchmark+"_"+metric);lie();
+                olo()
+                for key in allKeysPerBenchmark[benchmark]:
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
+                    lio();ahref(key, iddqd);lie()
+                ole()
+            ole()
+        ole()
+    ole()
+    tag("hr","");
 
 def tago(t, idd = None):
     if (is_html()):
@@ -324,26 +345,7 @@ SCENARIO=1;
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
     pre("time and other 'less is better` are shown inverted, so the view of charts is comaprable")
-    olo()
-    for jdk in allJdks:
-        lio();ahref(jdk, jdk);lie()
-        olo()
-        for benchmark in allBenchmarks:
-            if (benchmark == "all"):
-                continue
-            lio();ahref(benchmark, jdk+"_"+benchmark);lie()
-            olo()
-            for metric in allMetrics:
-                lio();ahref(metric, jdk+"_"+benchmark+"_"+metric);lie();
-                olo()
-                for key in allKeysPerBenchmark[benchmark]:
-                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
-                    lio();ahref(key, iddqd);lie()
-                ole()
-            ole()
-        ole()
-    ole()
-    tag("hr","");
+    tableOfContext()
     for jdk in allJdks:
         h1(jdk, jdk)
         if (jdk == "all"):
