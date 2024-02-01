@@ -355,6 +355,18 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     if (is_html()): 
                             print("<pre>")  
+                    #calculsting height of chart, to adjust shift properly
+                    maxi=1
+                    mini=10000000000000
+                    for x in interestedTypes:
+                        if x in allTypes:
+                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
+                            # if to sort, then by virtualization name
+                            subset = sorted(subset,  key=lambda r: r.virtualisation)
+                            for item in subset:
+                                maxi=max(maxi, item.value)
+                                mini=min(mini, item.value)
+                    chartHeight=maxi-mini
                     fig_transfer = None
                     i=-1
                     for x in interestedTypes:
@@ -364,7 +376,13 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                             # if to sort, then by virtualization name
                             subset = sorted(subset,  key=lambda r: r.virtualisation)
                             xAxe = list(map(lambda final: final.virtualisation, subset))
-                            yAxe = list(map(lambda final: final.value+(i*shift), subset))
+                            # shift 0.05 was ok for 10, but to big for 1
+                            relshift=0
+                            if shift:
+                                relshift=i*(chartHeight/150.0)
+                                relshift=min(1,relshift)#?
+                                relshift=max(0.0001,relshift)#?
+                            yAxe = list(map(lambda final: final.value+relshift, subset))
                             for item in subset:
                                 print(x+ " " + str(item.value)+" "+item.virtualisation )
                             if (not (i == len(interestedTypes)-1)):
@@ -422,7 +440,7 @@ if (SCENARIO ==  1):
         "",
         allAbsLegend,
         absVals,
-        0
+        False
         )
 
 if (SCENARIO ==  3):
@@ -433,7 +451,7 @@ if (SCENARIO ==  3):
         "%",
         allRelLegend,
         relVals,
-        0.05
+        True
         )
 
 if (SCENARIO ==  2):
