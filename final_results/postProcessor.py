@@ -230,33 +230,62 @@ def metricToString(m):
         return "all runs of one jdk were made MEDIAN before processing"
     return "unknown metric: " + m;
 
-def tag(t,s):
+
+def tago(t, idd = None):
     if (is_html()):
-        print("<"+t+">")
-    print(s)
+        if (idd is None):
+            print("<"+t+">")
+        else:
+            print("<"+t+" id='"+idd+"'>")
+def tage(t):
     if (is_html()):
         print("</"+t+">")
 
-def h(i,s):
-    tag("h"+str(i),s)
+def tag(t,s,idd = None):
+    tago(t,idd)
+    print(s)
+    tage(t)
 
-def h1(s):
-    h(1,s)
+def h(i,s,idd = None):
+    tag("h"+str(i),s, idd)
 
-def h2(s):
-    h(2,s)
+def h1(s,idd = None):
+    h(1,s,idd)
 
-def h3(s):
-    h(3,s)
+def h2(s,idd = None):
+    h(2,s,idd)
 
-def h4(s):
-    h(4,s)
+def h3(s,idd = None):
+    h(3,s, idd)
 
-def h5(s):
-    h(5,s)
+def h4(s,idd = None):
+    h(4,s, idd)
 
-def pre(s):
-    tag("pre",s)
+def h5(s,idd = None):
+    h(5,s, idd)
+
+def pre(s,idd = None):
+    tag("pre",s, idd)
+
+
+def ahref(s,href):
+    if (is_html()):
+        print("<a href='#"+href+"'>")
+    print(s)
+    if (is_html()):
+        print("</a>")
+
+def olo():
+    tago("ol")
+
+def ole():
+    tage("ol")
+
+def lio():
+    tago("li")
+
+def lie():
+    tage("li")
 
 passrates = [];
 finals = []
@@ -295,19 +324,39 @@ SCENARIO=1;
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
     pre("time and other 'less is better` are shown inverted, so the view of charts is comaprable")
+    olo()
+    for jdk in allJdks:
+        lio();ahref(jdk, jdk);lie()
+        olo()
+        for benchmark in allBenchmarks:
+            if (benchmark == "all"):
+                continue
+            lio();ahref(benchmark, jdk+"_"+benchmark);lie()
+            olo()
+            for metric in allMetrics:
+                lio();ahref(metric, jdk+"_"+benchmark+"_"+metric);lie();
+                olo()
+                for key in allKeysPerBenchmark[benchmark]:
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
+                    lio();ahref(key, iddqd);lie()
+                ole()
+            ole()
+        ole()
+    ole()
     tag("hr","");
     for jdk in allJdks:
-        h1(jdk)
+        h1(jdk, jdk)
         if (jdk == "all"):
             pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
         for benchmark in allBenchmarks:
             if (benchmark == "all"):
                 continue
-            h2(benchmark)
+            h2(benchmark, jdk+"_"+benchmark)
             for metric in allMetrics:
-                h3(metricToString(metric))
+                h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
                 for key in allKeysPerBenchmark[benchmark]:
-                    h4(key)
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
+                    h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     if (is_html()): 
                             print("<pre>")  
@@ -323,9 +372,9 @@ if (SCENARIO ==  1):
                                 # if to sort, then by virtualization name, so it is in charts below itself; now it is sorted by IDK from where
                                 print(x+ " " + str(item.value)+" "+item.virtualisation )
                             if (not (i == len(absVals)-1)):
-                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, jdk + "_" + benchmark + "_" + metric+"_"+key, False, fig_transfer)
+                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key, iddqd, False, fig_transfer)
                             else:
-                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, jdk + "_" + benchmark + "_" + metric+"_"+key, True, fig_transfer)
+                                create_figure(xAxe, yAxe, "min (blue) ; max (orange) ; avg(green) ; med(red)", key, iddqd, True, fig_transfer)
                                 if (is_html()):
                                     print("</pre>")
                         else:
