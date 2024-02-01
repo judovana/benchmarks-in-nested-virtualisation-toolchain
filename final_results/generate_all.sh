@@ -221,7 +221,7 @@ fi
   ) > index.html
 
 popd
-
+if false ; then
 set -x
 PASSRATES_DIR=$INVERTED_RESULT_DIR/../passratesCharts
 rm -rf $PASSRATES_DIR
@@ -234,7 +234,7 @@ rm -rf $ABS_DIR
 mkdir $ABS_DIR
 python ${pworker} 1 > $ABS_DIR/index.html
 mv -f abs_*.png $ABS_DIR/
-
+fi
 REL_DIR=$INVERTED_RESULT_DIR/../relCharts
 rm -rf $REL_DIR
 mkdir $REL_DIR
