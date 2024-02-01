@@ -361,7 +361,7 @@ eprint(allTypes)
 
 absVals=["MIN", "MAX", "AVG", "MED"]
 
-SCENARIO=2;
+SCENARIO=round(parse_number(sys.argv[1]))
 
 if (SCENARIO ==  1):
     h1("absolute velues of benchmarks per virtualisation")
