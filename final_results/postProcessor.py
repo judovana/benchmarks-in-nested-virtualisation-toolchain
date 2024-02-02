@@ -28,7 +28,7 @@ def is_html():
 # here we have relative stability results per jdk and per virtualisation
 # there is hidden final answer of imapct of (nested) virtualisation to accuracy
 
-# scenario 4: should substitue various missing "all" from RELATIVE values only
+# scenario 4+5: should substitue various missing "all" from RELATIVE values only
 # for passrates, it can be incorporated in 2
 # for 3..IDK, maybe to... It should be separate goal for both. varisou all x all x N and all all all needs a lot fof computing and not all is applicable (and some are duplicate din original raw reports)
 #     gosh.. and metrics Maybe drop them... avg and med are nearly identical m1 to...
@@ -335,6 +335,11 @@ def lio():
 def lie():
     tage("li")
 
+def keyToStr(key):
+    if key is None:
+        return "all";
+    return key
+
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
     h1(title1)
     pre(title2)
@@ -486,3 +491,22 @@ if (SCENARIO ==  2):
             if (is_html()): 
                 print("</pre>")
             create_figure(xAxe, yAxe, "pass rate", "%", "passrate_"+jdk+"_"+benchmark, True)
+
+if (SCENARIO ==  4):
+    #avg from various crashrates
+    #what to do with the magical all value?
+    #in case of crashrates, the all should be ok.
+    #all jdks on individual benchmarks. What to do with duplicated results? They must be removed!
+    #jdk  on all benchmarks
+    # all on all
+    print("WIP")
+
+if (SCENARIO ==  5):
+    #avg from various relative values
+    #what to do with the magical all value?
+    #the avraged methods from all are afaik very very different.
+    #all jdks on individual benchmarks. What to do with duplicated results? They must be removed!
+    #jdk  on all benchmarks
+    # all on all
+    #Waht to do woth keys ? Metrics? avg all?
+    print("TODO")
