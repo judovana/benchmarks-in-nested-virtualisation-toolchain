@@ -28,9 +28,8 @@ def is_html():
 # here we have relative stability results per jdk and per virtualisation
 # there is hidden final answer of imapct of (nested) virtualisation to accuracy
 
-# scenario 4+5: should substitue various missing "all" from RELATIVE values only
-# for passrates, it can be incorporated in 2
-# for 3..IDK, maybe to... It should be separate goal for both. varisou all x all x N and all all all needs a lot fof computing and not all is applicable (and some are duplicate din original raw reports)
+# scenario 4+ should substitue various missing "all" from RELATIVE values only
+# from 3..IDK, maybe to... It should be separate goal for both. varisou all x all x N and all all all needs a lot fof computing and not all is applicable (and some are duplicate din original raw reports)
 #     gosh.. and metrics Maybe drop them... avg and med are nearly identical m1 to...
  
 
@@ -45,6 +44,7 @@ class xJxBxV(object):
     virtualizationFromKey=""
     benchmarkFromKey=""
 
+    
     # the file always contains  virtualisation_benchmark=value% (the percentage must be filtered out)
     # and is in directory, which says, which jdks and which benchmarks and which virtualisations were used
     # so we need the parent dir name, and the value read from it
@@ -60,7 +60,7 @@ class xJxBxV(object):
         self.jdkFromDir = sanitizeAll(self.jdkFromDir)
         initOrAdd(allJdks, self.jdkFromDir);
         self.benchmarkFromDir = dirName.split("_")[1]; 
-        self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir)
+        self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir) # this one contains name of benchmark or ALL. Thats why we ar eusing the second everywhere. That may chnage
         initOrAdd(allBenchmarks, self.benchmarkFromDir)
         # NO! this virt is not used in JVbkmr; dont use
         self.virtualizationFromDir = re.sub(self.jdkFromDir+"_"+self.benchmarkFromDir+"_", "", dirName) #container_results  containers_in_container_results
@@ -73,8 +73,11 @@ class xJxBxV(object):
         initOrAdd(allVirtualisations, self.virtualizationFromKey)
         #eprint(niceString(self))
 
-def niceString(self):
-    return str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")"
+    def niceString(self):
+        return str(self.value) + " (" + self.jdkFromDir+ " " + self.benchmarkFromDir+" " + self.virtualizationFromDir + ") (" + self.virtualizationFromKey + " " +self.benchmarkFromKey+")"
+
+    def equalsKey(self):
+        return self.jdkFromDir+ " " + " " + self.virtualizationFromKey + " " +self.benchmarkFromKey
 
 # object to keep values of inverted_results/*properties.sort.uniq
 # name contains jdks in measurment
@@ -467,9 +470,25 @@ if (SCENARIO ==  2):
         for benchmark in allBenchmarks:
             h2(benchmark, jdk+"_"+benchmark)
             if (benchmark == "all"):
-                h3("all is not defined? TODO, resolve by manual select and some calcualtion")
-                continue
-            fullSubset = selectCrashrate(jdk, None, benchmark)
+                fullSubset = selectCrashrate(jdk, None, None)
+                subset = [] # there are duplicated values. as we will count avg, we must remove them
+                usedKeys=[]
+                for x in fullSubset:
+                    if not x.equalsKey() in usedKeys:
+                        usedKeys.append(x.equalsKey())
+                        subset.append(x)
+                # no avg values for each benchmark to fullSubset
+                fullSubset=[];
+                for virtualisation in allVirtualisations:
+                    value=0
+                    count=0
+                    for xjxbxv in subset:
+                        if (virtualisation == xjxbxv.virtualizationFromKey):
+                                value+=xjxbxv.value
+                                count+=1
+                    fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+            else:
+                fullSubset = selectCrashrate(jdk, None, benchmark)
             fullSubset = sorted(fullSubset,  key=lambda key: key.virtualizationFromKey)
             reSorted = sorted(fullSubset,  key=lambda key: key.value)
             subset = [] # there are duplicated values. In addition, plot is trasnforming list to set!
@@ -493,15 +512,6 @@ if (SCENARIO ==  2):
             create_figure(xAxe, yAxe, "pass rate", "%", "passrate_"+jdk+"_"+benchmark, True)
 
 if (SCENARIO ==  4):
-    #avg from various crashrates
-    #what to do with the magical all value?
-    #in case of crashrates, the all should be ok.
-    #all jdks on individual benchmarks. What to do with duplicated results? They must be removed!
-    #jdk  on all benchmarks
-    # all on all
-    print("WIP")
-
-if (SCENARIO ==  5):
     #avg from various relative values
     #what to do with the magical all value?
     #the avraged methods from all are afaik very very different.
