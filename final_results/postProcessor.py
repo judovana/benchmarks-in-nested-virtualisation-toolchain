@@ -48,7 +48,7 @@ class xJxBxV(object):
     # the file always contains  virtualisation_benchmark=value% (the percentage must be filtered out)
     # and is in directory, which says, which jdks and which benchmarks and which virtualisations were used
     # so we need the parent dir name, and the value read from it
-    def __init__(self, dirName, keyName, value):
+    def __init__(self, dirName, keyName, value, skip=False):
         self.value = parse_number(re.sub("%","",value))
         self.originalDir = dirName
         self.originalKey = keyName
@@ -58,19 +58,19 @@ class xJxBxV(object):
         # Benchmark name may contain several _ :(
         self.jdkFromDir = dirName.split("_")[0];  # eg jdk11, all, allJ
         self.jdkFromDir = sanitizeAll(self.jdkFromDir)
-        initOrAdd(allJdks, self.jdkFromDir);
+        initOrAdd(allJdks, self.jdkFromDir, skip);
         self.benchmarkFromDir = dirName.split("_")[1]; 
         self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir) # this one contains name of benchmark or ALL. Thats why we ar eusing the second everywhere. That may chnage
-        initOrAdd(allBenchmarks, self.benchmarkFromDir)
+        initOrAdd(allBenchmarks, self.benchmarkFromDir, skip)
         # NO! this virt is not used in JVbkmr; dont use
         self.virtualizationFromDir = re.sub(self.jdkFromDir+"_"+self.benchmarkFromDir+"_", "", dirName) #container_results  containers_in_container_results
         self.benchmarkFromKey = self.originalKey.split("_")[-1];
         self.benchmarkFromKey = sanitizeAll(self.benchmarkFromKey)
-        initOrAdd(allBenchmarks, self.benchmarkFromKey)
+        initOrAdd(allBenchmarks, self.benchmarkFromKey, skip)
         #YES, this  is shared with JVbkmr; use this
         self.virtualizationFromKey = re.sub("_"+self.benchmarkFromKey, "", self.originalKey)  #container-results  containers_in_container
         self.virtualizationFromKey = sanitizeAll(self.virtualizationFromKey)
-        initOrAdd(allVirtualisations, self.virtualizationFromKey)
+        initOrAdd(allVirtualisations, self.virtualizationFromKey, skip)
         #eprint(niceString(self))
 
     def niceString(self):
@@ -94,11 +94,11 @@ class JVbkmr(object):
     metric=""
     resultType=""
 
-    def __init__(self, fileName, keyName, value):
+    def __init__(self, fileName, keyName, value, skip=False):
         self.value = parse_number(re.sub("%","",value))
         self.jdkFromName = re.sub("\.properties.*","",fileName)
         self.jdkFromName = sanitizeAll(self.jdkFromName)
-        initOrAdd(allJdks, self.jdkFromName); # eg java-11
+        initOrAdd(allJdks, self.jdkFromName, skip); # eg java-11
         self.originalKey = keyName
         #eprint(str(self.value) + " " + self.jdkFromName + " " + self.originalKey)
         # now parse originalKey
@@ -115,20 +115,21 @@ class JVbkmr(object):
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
         self.benchmark = sanitizeAll(self.benchmark)
-        initOrAdd(allBenchmarks, self.benchmark)
+        initOrAdd(allBenchmarks, self.benchmark, skip)
         if (self.benchmark in allKeysPerBenchmark):
             allKeysPerBenchmark[self.benchmark].add(self.key)
         else:
             allKeysPerBenchmark[self.benchmark]={self.key}
         self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
         self.virtualisation = sanitizeAll(self.virtualisation)
-        initOrAdd(allVirtualisations, self.virtualisation)
+        initOrAdd(allVirtualisations, self.virtualisation, skip)
         #eprint(niceString(self))
     
     def niceString(self):
         return str(self.value) +" " + self.jdkFromName + " (" + self.virtualisation+ " " + self.benchmark+" " + self.key + " " + self.metric + " " +self.resultType+")"
 
-def initOrAdd(hashmap, key):
+def initOrAdd(hashmap, key, skip):
+        if skip: return
         if (key in hashmap):
             hashmap[key]+=1
         else:
@@ -426,9 +427,9 @@ def passratesPrinter(allJdks, allBenchmarks, allVirtualisations, selectHelper):
                 if (selectHelper == "jvb"):
                     fullSubset = selectCrashrate(jdk, None, None)
                 if (selectHelper == "bvj"):
-                    fullSubset = selectCrashrate(None, jdk, None)
-                if (selectHelper == "vbj"):
                     fullSubset = selectCrashrate(None, None, jdk)
+                if (selectHelper == "vbj"):
+                    fullSubset = selectCrashrate(None, jdk, None)
                 subset = [] # there are duplicated values. as we will count avg, we must remove them
                 usedKeys=[]
                 for x in fullSubset:
@@ -449,10 +450,10 @@ def passratesPrinter(allJdks, allBenchmarks, allVirtualisations, selectHelper):
                             if (virtualisation == xjxbxv.benchmarkFromKey):
                                     inc = True
                         if (selectHelper == "bvj"):
-                            if (virtualisation == xjxbxv.jdkFromName):
+                            if (virtualisation == xjxbxv.jdkFromDir):
                                     inc = True
                         if (selectHelper == "vbj"):
-                            if (virtualisation == xjxbxv.jdkFromName):
+                            if (virtualisation == xjxbxv.jdkFromDir):
                                     inc = True
                         if (inc):
                             value+=xjxbxv.value
@@ -461,22 +462,22 @@ def passratesPrinter(allJdks, allBenchmarks, allVirtualisations, selectHelper):
                         value = 0;
                         count = 1;
                     if (selectHelper == "jbv"):
-                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%", True))
                     if (selectHelper == "jvb"):
-                        fullSubset.append(xJxBxV(jdk+"_"+virtualisation+"_all", "all_"+virtualisation, str(value/count)+"%"))
+                        fullSubset.append(xJxBxV(jdk+"_"+virtualisation+"_all", "all_"+virtualisation, str(value/count)+"%", True))
                     if (selectHelper == "bvj"):
-                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%", True))#?!?!!? most likely very wrong
                     if (selectHelper == "vbj"):
-                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+                        fullSubset.append(xJxBxV(virtualisation+"_all_"+jdk, jdk+"_all", str(value/count)+"%", True))
             else:
                 if (selectHelper == "jbv"):
                     fullSubset = selectCrashrate(jdk, None, benchmark)
                 if (selectHelper == "jvb"):
                     fullSubset = selectCrashrate(jdk, benchmark, None)
                 if (selectHelper == "bvj"):
-                    fullSubset = selectCrashrate(None, jdk, benchmark)
-                if (selectHelper == "vbj"):
                     fullSubset = selectCrashrate(None, benchmark, jdk)
+                if (selectHelper == "vbj"):
+                    fullSubset = selectCrashrate(None, jdk, benchmark)
             fullSubset = sorted(fullSubset,  key=lambda key: nonsensesToKey(selectHelper, key))
             reSorted = sorted(fullSubset,  key=lambda key: key.value)
             subset = [] # there are duplicated values. In addition, plot is trasnforming list to set!
@@ -574,10 +575,10 @@ if (SCENARIO ==  2):
     bb.extend(allVirtualisations)
     bb.append("all");
     passratesPrinter(allJdks, bb, allBenchmarks, "jvb")
-    h1("Stabilities of jdks 1")
-    #passratesPrinter(allBenchmarks, allVirtualisations, allJdks, "bvj")
-    h1("Stabilities of jdks 2")
-    #passratesPrinter(allVirtualisations, allBenchmarks, allJdks, "vbj")
+    h1("Stabilities of jdks 1 (missing final averaging by design)", "bvj") #thi (bvj) two (and vbj) are actually the same. bvj misses the all section
+    passratesPrinter(allBenchmarks, allVirtualisations, allJdks, "bvj")
+    h1("Stabilities of jdks 2", "vbj")
+    passratesPrinter(allVirtualisations, allBenchmarks, allJdks, "vbj")  #we keep both, as it is inverted view
 
 if (SCENARIO ==  4):
     #avg from various relative values
