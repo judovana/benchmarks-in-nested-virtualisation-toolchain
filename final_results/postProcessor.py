@@ -345,6 +345,10 @@ def keyToStr(key):
     return key
 
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
+    #todo add avg of all values 
+    #todo add avgs of all metrics 
+    #(there will be all/all for each jdk x bench
+    #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
     tableOfContext13()
@@ -358,6 +362,11 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
             h2(benchmark, jdk+"_"+benchmark)
             for metric in allMetrics:
                 h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
+                avgsOfAllKeys={}
+                for x in interestedTypes:
+                    avgsOfAllKeys[x]=[]
+                    for v in allVirtualisations:
+                        avgsOfAllKeys[x].append(float(0.0))
                 for key in allKeysPerBenchmark[benchmark]:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
@@ -380,10 +389,14 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     i=-1
                     for x in interestedTypes:
                         i+=1
-                        if x in allTypes:
+                        if x in allTypes:  
                             subset = selectFinals(jdk, key, None, benchmark, metric, x)
                             # if to sort, then by virtualization name
                             subset = sorted(subset,  key=lambda r: r.virtualisation)
+                            c=-1
+                            for item in subset:
+                                c+=1
+                                avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
                             xAxe = list(map(lambda final: final.virtualisation, subset))
                             # shift 0.05 was ok for 10, but to big for 1
                             relshift=0
@@ -402,6 +415,22 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                                     print("</pre>")
                         else:
                             pre("missing value: " + x)
+                # this have sense only for relative values, skip in absolute. misuse shift?  dont forget about content!
+                if (shift):
+                    for x in interestedTypes:
+                        cc=-1
+                        for v in allVirtualisations:
+                            cc+=1
+                            avgsOfAllKeys[x][cc] = avgsOfAllKeys[x][cc] / float(str(len(allKeysPerBenchmark[benchmark])))
+                    iddqd2=jdk + "_" + benchmark + "_" + metric+"_avg"
+                    h4("avarage of all keys (benchmark meassured relativre accyracy)", iddqd2)          
+                    if (is_html()):
+                        print("<pre>")                
+                    print(avgsOfAllKeys)
+                    if (is_html()):
+                        print("</pre>")
+                    #now plot the same nice chart as abov.. with shifting and so...it have to be extracted to method
+
 
 def nonsensesToKey(selectHelper, key):
     if (selectHelper == "jbv"):
