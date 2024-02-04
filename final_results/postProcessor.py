@@ -271,13 +271,13 @@ def tableOfContext13():
     ole()
     tag("hr","");
 
-def tableOfContext2():
+def tableOfContext2(allJdks, allBenchmarks, selectionHelper):
     olo()
     for jdk in allJdks:
-        lio();ahref(jdk, jdk);lie()
+        lio();ahref(jdk, jdk+"-"+selectionHelper);lie()
         olo()
         for benchmark in allBenchmarks:
-            lio();ahref(benchmark, jdk+"_"+benchmark);lie()
+            lio();ahref(benchmark, jdk+"_"+benchmark+"-"+selectionHelper);lie()
         ole()
     ole()
     tag("hr","");
@@ -402,6 +402,105 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                         else:
                             pre("missing value: " + x)
 
+def nonsensesToKey(selectHelper, key):
+    if (selectHelper == "jbv"):
+        return key.virtualizationFromKey
+    if (selectHelper == "jvb"):
+        return key.benchmarkFromKey
+    if (selectHelper == "bvj"):
+        return key.jdkFromDir
+    if (selectHelper == "vbj"):
+        return key.jdkFromDir
+
+
+def passratesPrinter(allJdks, allBenchmarks, allVirtualisations, selectHelper):
+    h2("crash rates - how much percent of the benchmarks actually finished. 100% all.")
+    tableOfContext2(allJdks, allBenchmarks, selectHelper)
+    for jdk in allJdks:
+        h3(jdk, jdk+"-"+selectHelper)
+        for benchmark in allBenchmarks:
+            h4(benchmark, jdk+"_"+benchmark+"-"+selectHelper)
+            if (benchmark == "all"):
+                if (selectHelper == "jbv"):
+                    fullSubset = selectCrashrate(jdk, None, None)
+                if (selectHelper == "jvb"):
+                    fullSubset = selectCrashrate(jdk, None, None)
+                if (selectHelper == "bvj"):
+                    fullSubset = selectCrashrate(None, jdk, None)
+                if (selectHelper == "vbj"):
+                    fullSubset = selectCrashrate(None, None, jdk)
+                subset = [] # there are duplicated values. as we will count avg, we must remove them
+                usedKeys=[]
+                for x in fullSubset:
+                    if not x.equalsKey() in usedKeys:
+                        usedKeys.append(x.equalsKey())
+                        subset.append(x)
+                # no avg values for each benchmark to fullSubset
+                fullSubset=[];
+                for virtualisation in allVirtualisations:
+                    value=0
+                    count=0
+                    for xjxbxv in subset:
+                        inc = False;
+                        if (selectHelper == "jbv"):
+                            if (virtualisation == xjxbxv.virtualizationFromKey):
+                                    inc = True
+                        if (selectHelper == "jvb"):
+                            if (virtualisation == xjxbxv.benchmarkFromKey):
+                                    inc = True
+                        if (selectHelper == "bvj"):
+                            if (virtualisation == xjxbxv.jdkFromName):
+                                    inc = True
+                        if (selectHelper == "vbj"):
+                            if (virtualisation == xjxbxv.jdkFromName):
+                                    inc = True
+                        if (inc):
+                            value+=xjxbxv.value
+                            count+=1
+                    if (count==0):
+                        value = 0;
+                        count = 1;
+                    if (selectHelper == "jbv"):
+                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+                    if (selectHelper == "jvb"):
+                        fullSubset.append(xJxBxV(jdk+"_"+virtualisation+"_all", "all_"+virtualisation, str(value/count)+"%"))
+                    if (selectHelper == "bvj"):
+                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+                    if (selectHelper == "vbj"):
+                        fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
+            else:
+                if (selectHelper == "jbv"):
+                    fullSubset = selectCrashrate(jdk, None, benchmark)
+                if (selectHelper == "jvb"):
+                    fullSubset = selectCrashrate(jdk, benchmark, None)
+                if (selectHelper == "bvj"):
+                    fullSubset = selectCrashrate(None, jdk, benchmark)
+                if (selectHelper == "vbj"):
+                    fullSubset = selectCrashrate(None, benchmark, jdk)
+            fullSubset = sorted(fullSubset,  key=lambda key: nonsensesToKey(selectHelper, key))
+            reSorted = sorted(fullSubset,  key=lambda key: key.value)
+            subset = [] # there are duplicated values. In addition, plot is trasnforming list to set!
+            usedKeys=[]
+            for x in fullSubset:
+                if not nonsensesToKey(selectHelper, x) in usedKeys:
+                    usedKeys.append(nonsensesToKey(selectHelper,x))
+                    if (selectHelper == "jvb" and x.benchmarkFromKey == "all"):
+                        continue # we have added articicial all to et avgs above, it hav eno value
+                    subset.append(x)
+            reSorted = sorted(subset,  key=lambda key: key.value, reverse=True)
+            xAxe=list(map(lambda xjxbxv: nonsensesToKey(selectHelper, xjxbxv), subset))
+            yAxe = list(map(lambda xjxbxv: xjxbxv.value, subset))
+            if (is_html()): 
+                    print("<pre>") 
+            for item in subset:
+                print(str(item.value)+"% "+nonsensesToKey(selectHelper, item))
+            print("--reordered--")
+            for item in reSorted:
+                print(str(item.value)+"% "+nonsensesToKey(selectHelper, item))
+            if (is_html()): 
+                print("</pre>")
+            create_figure(xAxe, yAxe, "pass rate", "%", "passrate_"+jdk+"_"+benchmark+"_"+selectHelper, True)
+
 
 passrates = [];
 finals = []
@@ -463,53 +562,22 @@ if (SCENARIO ==  3):
         )
 
 if (SCENARIO ==  2):
-    h1("crash rates - how much percent of the benchmarks actually finished. 100% all.")
-    tableOfContext2()
-    for jdk in allJdks:
-        h1(jdk, jdk)
-        for benchmark in allBenchmarks:
-            h2(benchmark, jdk+"_"+benchmark)
-            if (benchmark == "all"):
-                fullSubset = selectCrashrate(jdk, None, None)
-                subset = [] # there are duplicated values. as we will count avg, we must remove them
-                usedKeys=[]
-                for x in fullSubset:
-                    if not x.equalsKey() in usedKeys:
-                        usedKeys.append(x.equalsKey())
-                        subset.append(x)
-                # no avg values for each benchmark to fullSubset
-                fullSubset=[];
-                for virtualisation in allVirtualisations:
-                    value=0
-                    count=0
-                    for xjxbxv in subset:
-                        if (virtualisation == xjxbxv.virtualizationFromKey):
-                                value+=xjxbxv.value
-                                count+=1
-                    fullSubset.append(xJxBxV(jdk+"_all_"+virtualisation, virtualisation+"_all", str(value/count)+"%"))
-            else:
-                fullSubset = selectCrashrate(jdk, None, benchmark)
-            fullSubset = sorted(fullSubset,  key=lambda key: key.virtualizationFromKey)
-            reSorted = sorted(fullSubset,  key=lambda key: key.value)
-            subset = [] # there are duplicated values. In addition, plot is trasnforming list to set!
-            usedKeys=[]
-            for x in fullSubset:
-                if not x.virtualizationFromKey in usedKeys:
-                    usedKeys.append(x.virtualizationFromKey)
-                    subset.append(x)
-            reSorted = sorted(subset,  key=lambda key: key.value, reverse=True)
-            xAxe=list(map(lambda xjxbxv: xjxbxv.virtualizationFromKey, subset))
-            yAxe = list(map(lambda xjxbxv: xjxbxv.value, subset))
-            if (is_html()): 
-                    print("<pre>") 
-            for item in subset:
-                print(str(item.value)+"% "+item.virtualizationFromKey)
-            print("--reordered--")
-            for item in reSorted:
-                print(str(item.value)+"% "+item.virtualizationFromKey)
-            if (is_html()): 
-                print("</pre>")
-            create_figure(xAxe, yAxe, "pass rate", "%", "passrate_"+jdk+"_"+benchmark, True)
+    ahref("Stabilities of virtualisations  -solution 1 (see all/all)", "jbv");tag("br","")
+    ahref("Stabilities of benchmarks", "jvb");tag("br","")
+    ahref("Stabilities of jdks 1", "bvj");tag("br","")
+    ahref("Stabilities of jdks 2", "vbj");tag("br","")
+    tag("hr","")
+    h1("Stabilities of virtualisations", "jbv")
+    passratesPrinter(allJdks, allBenchmarks, allVirtualisations, "jbv")
+    h1("Stabilities of benchmarks", "jvb")
+    bb=[];
+    bb.extend(allVirtualisations)
+    bb.append("all");
+    passratesPrinter(allJdks, bb, allBenchmarks, "jvb")
+    h1("Stabilities of jdks 1")
+    #passratesPrinter(allBenchmarks, allVirtualisations, allJdks, "bvj")
+    h1("Stabilities of jdks 2")
+    #passratesPrinter(allVirtualisations, allBenchmarks, allJdks, "vbj")
 
 if (SCENARIO ==  4):
     #avg from various relative values
