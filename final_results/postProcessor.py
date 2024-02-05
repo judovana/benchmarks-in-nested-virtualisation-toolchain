@@ -96,7 +96,7 @@ class JVbkmr(object):
 
     def __init__(self, fileName, keyName, value, skip=False):
         self.value = parse_number(re.sub("%","",value))
-        self.jdkFromName = re.sub("\.properties.*","",fileName)
+        self.jdkFromName = re.sub("\\.properties.*","",fileName)
         self.jdkFromName = sanitizeAll(self.jdkFromName)
         initOrAdd(allJdks, self.jdkFromName, skip); # eg java-11
         self.originalKey = keyName
