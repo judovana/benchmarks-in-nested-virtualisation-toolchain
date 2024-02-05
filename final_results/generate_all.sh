@@ -223,6 +223,7 @@ fi
 popd
 
 set -x
+
 PASSRATES_DIR=$INVERTED_RESULT_DIR/../passratesCharts
 rm -rf $PASSRATES_DIR
 mkdir $PASSRATES_DIR
