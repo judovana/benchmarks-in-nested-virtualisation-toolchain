@@ -104,9 +104,11 @@ class JVbkmr(object):
         # now parse originalKey
         splited = self.originalKey.split(":");
         self.resultType=splited[3]
-        allTypes.add(self.resultType)
+        if not skip:
+            allTypes.add(self.resultType)
         self.metric=splited[2]
-        allMetrics.add(self.metric)
+        if not skip:
+            allMetrics.add(self.metric)
         self.key=splited[1]
         if (self.key.find("Time")>=0):
             self.value=-1*self.value
@@ -116,10 +118,11 @@ class JVbkmr(object):
         self.benchmark = virtAndbench.split("_")[-1];
         self.benchmark = sanitizeAll(self.benchmark)
         initOrAdd(allBenchmarks, self.benchmark, skip)
-        if (self.benchmark in allKeysPerBenchmark):
-            allKeysPerBenchmark[self.benchmark].add(self.key)
-        else:
-            allKeysPerBenchmark[self.benchmark]={self.key}
+        if not skip:
+            if (self.benchmark in allKeysPerBenchmark):
+                allKeysPerBenchmark[self.benchmark].add(self.key)
+            else:
+                allKeysPerBenchmark[self.benchmark]={self.key}
         self.virtualisation = re.sub("_"+self.benchmark, "", virtAndbench)  #container-results  containers_in_container
         self.virtualisation = sanitizeAll(self.virtualisation)
         initOrAdd(allVirtualisations, self.virtualisation, skip)
@@ -266,6 +269,8 @@ def tableOfContext13():
                 for key in allKeysPerBenchmark[benchmark]:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     lio();ahref(key, iddqd);lie()
+                iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
+                lio();ahref("avg", iddqd);lie()
                 ole()
             ole()
         ole()
@@ -437,7 +442,19 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     if (is_html()):
                         print("</pre>")
                     #now plot the same nice chart as abov.. with shifting and so...it have to be extracted to method
-                    #lets change the awesome map of maps of liste to flat "finals" like structure JVbkmr
+                    #lets change the awesome map of list to flat "finals" like structure JVbkmr
+                    avgFinals = []
+                    for keyInterestedTypes, listOfVals in avgsOfAllKeys.items():
+                        #jdks.proeprties and inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
+                        y=-1
+                        for value in listOfVals:
+                            y+=1
+                            avgFinals.append(JVbkmr(jdk, allVirtualisations[y]+"_"+benchmark+":avg:"+metric+":"+keyInterestedTypes, str(value), True))
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
+                    h4("avg", iddqd)
+                    pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
+
 
 
 def nonsensesToKey(selectHelper, key):
