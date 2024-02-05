@@ -411,7 +411,7 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo, interestedTypes, allVi
             toBeAvg[x][cc] = toBeAvg[x][cc] / float(str(len(listToCountCountFrom)))
             if not(toBeAddedTo is None):
                 toBeAddedTo[x][cc] = toBeAddedTo[x][cc] + toBeAvg[x][cc]
-                
+
 def preprint(anything):
     if (is_html()):
         print("<pre>")                
@@ -427,6 +427,8 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
     h1(title1)
     pre(title2)
     tableOfContext13()
+    avgsOfAllJdksWithAll={}
+    avgsOfAllJdks={}
     for jdk in allJdks:
         h1(jdk, jdk)
         if (jdk == "all"):
