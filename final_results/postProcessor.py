@@ -344,6 +344,21 @@ def keyToStr(key):
         return "all";
     return key
 
+def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x):
+    #calculsting height of chart, to adjust shift properly
+    maxi=1
+    mini=10000000000000
+    for x in interestedTypes:
+        if x in allTypes:
+            subset = selectFinals(jdk, key, virt, benchmark, metric, x)
+            # if to sort, then by virtualization name
+            subset = sorted(subset,  key=lambda r: r.virtualisation)
+            for item in subset:
+                maxi=max(maxi, item.value)
+                mini=min(mini, item.value)
+    chartHeight=maxi-mini
+    return chartHeight
+
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
     #todo add avg of all values 
     #todo add avgs of all metrics 
@@ -373,18 +388,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     if (is_html()): 
                             print("<pre>")  
-                    #calculsting height of chart, to adjust shift properly
-                    maxi=1
-                    mini=10000000000000
-                    for x in interestedTypes:
-                        if x in allTypes:
-                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
-                            # if to sort, then by virtualization name
-                            subset = sorted(subset,  key=lambda r: r.virtualisation)
-                            for item in subset:
-                                maxi=max(maxi, item.value)
-                                mini=min(mini, item.value)
-                    chartHeight=maxi-mini
+                    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, None, benchmark, metric, x)
                     fig_transfer = None
                     i=-1
                     for x in interestedTypes:
