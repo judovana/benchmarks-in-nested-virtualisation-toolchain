@@ -228,7 +228,7 @@ rm -rf $PASSRATES_DIR
 mkdir $PASSRATES_DIR
 python ${pworker} 2 > $PASSRATES_DIR/index.html
 mv -f passrate_*.png $PASSRATES_DIR/
-exit
+
 ABS_DIR=$INVERTED_RESULT_DIR/../absCharts
 rm -rf $ABS_DIR
 mkdir $ABS_DIR
