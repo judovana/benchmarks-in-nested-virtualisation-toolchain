@@ -473,35 +473,26 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                 # this have sense only for relative values, we count it always however, for fun
                 avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics,interestedTypes, allVirtualisations)
                 if (shift):
-                    iddqd2=jdk + "_" + benchmark + "_" + metric+"_avg"
-                    h4("avarage of all keys (benchmark meassured relativre accuracy)", iddqd2)
-                    preprint(avgsOfAllKeys)
-                    #now plot the same nice chart as abov.. with shifting and so...it have to be extracted to method
-                    #lets change the awesome map of list to flat "finals" like structure JVbkmr
-                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":avg:"+metric+":" )
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
-                    h4("avg", iddqd)
+                    h4("avarage of all keys (benchmark meassured relativre accuracy)", iddqd)
+                    preprint(avgsOfAllKeys)
+                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":avg:"+metric+":" )
                     pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
             avgAndAdd(avgsOfAllMetrics, allMetrics, avgsOfAllBenchmarks,interestedTypes, allVirtualisations);
             if (shift):
-                iddqd2=jdk + "_" + benchmark + "_avg_avg"
-                h4("avarage of all metrics from avarages of all keys", iddqd2)
+                iddqd=jdk + "_" + benchmark + "_avg_avg"
+                h4("avarage of all metrics from avarages of all keys", iddqd)
                 preprint(avgsOfAllMetrics)
                 avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":avg:avg:" )
-                iddqd=jdk + "_" + benchmark + "_avg_avg"
-                h4("avg", iddqd)
                 pre(jdk + " " + benchmark + " avg avg")
                 drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)   
         avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, None,interestedTypes, allVirtualisations)
         if (shift):
-            iddqd2=jdk + "_avg_avg_avg"
-            h4("avarage of all benchamrks from avarages of all metrics and all keys", iddqd2)
-            preprint(avgsOfAllBenchmarks)
-            avgFinals = []
-            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_avg:avg:avg:" )
             iddqd=jdk + "_avg_avg_avg"
-            h4("avg", iddqd)
+            h4("avarage of all benchamrks from avarages of all metrics and all keys", iddqd)
+            preprint(avgsOfAllBenchmarks)
+            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_avg:avg:avg:" )
             pre(jdk + " avg avg avg")
             drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, "avg", "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals) 
 
