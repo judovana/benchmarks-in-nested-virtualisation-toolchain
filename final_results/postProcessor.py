@@ -359,6 +359,41 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric,
     chartHeight=maxi-mini
     return chartHeight
 
+def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x, preffix, decorator, legend, iddqd, avgsOfAllKeys):
+    if (is_html()): 
+        print("<pre>")  
+    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x)
+    fig_transfer = None
+    i=-1
+    for x in interestedTypes:
+        i+=1
+        if x in allTypes:  
+            subset = selectFinals(jdk, key, virt, benchmark, metric, x)
+            # if to sort, then by virtualization name
+            subset = sorted(subset,  key=lambda r: r.virtualisation)
+            c=-1
+            for item in subset:
+                c+=1
+                avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
+            xAxe = list(map(lambda final: final.virtualisation, subset))
+            # shift 0.05 was ok for 10, but to big for 1
+            relshift=0
+            if shift:
+                relshift=i*(chartHeight/150.0)
+                relshift=min(1,relshift)#?
+                relshift=max(0.0001,relshift)#?
+            yAxe = list(map(lambda final: final.value+relshift, subset))
+            for item in subset:
+                print(x+ " " + str(item.value)+" "+item.virtualisation )
+            if (not (i == len(interestedTypes)-1)):
+                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key+decorator, preffix+iddqd, False, fig_transfer)
+            else:
+                create_figure(xAxe, yAxe, legend, key+decorator, preffix+iddqd, True, fig_transfer)
+                if (is_html()):
+                    print("</pre>")
+        else:
+            pre("missing value: " + x)   
+
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
     #todo add avg of all values 
     #todo add avgs of all metrics 
@@ -386,39 +421,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
-                    if (is_html()): 
-                            print("<pre>")  
-                    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, None, benchmark, metric, x)
-                    fig_transfer = None
-                    i=-1
-                    for x in interestedTypes:
-                        i+=1
-                        if x in allTypes:  
-                            subset = selectFinals(jdk, key, None, benchmark, metric, x)
-                            # if to sort, then by virtualization name
-                            subset = sorted(subset,  key=lambda r: r.virtualisation)
-                            c=-1
-                            for item in subset:
-                                c+=1
-                                avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
-                            xAxe = list(map(lambda final: final.virtualisation, subset))
-                            # shift 0.05 was ok for 10, but to big for 1
-                            relshift=0
-                            if shift:
-                                relshift=i*(chartHeight/150.0)
-                                relshift=min(1,relshift)#?
-                                relshift=max(0.0001,relshift)#?
-                            yAxe = list(map(lambda final: final.value+relshift, subset))
-                            for item in subset:
-                                print(x+ " " + str(item.value)+" "+item.virtualisation )
-                            if (not (i == len(interestedTypes)-1)):
-                                fig_transfer = create_figure(xAxe, yAxe, "rewritten", key+decorator, preffix+iddqd, False, fig_transfer)
-                            else:
-                                create_figure(xAxe, yAxe, legend, key+decorator, preffix+iddqd, True, fig_transfer)
-                                if (is_html()):
-                                    print("</pre>")
-                        else:
-                            pre("missing value: " + x)
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, x, preffix, decorator, legend, iddqd, avgsOfAllKeys)
                 # this have sense only for relative values, skip in absolute. misuse shift?  dont forget about content!
                 if (shift):
                     for x in interestedTypes:
