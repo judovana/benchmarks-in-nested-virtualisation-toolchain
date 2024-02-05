@@ -163,7 +163,7 @@ def parse_number(line):
     #print("rounded number: ", round(float(parsed_number)))
     return float(parsed_number)
 
-def selectFinals(jdkFromName, key, virtualisation, benchmark, metric, resultType):
+def selectFinals(jdkFromName, key, virtualisation, benchmark, metric, resultType, finals):
     subset=[];
     for final in finals:
         if ((jdkFromName is None or jdkFromName == final.jdkFromName)
@@ -344,13 +344,13 @@ def keyToStr(key):
         return "all";
     return key
 
-def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric):
+def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals):
     #calculsting height of chart, to adjust shift properly
     maxi=1
     mini=10000000000000
     for x in interestedTypes:
         if x in allTypes:
-            subset = selectFinals(jdk, key, virt, benchmark, metric, x)
+            subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
             # if to sort, then by virtualization name
             subset = sorted(subset,  key=lambda r: r.virtualisation)
             for item in subset:
@@ -359,16 +359,16 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric)
     chartHeight=maxi-mini
     return chartHeight
 
-def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys):
+def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals):
     if (is_html()): 
         print("<pre>")  
-    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric)
+    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals)
     fig_transfer = None
     i=-1
     for x in interestedTypes:
         i+=1
         if x in allTypes:  
-            subset = selectFinals(jdk, key, virt, benchmark, metric, x)
+            subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
             # if to sort, then by virtualization name
             subset = sorted(subset,  key=lambda r: r.virtualisation)
             c=-1
@@ -421,7 +421,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
-                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys)
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
                 # this have sense only for relative values, skip in absolute. misuse shift?  dont forget about content!
                 if (shift):
                     for x in interestedTypes:
@@ -437,6 +437,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     if (is_html()):
                         print("</pre>")
                     #now plot the same nice chart as abov.. with shifting and so...it have to be extracted to method
+                    #lets change the awesome map of maps of liste to flat "finals" like structure JVbkmr
 
 
 def nonsensesToKey(selectHelper, key):
