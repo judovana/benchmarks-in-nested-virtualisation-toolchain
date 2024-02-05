@@ -419,6 +419,20 @@ def preprint(anything):
     if (is_html()):
         print("</pre>")
 
+# WARNIGN WARNIGN WARNIGN WARNIGN virtkay is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
+# WARNIGN that have to be fixed before moving to combinations. Propably te keyPart will need to be split to individual parts
+# WARNIGN in addition the virtKey is iterable and its parts are taken...
+# WARNIGN also jdk i sused as jdk in the JVbkmr constructor
+def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, keyPart):
+    avgFinals = []
+    for keyInterestedTypes, listOfVals in avgs.items():
+        #jdks.proeprties and inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
+        y=-1
+        for value in listOfVals:
+            y+=1
+            avgFinals.append(JVbkmr(jdk, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
+    return avgFinals
+
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
     #todo add avg of all values 
     #todo add avgs of all metrics 
@@ -467,13 +481,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     preprint(avgsOfAllKeys)
                     #now plot the same nice chart as abov.. with shifting and so...it have to be extracted to method
                     #lets change the awesome map of list to flat "finals" like structure JVbkmr
-                    avgFinals = []
-                    for keyInterestedTypes, listOfVals in avgsOfAllKeys.items():
-                        #jdks.proeprties and inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
-                        y=-1
-                        for value in listOfVals:
-                            y+=1
-                            avgFinals.append(JVbkmr(jdk, allVirtualisations[y]+"_"+benchmark+":avg:"+metric+":"+keyInterestedTypes, str(value), True))
+                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":avg:"+metric+":" )
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
                     h4("avg", iddqd)
                     pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
@@ -483,12 +491,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                 iddqd2=jdk + "_" + benchmark + "_avg_avg"
                 h4("avarage of all metrics from avarages of all keys", iddqd2)
                 preprint(avgsOfAllMetrics)
-                avgFinals = []
-                for keyInterestedTypes, listOfVals in avgsOfAllMetrics.items():
-                    y=-1
-                    for value in listOfVals:
-                        y+=1
-                        avgFinals.append(JVbkmr(jdk, allVirtualisations[y]+"_"+benchmark+":avg:avg:"+keyInterestedTypes, str(value), True))
+                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":avg:avg:" )
                 iddqd=jdk + "_" + benchmark + "_avg_avg"
                 h4("avg", iddqd)
                 pre(jdk + " " + benchmark + " avg avg")
@@ -499,11 +502,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
             h4("avarage of all benchamrks from avarages of all metrics and all keys", iddqd2)
             preprint(avgsOfAllBenchmarks)
             avgFinals = []
-            for keyInterestedTypes, listOfVals in avgsOfAllBenchmarks.items():
-                y=-1
-                for value in listOfVals:
-                    y+=1
-                    avgFinals.append(JVbkmr(jdk, allVirtualisations[y]+"_avg:avg:avg:"+keyInterestedTypes, str(value), True))
+            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_avg:avg:avg:" )
             iddqd=jdk + "_avg_avg_avg"
             h4("avg", iddqd)
             pre(jdk + " avg avg avg")
