@@ -411,6 +411,7 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo, interestedTypes, allVi
             toBeAvg[x][cc] = toBeAvg[x][cc] / float(str(len(listToCountCountFrom)))
             if not(toBeAddedTo is None):
                 toBeAddedTo[x][cc] = toBeAddedTo[x][cc] + toBeAvg[x][cc]
+                
 def preprint(anything):
     if (is_html()):
         print("<pre>")                
