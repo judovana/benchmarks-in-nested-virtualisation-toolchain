@@ -272,6 +272,8 @@ def tableOfContext13():
                 iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
                 lio();ahref("avg", iddqd);lie()
                 ole()
+            iddqd=jdk + "_" + benchmark + "_avg_avg"
+            lio();ahref("avg", iddqd);lie()
             ole()
         ole()
     ole()
@@ -415,6 +417,11 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
             if (benchmark == "all"):
                 continue
             h2(benchmark, jdk+"_"+benchmark)
+            avgsOfAllMetrics={}
+            for x in interestedTypes:
+                avgsOfAllMetrics[x]=[]
+                for v in allVirtualisations:
+                    avgsOfAllMetrics[x].append(float(0.0))
             for metric in allMetrics:
                 h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
                 avgsOfAllKeys={}
@@ -427,15 +434,16 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
-                # this have sense only for relative values, skip in absolute. misuse shift?  dont forget about content!
+                # this have sense only for relative values, we count it always however, for fun
+                for x in interestedTypes:
+                    cc=-1
+                    for v in allVirtualisations:
+                        cc+=1
+                        avgsOfAllKeys[x][cc] = avgsOfAllKeys[x][cc] / float(str(len(allKeysPerBenchmark[benchmark])))
+                        avgsOfAllMetrics[x][cc] = avgsOfAllMetrics[x][cc] + avgsOfAllKeys[x][cc]
                 if (shift):
-                    for x in interestedTypes:
-                        cc=-1
-                        for v in allVirtualisations:
-                            cc+=1
-                            avgsOfAllKeys[x][cc] = avgsOfAllKeys[x][cc] / float(str(len(allKeysPerBenchmark[benchmark])))
                     iddqd2=jdk + "_" + benchmark + "_" + metric+"_avg"
-                    h4("avarage of all keys (benchmark meassured relativre accyracy)", iddqd2)          
+                    h4("avarage of all keys (benchmark meassured relativre accuracy)", iddqd2)
                     if (is_html()):
                         print("<pre>")                
                     print(avgsOfAllKeys)
@@ -454,7 +462,29 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     h4("avg", iddqd)
                     pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
-
+            for x in interestedTypes:
+                cc=-1
+                for v in allVirtualisations:
+                    cc+=1
+                    avgsOfAllMetrics[x][cc] = avgsOfAllMetrics[x][cc] / float(str(len(allMetrics)));
+            if (shift):
+                iddqd2=jdk + "_" + benchmark + "_avg_avg"
+                h4("avarage of all metrics from avarages of all keys", iddqd2)
+                if (is_html()):
+                    print("<pre>")                
+                print(avgsOfAllMetrics)
+                if (is_html()):
+                    print("</pre>")
+                avgFinals = []
+                for keyInterestedTypes, listOfVals in avgsOfAllMetrics.items():
+                    y=-1
+                    for value in listOfVals:
+                        y+=1
+                        avgFinals.append(JVbkmr(jdk, allVirtualisations[y]+"_"+benchmark+":avg:avg:"+keyInterestedTypes, str(value), True))
+                iddqd=jdk + "_" + benchmark + "_avg_avg"
+                h4("avg", iddqd)
+                pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
+                drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)   
 
 
 def nonsensesToKey(selectHelper, key):
