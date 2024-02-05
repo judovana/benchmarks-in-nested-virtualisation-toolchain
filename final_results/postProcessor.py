@@ -433,6 +433,15 @@ def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, keyPart):
             avgFinals.append(JVbkmr(jdk, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
     return avgFinals
 
+def initMapOfLists(counterForItems, interestedTypes):
+    mapOfLists={}
+    for x in interestedTypes:
+        mapOfLists[x]=[]
+        for v in counterForItems:
+            mapOfLists[x].append(float(0.0))
+    return mapOfLists
+    
+
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
     #todo add avg of all values 
     #todo add avgs of all metrics 
@@ -441,33 +450,21 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
     h1(title1)
     pre(title2)
     tableOfContext13()
-    avgsOfAllJdksWithAll={}
-    avgsOfAllJdks={}
+    avgsOfAllJdksWithAll=initMapOfLists(allVirtualisations, interestedTypes)
+    avgsOfAllJdks=initMapOfLists(allVirtualisations, interestedTypes)
     for jdk in allJdks:
         h1(jdk, jdk)
         if (jdk == "all"):
             pre("For those values, ALL jdks is moreover useless. But can serve as the ONE number if needed")
-        avgsOfAllBenchmarks={}
-        for x in interestedTypes:
-            avgsOfAllBenchmarks[x]=[]
-            for v in allVirtualisations:
-                avgsOfAllBenchmarks[x].append(float(0.0))
+        avgsOfAllBenchmarks=initMapOfLists(allVirtualisations, interestedTypes)
         for benchmark in allBenchmarks:
             if (benchmark == "all"):
                 continue
             h2(benchmark, jdk+"_"+benchmark)
-            avgsOfAllMetrics={}
-            for x in interestedTypes:
-                avgsOfAllMetrics[x]=[]
-                for v in allVirtualisations:
-                    avgsOfAllMetrics[x].append(float(0.0))
+            avgsOfAllMetrics=initMapOfLists(allVirtualisations, interestedTypes)
             for metric in allMetrics:
                 h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
-                avgsOfAllKeys={}
-                for x in interestedTypes:
-                    avgsOfAllKeys[x]=[]
-                    for v in allVirtualisations:
-                        avgsOfAllKeys[x].append(float(0.0))
+                avgsOfAllKeys=initMapOfLists(allVirtualisations, interestedTypes)
                 for key in allKeysPerBenchmark[benchmark]:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
