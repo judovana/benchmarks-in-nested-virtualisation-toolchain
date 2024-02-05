@@ -27,10 +27,8 @@ def is_html():
 # scenario 3: the final answer from inverted_results/*properties.sort.uniq
 # here we have relative stability results per jdk and per virtualisation
 # there is hidden final answer of imapct of (nested) virtualisation to accuracy
+# ideally also add avgs from various combinations
 
-# scenario 4+ should substitue various missing "all" from RELATIVE values only
-# from 3..IDK, maybe to... It should be separate goal for both. varisou all x all x N and all all all needs a lot fof computing and not all is applicable (and some are duplicate din original raw reports)
-#     gosh.. and metrics Maybe drop them... avg and med are nearly identical m1 to...
  
 
 # object to keep values of passrates.properties.sort.uniq
@@ -668,13 +666,3 @@ if (SCENARIO ==  2):
     passratesPrinter(allBenchmarks, allVirtualisations, allJdks, "bvj")
     h1("Stabilities of jdks 2", "vbj")
     passratesPrinter(allVirtualisations, allBenchmarks, allJdks, "vbj")  #we keep both, as it is inverted view
-
-if (SCENARIO ==  4):
-    #avg from various relative values
-    #what to do with the magical all value?
-    #the avraged methods from all are afaik very very different.
-    #all jdks on individual benchmarks. What to do with duplicated results? They must be removed!
-    #jdk  on all benchmarks
-    # all on all
-    #Waht to do woth keys ? Metrics? avg all?
-    print("TODO")
