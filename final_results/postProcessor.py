@@ -28,6 +28,8 @@ def is_html():
 # here we have relative stability results per jdk and per virtualisation
 # there is hidden final answer of imapct of (nested) virtualisation to accuracy
 # ideally also add avgs from various combinations
+# as it is possible to really iterate thi as the pasrates, its the way to go
+#  however, it would be ok to pas each to different file/dir due of size
 
  
 
