@@ -344,7 +344,7 @@ def keyToStr(key):
         return "all";
     return key
 
-def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x):
+def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric):
     #calculsting height of chart, to adjust shift properly
     maxi=1
     mini=10000000000000
@@ -359,10 +359,10 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric,
     chartHeight=maxi-mini
     return chartHeight
 
-def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x, preffix, decorator, legend, iddqd, avgsOfAllKeys):
+def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys):
     if (is_html()): 
         print("<pre>")  
-    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, x)
+    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric)
     fig_transfer = None
     i=-1
     for x in interestedTypes:
@@ -421,7 +421,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
-                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, x, preffix, decorator, legend, iddqd, avgsOfAllKeys)
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys)
                 # this have sense only for relative values, skip in absolute. misuse shift?  dont forget about content!
                 if (shift):
                     for x in interestedTypes:
