@@ -563,11 +563,16 @@ for parentdir, dirs, files in os.walk(path, topdown=False):
                 readFinals(parentdir, filename, name)
 eprint("loaded passrates: " + str(len(passrates)))
 eprint("loaded finals: " + str(len(finals)))
+allJdks=sorted(allJdks);
 eprint(allJdks)
+allVirtualisations=sorted(allVirtualisations);
 eprint(allVirtualisations)
+allBenchmarks=sorted(allBenchmarks);
 eprint(allBenchmarks)
 eprint(allKeysPerBenchmark)
+allMetrics=sorted(allMetrics);
 eprint(allMetrics)
+allTypes=sorted(allTypes);
 eprint(allTypes)
 
 absVals=["MIN", "MAX", "AVG", "MED"]
