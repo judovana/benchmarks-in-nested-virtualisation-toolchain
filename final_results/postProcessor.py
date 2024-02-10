@@ -16,6 +16,10 @@ def is_html():
     #if not defined then true, it no longer have sense without it
     return (os.environ.get('HTML') is  None or os.environ.get('HTML') == "true")
 
+def is_avg():
+    # geom by default as it is more real
+    return os.environ.get('POST_AVG') is not None and os.environ.get('POST_AVG') == "true"
+
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
 # thus we can show impact of virtualisation on performance
@@ -418,11 +422,20 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo1, toBeAddedTo2, interes
         cc=-1
         for v in allVirtualisations:
             cc+=1
-            toBeAvg[x][cc] = toBeAvg[x][cc] / float(str(len(listToCountCountFrom)))
+            if is_avg():
+                toBeAvg[x][cc] = toBeAvg[x][cc] / float(str(len(listToCountCountFrom)))
+            else:
+                toBeAvg[x][cc] = toBeAvg[x][cc] ** (float("1.0")/float(str(len(listToCountCountFrom))))
             if not(toBeAddedTo1 is None):
-                toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] + toBeAvg[x][cc]
+                if is_avg():
+                    toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] + toBeAvg[x][cc]
+                else:
+                    toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] * toBeAvg[x][cc]
             if not(toBeAddedTo2 is None):
-                toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] + toBeAvg[x][cc]                
+                if is_avg():
+                    toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] + toBeAvg[x][cc]
+                else:
+                    toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] * toBeAvg[x][cc]                
 
 def preprint(anything):
     if (is_html()):
@@ -450,7 +463,10 @@ def initMapOfLists(counterForItems, interestedTypes):
     for x in interestedTypes:
         mapOfLists[x]=[]
         for v in counterForItems:
-            mapOfLists[x].append(float(0.0))
+            if is_avg():
+                mapOfLists[x].append(float(0.0))
+            else:
+                mapOfLists[x].append(float(1.0))
     return mapOfLists
     
 
@@ -482,7 +498,6 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
-                # this have sense only for relative values, we count it always however, for fun
                 avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
                 if (avgs):
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
@@ -645,6 +660,7 @@ for parentdir, dirs, files in os.walk(path, topdown=False):
             else:
                 #eprint("found holly grail of " + name +" in " + parentdir)
                 readFinals(parentdir, filename, name)
+eprint("avg  : " + str(is_avg()) + "; geom : " + str(not is_avg()))
 eprint("loaded passrates: " + str(len(passrates)))
 eprint("loaded finals: " + str(len(finals)))
 allJdks=sorted(allJdks);
