@@ -425,7 +425,7 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo1, toBeAddedTo2, interes
             if is_avg():
                 toBeAvg[x][cc] = toBeAvg[x][cc] / float(str(len(listToCountCountFrom)))
             else:
-                toBeAvg[x][cc] = toBeAvg[x][cc] ** (float("1.0")/float(str(len(listToCountCountFrom))))
+                toBeAvg[x][cc] = abs(toBeAvg[x][cc]) ** (float("1.0")/float(str(len(listToCountCountFrom))))
             if not(toBeAddedTo1 is None):
                 if is_avg():
                     toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] + toBeAvg[x][cc]
@@ -471,9 +471,6 @@ def initMapOfLists(counterForItems, interestedTypes):
     
 
 def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs):
-    #todo add avg of all values 
-    #todo add avgs of all metrics 
-    #(there will be all/all for each jdk x bench
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
