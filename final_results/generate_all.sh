@@ -223,7 +223,6 @@ fi
 popd
 
 set -x
-
 PASSRATES_DIR=$INVERTED_RESULT_DIR/../passratesCharts
 rm -rf $PASSRATES_DIR
 mkdir $PASSRATES_DIR
@@ -239,5 +238,5 @@ mv -f abs_*.png $ABS_DIR/
 REL_DIR=$INVERTED_RESULT_DIR/../relCharts
 rm -rf $REL_DIR
 mkdir $REL_DIR
-python ${pworker} 3 > $REL_DIR/index.html
+POST_AVG=true python ${pworker} 3 > $REL_DIR/index.html
 mv -f rel_*.png $REL_DIR/
