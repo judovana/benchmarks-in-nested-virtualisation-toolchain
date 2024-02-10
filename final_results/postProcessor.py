@@ -253,7 +253,7 @@ def metricToString(m):
         return "all runs of one jdk were made MEDIAN before processing"
     return "unknown metric: " + m;
 
-def tableOfContext13():
+def tableOfContext13(avgs):
     olo()
     for jdk in allJdks:
         lio();ahref(jdk, jdk);lie()
@@ -269,21 +269,25 @@ def tableOfContext13():
                 for key in allKeysPerBenchmark[benchmark]:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     lio();ahref(key, iddqd);lie()
-                iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
-                lio();ahref("avg", iddqd);lie()
+                if avgs:
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
+                    lio();ahref("avg", iddqd);lie()
                 ole()
-            iddqd=jdk + "_" + benchmark + "_avg_avg"
-            lio();ahref("avg", iddqd);lie()
+            if avgs:
+                iddqd=jdk + "_" + benchmark + "_avg_avg"
+                lio();ahref("avg", iddqd);lie()
             ole()
-        iddqd=jdk + "_avg_avg_avg"
-        lio();ahref("avg", iddqd);lie()            
+        if avgs:
+            iddqd=jdk + "_avg_avg_avg"
+            lio();ahref("avg", iddqd);lie()            
         ole()
     ole()
     olo()        
-    iddqd="avgX_avg_avg_avg"
-    lio();ahref("avg of all (with all, thus wrong)", iddqd);lie() 
-    iddqd="avg_avg_avg_avg"
-    lio();ahref("avg of all", iddqd);lie() 
+    if avgs:
+        iddqd="avgX_avg_avg_avg"
+        lio();ahref("avg of all (with all, thus wrong)", iddqd);lie() 
+        iddqd="avg_avg_avg_avg"
+        lio();ahref("avg of all", iddqd);lie() 
     ole()
     tag("hr","");
 
@@ -450,14 +454,14 @@ def initMapOfLists(counterForItems, interestedTypes):
     return mapOfLists
     
 
-def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift):
+def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs):
     #todo add avg of all values 
     #todo add avgs of all metrics 
     #(there will be all/all for each jdk x bench
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
-    tableOfContext13()
+    tableOfContext13(avgs)
     avgsOfAllJdksWithAll=initMapOfLists(allVirtualisations, interestedTypes)
     avgsOfAllJdks=initMapOfLists(allVirtualisations, interestedTypes)
     for jdk in allJdks:
@@ -480,7 +484,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
                 # this have sense only for relative values, we count it always however, for fun
                 avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
-                if (shift):
+                if (avgs):
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
                     h4("avarage of all keys (benchmark meassured relativre accuracy)", iddqd)
                     preprint(avgsOfAllKeys)
@@ -488,7 +492,7 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
                     pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
             avgAndAdd(avgsOfAllMetrics, allMetrics, avgsOfAllBenchmarks, None, interestedTypes, allVirtualisations);
-            if (shift):
+            if (avgs):
                 iddqd=jdk + "_" + benchmark + "_avg_avg"
                 h4("avarage of all metrics from avarages of all keys", iddqd)
                 preprint(avgsOfAllMetrics)
@@ -499,14 +503,14 @@ def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, s
             avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, avgsOfAllJdksWithAll, None, interestedTypes, allVirtualisations)
         else:
             avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, avgsOfAllJdksWithAll, avgsOfAllJdks, interestedTypes, allVirtualisations)
-        if (shift):
+        if (avgs):
             iddqd=jdk + "_avg_avg_avg"
             h4("avarage of all benchamrks from avarages of all metrics and all keys", iddqd)
             preprint(avgsOfAllBenchmarks)
             avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_avg:avg:avg:" )
             pre(jdk + " avg avg avg")
             drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, "avg", "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals) 
-    if (shift):
+    if (avgs):
         iddqd="avgX_avg_avg_avg"
         h4("avarage of all above (with all, thus wrong))", iddqd)
         preprint(avgsOfAllJdksWithAll)
@@ -670,7 +674,8 @@ if (SCENARIO ==  1):
         "",
         allAbsLegend,
         absVals,
-        False
+        False,
+        True
         )
 
 if (SCENARIO ==  3):
@@ -681,6 +686,7 @@ if (SCENARIO ==  3):
         "%",
         allRelLegend,
         relVals,
+        True,
         True
         )
 
