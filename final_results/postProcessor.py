@@ -397,7 +397,10 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
             c=-1
             for item in subset:
                 c+=1
-                avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
+                if is_avg():
+                    avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
+                else:
+                    avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]*item.value
             xAxe = list(map(lambda final: final.virtualisation, subset))
             # shift 0.05 was ok for 10, but to big for 1
             relshift=0
