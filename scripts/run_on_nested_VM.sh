@@ -71,7 +71,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/normal/$(cat $SCRIPT_ORIGIN/../config | gre
   vagrant halt
   vagrant up
   if [ $IS_CONTAINER = True ] ; then 
-    vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_container_on_VM.sh $COUNTER $JDK"
+    vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/create_container_on_container_or_VM.sh $COUNTER $JDK"
     vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git $VIRTUAL_WORKSPACE/in/benchmarks-in-nested-virtualisation-toolchain/container-results/${JDK_NAME}/${COUNTER}/ tester@$TOP_LEVEL_HOST:$RESULTS_PATH_NJDK"
   else
     vagrant ssh -c "WORKSPACE=$VIRTUAL_WORKSPACE $other_params bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/run_on_VM.sh $COUNTER $JDK"
