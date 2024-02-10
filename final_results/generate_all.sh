@@ -182,7 +182,7 @@ fi
     echo "<h4><a href=\"#finals\">for final results, go to bottom</a></h4>"
     echo "<div>J - jdk, B - benchmark, V - virtualization</div>"
     echo "<div>all - all in one chart/report, one - iterated one by one</div>"
-    indexes=`find . -mindepth 2 | grep /index.html$ | sort`
+    indexes=`find . -mindepth 2 | grep /index.html$ | grep -v -e absCharts -e passratesCharts -e relCharts | sort`
     echo "<ol>"
     echo "<ol>"
     current_title=""
