@@ -447,7 +447,7 @@ def preprint(anything):
     if (is_html()):
         print("</pre>")
 
-# WARNIGN WARNIGN WARNIGN WARNIGN virtkay is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
+# WARNIGN WARNIGN WARNIGN WARNIGN virtkey is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
 # WARNIGN that have to be fixed before moving to combinations. Propably te keyPart will need to be split to individual parts
 # WARNIGN in addition the virtKey is iterable and its parts are taken...
 # WARNIGN also jdk i sused as jdk in the JVbkmr constructor
@@ -473,7 +473,7 @@ def initMapOfLists(counterForItems, interestedTypes):
     return mapOfLists
     
 
-def jvbkmrprinter(title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs):
+def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs):
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
@@ -680,10 +680,11 @@ allAbsLegend="min (blue) ; max (orange) ; avg(green) ; med(red)",
 relVals=['MAX-MIN', 'MIN-MED', 'MIN-MAX','MAX-AVG', 'MAX-MED','AVG-MED', 'MIN-AVG']
 allRelLegend="MAX-MIN(blue);MIN-MED(orange);MIN-MAX(green);MAX-AVG(red);MAX-MED(purple);AVG-MED(brown);MIN-AVG(pink)"
 
-SCENARIO=round(parse_number(sys.argv[1]))
+SCENARIO=parse_number(sys.argv[1])
 
-if (SCENARIO ==  1):
+if (SCENARIO ==  1 or SCENARIO ==  1.1):
     jvbkmrprinter(
+        allJdks, allBenchmarks,allVirtualisations,
         "absolute values of benchmarks per virtualisation",
         "time and other 'less is better` are shown inverted, so the view of charts is comaprable",
         "abs_",
@@ -694,8 +695,9 @@ if (SCENARIO ==  1):
         True
         )
 
-if (SCENARIO ==  3):
+if (SCENARIO ==  3 or SCENARIO ==  3.1):
     jvbkmrprinter(
+        allJdks, allBenchmarks,allVirtualisations,
         "relative accuracy of benchmarks per virtualisation. Most pointable is MIN-MAX and MAX-MIN.",
         "The values are slightly shifted, so they can be readable even if linnes are identical",
         "rel_",
