@@ -388,7 +388,7 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric,
     chartHeight=maxi-mini
     return chartHeight
 
-def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals):
+def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals, keyId):
     if (is_html()): 
         print("<pre>")  
     chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals)
@@ -457,7 +457,7 @@ def preprint(anything):
 # WARNIGN that have to be fixed before moving to combinations. Propably te keyPart will need to be split to individual parts
 # WARNIGN in addition the virtKey is iterable and its parts are taken...
 # WARNIGN also jdk i sused as jdk in the JVbkmr constructor
-def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, keyPart):
+def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, keyPart, keyId):
     avgFinals = []
     for keyInterestedTypes, listOfVals in avgs.items():
         #jdks.proeprties and inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
@@ -479,7 +479,7 @@ def initMapOfLists(counterForItems, interestedTypes):
     return mapOfLists
     
 
-def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs):
+def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs, keyId):
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
@@ -503,23 +503,23 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
-                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals, keyId)
                 avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
                 if (avgs):
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+avgToStr()
                     h4(avgToStr()+" of all keys (benchmark meassured relativre accuracy)", iddqd)
                     preprint(avgsOfAllKeys)
-                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+metric+":" )
+                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+metric+":", keyId)
                     pre(jdk + " " + benchmark + " "+avgToStr()+" where " + metricToString(metric))
-                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals, keyId)
             avgAndAdd(avgsOfAllMetrics, allMetrics, avgsOfAllBenchmarks, None, interestedTypes, allVirtualisations);
             if (avgs):
                 iddqd=jdk + "_" + benchmark + "_"+avgToStr()+"_"+avgToStr()
                 h4(avgToStr() + " of all metrics from "+avgToStr()+" of all keys", iddqd)
                 preprint(avgsOfAllMetrics)
-                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+avgToStr()+":" )
+                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+avgToStr()+":", keyId)
                 pre(jdk + " " + benchmark + " "+avgToStr()+" "+avgToStr())
-                drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)   
+                drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)   
         if (jdk == "all"):
             avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, avgsOfAllJdksWithAll, None, interestedTypes, allVirtualisations)
         else:
@@ -528,22 +528,22 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
             iddqd=jdk + "_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
             h4(avgToStr() + " of all benchamrks from "+avgToStr()+" of all metrics and all keys", iddqd)
             preprint(avgsOfAllBenchmarks)
-            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
             pre(jdk + " "+avgToStr()+" "+avgToStr()+" "+avgToStr())
-            drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals) 
+            drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId) 
     if (avgs):
         iddqd=avgToStr()+"X_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
         h4(avgToStr()+" of all above (with all, thus wrong))", iddqd)
         preprint(avgsOfAllJdksWithAll)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
         pre(avgToStr() + "(with all thus wrong) "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
-        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
+        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)
         iddqd=avgToStr()+"_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()+""
         h4(avgToStr() + " of all above", iddqd)
         preprint(avgsOfAllJdks)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
         pre(avgToStr()+" "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
-        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
+        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)
 
 def nonsensesToKey(selectHelper, key):
     if (selectHelper == "jbv"):
@@ -698,7 +698,8 @@ if (SCENARIO ==  1 or SCENARIO ==  1.1):
         allAbsLegend,
         absVals,
         False,
-        True
+        True,
+        "jbv"
         )
 
 if (SCENARIO ==  3 or SCENARIO ==  3.1):
@@ -711,7 +712,8 @@ if (SCENARIO ==  3 or SCENARIO ==  3.1):
         allRelLegend,
         relVals,
         True,
-        True
+        True,
+        "jbv"
         )
 
 if (SCENARIO ==  2):
