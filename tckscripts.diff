@@ -1,5 +1,5 @@
 diff --git a/jenkins/benchmarks/dacapo.sh b/jenkins/benchmarks/dacapo.sh
-index a7b82d66..d7ab1f2b 100644
+index a7b82d66..71aae9ad 100644
 --- a/jenkins/benchmarks/dacapo.sh
 +++ b/jenkins/benchmarks/dacapo.sh
 @@ -48,7 +48,7 @@ if [ "$JDK_MAJOR" -ge "16" ] ; then
@@ -20,16 +20,20 @@ index a7b82d66..d7ab1f2b 100644
  
  function runSuite() {
    SUITE=${1}
-@@ -84,7 +84,7 @@ function runSuite() {
+@@ -84,7 +84,11 @@ function runSuite() {
  }
  
  ## get all suites
 -SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" || true))
-+SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" || true))
++if  java -version 2>&1  | grep 212121 ; then
++  SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" | sed "s/avrora//" || true))	
++else
++  SUITES=($( $JAVA -jar $DACAPO_JAR -l | grep -v -e "Started recording"  -e "copy recording data to file"  -e "^$"  -e "\[" | sed "s/batik//" | sed "s/h2//" | sed "s/eclipse//" | sed "s/tomcat//" | sed "s/tradesoap//" || true))
++fi
  
  set +x
  
-@@ -95,10 +95,10 @@ geomCount=0
+@@ -95,10 +99,10 @@ geomCount=0
  for SUITE in ${SUITES[@]}; do
    #trim trailing whitespace from SUITE
    SUITE="${SUITE%"${SUITE##*[![:space:]]}"}"
@@ -42,7 +46,7 @@ index a7b82d66..d7ab1f2b 100644
    echo "${SUITE}=${RESULT}" >> ${REPORT_DIR}/summary.txt
    if [ ${RESULT} -gt 0 ] ; then
      geomMsumm=`echo "$geomMsumm*${RESULT}" | bc -l`
-@@ -114,4 +114,4 @@ fi
+@@ -114,4 +118,4 @@ fi
  geom=`echo "e(l($geomMsumm)/$geomCount)" |  bc -l | sed "s/\..*//"`
  echo "geom=$geom" >> ${REPORT_DIR}/summary.txt
  
@@ -83,7 +87,7 @@ index f321890b..edcff8f8 100644
  MEM_PER_SLAVE=${MEM_PER_SLAVE}M
  
 diff --git a/jenkins/benchmarks/radargun/radargun.sh b/jenkins/benchmarks/radargun/radargun.sh
-index 1b1e9d14..695b20da 100644
+index 1b1e9d14..f7b8909f 100644
 --- a/jenkins/benchmarks/radargun/radargun.sh
 +++ b/jenkins/benchmarks/radargun/radargun.sh
 @@ -25,6 +25,8 @@ set -x
@@ -148,6 +152,15 @@ index 1b1e9d14..695b20da 100644
      status=$?;
      echo "Master exited with non zero $status. Will now continue to gather data (if any) and die later";
    };
+@@ -215,7 +225,7 @@ function collectResults() {
+ 
+ function finish() {
+   echo "finishing ..."
+-  ls -lR
++  #ls -lR
+   if [ $status -eq 0 ] ; then
+     echo "no issue observed - success"
+     exit $status
 diff --git a/jenkins/benchmarks/specjbb.sh b/jenkins/benchmarks/specjbb.sh
 index 6766e484..1564372c 100644
 --- a/jenkins/benchmarks/specjbb.sh
@@ -195,10 +208,10 @@ index 60bb85ca..1e3a94f6 100644
 -ls -lR
 +#ls -lR 
 diff --git a/jenkins/run-intree-J2DBench-vagrant.sh b/jenkins/run-intree-J2DBench-vagrant.sh
-index c784df41..739badba 100644
+index c784df41..b5ec4e80 100644
 --- a/jenkins/run-intree-J2DBench-vagrant.sh
 +++ b/jenkins/run-intree-J2DBench-vagrant.sh
-@@ -93,12 +93,45 @@ function htmlToProps() {
+@@ -93,12 +93,48 @@ function htmlToProps() {
    # graphics.render.tests.shape.fillCubic.geom
  }
  
@@ -214,8 +227,11 @@ index c784df41..739badba 100644
 +  elif echo $onlyName | grep java-17-openjdk ; then
 +    evilName=java-17-openjdk-jdk.17.0.6.ga-0.ojdk17~upstream~cpu.src.tarxz 
 +    evilPath=java-17-openjdk/jdk.17.0.6.ga/0.ojdk17~upstream~cpu/src
++  elif echo $onlyName | grep java-21-openjdk ; then
++    evilName=java-21-openjdk-jdk.21.0.2.12-0.ojdk21~upstream~cpu.src.tarxz
++    evilPath=java-21-openjdk/jdk.21.0.2.12/0.ojdk21~upstream~cpu/src
 +  else
-+    echo "unknow jdk $onlyName expecte 8,11,17"
++    echo "unknow jdk $onlyName expecte 8,11,17,21"
 +    exit
 +  fi     
 +  futureSrc=`echo $onlyName | sed "s/x86_64/src/"`
@@ -244,7 +260,16 @@ index c784df41..739badba 100644
  genCommonArtifactsPre
  
  # from jtreg-prep.sh
-@@ -142,6 +175,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
+@@ -123,6 +159,8 @@ pushd  /mnt/ramdisk
+         if [ "x$OTOOL_JDK_VERSION" == "x8" ] ; then
+           patch -p8 < $SCRIPT_DIR/run-intree-J2DBench-vagrant-jdk8.patch || true
+         fi
++	sed "s/source 1.7/source 8/g" -i Makefile
++	sed "s/target 1.7/target 8/g" -i Makefile
+         make
+       else
+         if which ant ; then
+@@ -142,6 +180,7 @@ MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh )
  if [ ! "x$OTOOL_heap" == "x" ] ; then
    MEM_90P=$( sh ${SCRIPT_DIR}/benchmarks/calcMemoryPercentage.sh $OTOOL_heap )
  fi
@@ -252,7 +277,7 @@ index c784df41..739badba 100644
  
  sudo su -c "sh $SCRIPT_DIR/benchmarks/memoryProtector.sh memory" &
  rawdata="$PWD/default.res"
-@@ -199,7 +233,13 @@ set -xe
+@@ -199,7 +238,13 @@ set -xe
  
  cd ${WORKSPACE}
  # print pwd (should be workspace) and list files there
