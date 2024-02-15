@@ -20,6 +20,12 @@ def is_avg():
     # geom by default as it is more real
     return os.environ.get('POST_AVG') is not None and os.environ.get('POST_AVG') == "true"
 
+def avgToStr():
+    if is_avg():
+        return "avgMean"
+    else:
+        return "geomMean"
+
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
 # thus we can show impact of virtualisation on performance
@@ -274,24 +280,24 @@ def tableOfContext13(avgs):
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     lio();ahref(key, iddqd);lie()
                 if avgs:
-                    iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
-                    lio();ahref("avg", iddqd);lie()
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+avgToStr()
+                    lio();ahref(avgToStr(), iddqd);lie()
                 ole()
             if avgs:
-                iddqd=jdk + "_" + benchmark + "_avg_avg"
-                lio();ahref("avg", iddqd);lie()
+                iddqd=jdk + "_" + benchmark + "_"+avgToStr()+"_"+avgToStr()
+                lio();ahref(avgToStr(), iddqd);lie()
             ole()
         if avgs:
-            iddqd=jdk + "_avg_avg_avg"
-            lio();ahref("avg", iddqd);lie()            
+            iddqd=jdk + "_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
+            lio();ahref(avgToStr(), iddqd);lie()            
         ole()
     ole()
     olo()        
     if avgs:
-        iddqd="avgX_avg_avg_avg"
-        lio();ahref("avg of all (with all, thus wrong)", iddqd);lie() 
-        iddqd="avg_avg_avg_avg"
-        lio();ahref("avg of all", iddqd);lie() 
+        iddqd=avgToStr()+"X_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
+        lio();ahref(avgToStr()+" of all (with all, thus wrong)", iddqd);lie() 
+        iddqd=avgToStr()+"_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
+        lio();ahref(avgToStr()+" of all", iddqd);lie() 
     ole()
     tag("hr","");
 
@@ -500,44 +506,44 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals)
                 avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
                 if (avgs):
-                    iddqd=jdk + "_" + benchmark + "_" + metric+"_avg"
-                    h4("avarage of all keys (benchmark meassured relativre accuracy)", iddqd)
+                    iddqd=jdk + "_" + benchmark + "_" + metric+"_"+avgToStr()
+                    h4(avgToStr()+" of all keys (benchmark meassured relativre accuracy)", iddqd)
                     preprint(avgsOfAllKeys)
-                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":avg:"+metric+":" )
-                    pre(jdk + " " + benchmark + " avg where " + metricToString(metric))
-                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
+                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+metric+":" )
+                    pre(jdk + " " + benchmark + " "+avgToStr()+" where " + metricToString(metric))
+                    drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals)
             avgAndAdd(avgsOfAllMetrics, allMetrics, avgsOfAllBenchmarks, None, interestedTypes, allVirtualisations);
             if (avgs):
-                iddqd=jdk + "_" + benchmark + "_avg_avg"
-                h4("avarage of all metrics from avarages of all keys", iddqd)
+                iddqd=jdk + "_" + benchmark + "_"+avgToStr()+"_"+avgToStr()
+                h4(avgToStr() + " of all metrics from "+avgToStr()+" of all keys", iddqd)
                 preprint(avgsOfAllMetrics)
-                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":avg:avg:" )
-                pre(jdk + " " + benchmark + " avg avg")
-                drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, benchmark, "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)   
+                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+avgToStr()+":" )
+                pre(jdk + " " + benchmark + " "+avgToStr()+" "+avgToStr())
+                drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)   
         if (jdk == "all"):
             avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, avgsOfAllJdksWithAll, None, interestedTypes, allVirtualisations)
         else:
             avgAndAdd(avgsOfAllBenchmarks, allBenchmarks, avgsOfAllJdksWithAll, avgsOfAllJdks, interestedTypes, allVirtualisations)
         if (avgs):
-            iddqd=jdk + "_avg_avg_avg"
-            h4("avarage of all benchamrks from avarages of all metrics and all keys", iddqd)
+            iddqd=jdk + "_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
+            h4(avgToStr() + " of all benchamrks from "+avgToStr()+" of all metrics and all keys", iddqd)
             preprint(avgsOfAllBenchmarks)
-            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_avg:avg:avg:" )
-            pre(jdk + " avg avg avg")
-            drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, "avg", None, "avg", "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals) 
+            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+            pre(jdk + " "+avgToStr()+" "+avgToStr()+" "+avgToStr())
+            drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals) 
     if (avgs):
-        iddqd="avgX_avg_avg_avg"
-        h4("avarage of all above (with all, thus wrong))", iddqd)
+        iddqd=avgToStr()+"X_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
+        h4(avgToStr()+" of all above (with all, thus wrong))", iddqd)
         preprint(avgsOfAllJdksWithAll)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, "_avg:avg:avg:" )
-        pre("avg(with all thus wrong) avg avg avg")
-        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", "avg", None, "avg", "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
-        iddqd="avg_avg_avg_avg"
-        h4("avarage of all above", iddqd)
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+        pre(avgToStr() + "(with all thus wrong) "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
+        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
+        iddqd=avgToStr()+"_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()+""
+        h4(avgToStr() + " of all above", iddqd)
         preprint(avgsOfAllJdks)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, "_avg:avg:avg:" )
-        pre("avg avg avg avg")
-        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", "avg", None, "avg", "avg", preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":" )
+        pre(avgToStr()+" "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
+        drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals)
 
 def nonsensesToKey(selectHelper, key):
     if (selectHelper == "jbv"):
@@ -660,7 +666,7 @@ for parentdir, dirs, files in os.walk(path, topdown=False):
             else:
                 #eprint("found holly grail of " + name +" in " + parentdir)
                 readFinals(parentdir, filename, name)
-eprint("avg  : " + str(is_avg()) + "; geom : " + str(not is_avg()))
+eprint("avg/geom  mean: " + avgToStr())
 eprint("loaded passrates: " + str(len(passrates)))
 eprint("loaded finals: " + str(len(finals)))
 allJdks=sorted(allJdks);

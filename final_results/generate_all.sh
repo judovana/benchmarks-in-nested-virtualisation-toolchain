@@ -232,7 +232,7 @@ mv -f passrate_*.png $PASSRATES_DIR/
 ABS_DIR=$INVERTED_RESULT_DIR/../absCharts
 rm -rf $ABS_DIR
 mkdir $ABS_DIR
-python ${pworker} 1 > $ABS_DIR/index.html
+POST_AVG=false python ${pworker} 1 > $ABS_DIR/index.html
 mv -f abs_*.png $ABS_DIR/
 
 REL_DIR=$INVERTED_RESULT_DIR/../relCharts
