@@ -263,7 +263,7 @@ def metricToString(m):
         return "all runs of one jdk were made MEDIAN before processing"
     return "unknown metric: " + m;
 
-def tableOfContext13(avgs):
+def tableOfContext13(allJdks, allBenchmarks, allKeysPerBenchmark, avgs, keyId):
     olo()
     for jdk in allJdks:
         lio();ahref(jdk, jdk);lie()
@@ -276,7 +276,11 @@ def tableOfContext13(avgs):
             for metric in allMetrics:
                 lio();ahref(metric, jdk+"_"+benchmark+"_"+metric);lie();
                 olo()
-                for key in allKeysPerBenchmark[benchmark]:
+                if (keyId == "jbv" or keyId == "vbj"):
+                    realKeysPerbenchmark = allKeysPerBenchmark[benchmark];
+                if (keyId == "bjv" or keyId == "bvj"):
+                    realKeysPerbenchmark = allKeysPerBenchmark[jdk];
+                for key in realKeysPerbenchmark:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     lio();ahref(key, iddqd);lie()
                 if avgs:
@@ -485,11 +489,16 @@ def initMapOfLists(counterForItems, interestedTypes):
     return mapOfLists
     
 
-def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs, keyId):
+# becasue of the nature of keys, the benchmark always have to stay  on first or second place
+# otherwise the logic around keys would stop work. 
+# see `for key in allKeysPerBenchmark[benchmark]:` part
+# That gives us jbv, bjv, vbj, bvj combos only(?) Tbh not sure if this will give proepr answers...
+# maybe allkeysPer benchamrk shouldbe configurable too, and then search in that?
+def jvbkmrprinter(allJdks, allBenchmarks, allVirtualisations, allKeysPerBenchmark, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs, keyId):
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
     pre(title2)
-    tableOfContext13(avgs)
+    tableOfContext13(allJdks, allBenchmarks, allKeysPerBenchmark, avgs, keyId)
     avgsOfAllJdksWithAll=initMapOfLists(allVirtualisations, interestedTypes)
     avgsOfAllJdks=initMapOfLists(allVirtualisations, interestedTypes)
     for jdk in allJdks:
@@ -503,14 +512,18 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
             h2(benchmark, jdk+"_"+benchmark)
             avgsOfAllMetrics=initMapOfLists(allVirtualisations, interestedTypes)
             for metric in allMetrics:
+                if (keyId == "jbv" or keyId == "vbj"):
+                    realKeysPerbenchmark = allKeysPerBenchmark[benchmark];
+                if (keyId == "bjv" or keyId == "bvj"):
+                    realKeysPerbenchmark = allKeysPerBenchmark[jdk];
                 h3(metricToString(metric), jdk+"_"+benchmark+"_"+metric)
                 avgsOfAllKeys=initMapOfLists(allVirtualisations, interestedTypes)
-                for key in allKeysPerBenchmark[benchmark]:
+                for key in realKeysPerbenchmark:
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+key
                     h4(key, iddqd)
                     pre(jdk + " " + benchmark + " " + key + " where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals, keyId)
-                avgAndAdd(avgsOfAllKeys, allKeysPerBenchmark[benchmark], avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
+                avgAndAdd(avgsOfAllKeys, realKeysPerbenchmark, avgsOfAllMetrics, None, interestedTypes, allVirtualisations)
                 if (avgs):
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+avgToStr()
                     h4(avgToStr()+" of all keys (benchmark meassured relativre accuracy)", iddqd)
@@ -696,8 +709,8 @@ SCENARIO=parse_number(sys.argv[1])
 
 if (SCENARIO ==  1 or SCENARIO ==  1.1):
     jvbkmrprinter(
-        allJdks, allBenchmarks,allVirtualisations,
-        "absolute values of benchmarks per virtualisation",
+        allJdks, allBenchmarks,allVirtualisations, allKeysPerBenchmark,
+        "absolute values of benchmarks per virtualisation (top view by jdk)",
         "time and other 'less is better` are shown inverted, so the view of charts is comaprable",
         "abs_",
         "",
@@ -710,8 +723,8 @@ if (SCENARIO ==  1 or SCENARIO ==  1.1):
 
 if (SCENARIO ==  3 or SCENARIO ==  3.1):
     jvbkmrprinter(
-        allJdks, allBenchmarks,allVirtualisations,
-        "relative accuracy of benchmarks per virtualisation. Most pointable is MIN-MAX and MAX-MIN.",
+        allJdks, allBenchmarks,allVirtualisations,allKeysPerBenchmark,
+        "relative accuracy of benchmarks per virtualisation (top view by jdk). Most pointable is MIN-MAX and MAX-MIN.",
         "The values are slightly shifted, so they can be readable even if linnes are identical",
         "rel_",
         "%",
