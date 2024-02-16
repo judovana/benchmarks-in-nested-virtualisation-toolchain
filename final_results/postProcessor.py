@@ -387,6 +387,10 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric,
                 subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
                 # if to sort, then by virtualization name
                 subset = sorted(subset,  key=lambda r: r.virtualisation)
+            if (keyId == "bjv"):
+                subset = selectFinals(benchmark, key, virt, jdk, metric, x, finals)
+                # if to sort, then by virtualization name
+                subset = sorted(subset,  key=lambda r: r.virtualisation)
             for item in subset:
                 maxi=max(maxi, item.value)
                 mini=min(mini, item.value)
@@ -406,6 +410,10 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
                 subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
                 # if to sort, then by virtualization name
                 subset = sorted(subset,  key=lambda r: r.virtualisation)
+            if (keyId == "bjv"):  
+                subset = selectFinals(benchmark, key, virt, jdk, metric, x, finals)
+                # if to sort, then by virtualization name
+                subset = sorted(subset,  key=lambda r: r.virtualisation)
             c=-1
             for item in subset:
                 c+=1
@@ -413,7 +421,7 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
                     avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
                 else:
                     avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]*item.value
-            if (keyId == "jbv"):  
+            if (keyId == "jbv" or keyId == "bjv"):  
                 xAxe = list(map(lambda final: final.virtualisation, subset))
             # shift 0.05 was ok for 10, but to big for 1
             relshift=0
@@ -423,7 +431,7 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
                 relshift=max(0.0001,relshift)#?
             yAxe = list(map(lambda final: final.value+relshift, subset))
             for item in subset:
-                if (keyId == "jbv"):  
+                if (keyId == "jbv" or keyId == "bjv"):  
                     print(x+ " " + str(item.value)+" "+item.virtualisation )
             if (not (i == len(interestedTypes)-1)):
                 fig_transfer = create_figure(xAxe, yAxe, "rewritten", key+decorator, preffix+iddqd, False, fig_transfer)
@@ -475,6 +483,9 @@ def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, benchmark, key, metric, keyId):
             if (keyId == "jbv"):  
                 keyPart = "_"+benchmark+":"+key+":"+metric+":"
                 avgFinals.append(JVbkmr(jdk, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
+            if (keyId == "bjv"):  
+                keyPart = "_"+jdk+":"+key+":"+metric+":"
+                avgFinals.append(JVbkmr(benchmark, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
     return avgFinals
 
 def initMapOfLists(counterForItems, interestedTypes):
@@ -733,6 +744,36 @@ if (SCENARIO ==  3 or SCENARIO ==  3.1):
         True,
         True,
         "jbv"
+        )
+        
+if (SCENARIO ==  1.2):
+    allBenchmarks.remove("all")
+    jvbkmrprinter(
+        allBenchmarks, allJdks, allVirtualisations, allKeysPerBenchmark,
+        "absolute values of benchmarks per virtualisation (top view by benchmark)",
+        "time and other 'less is better` are shown inverted, so the view of charts is comaprable",
+        "abs_",
+        "",
+        allAbsLegend,
+        absVals,
+        False,
+        True,
+        "bjv"
+        )
+
+if (SCENARIO ==  3.2):
+    allBenchmarks.remove("all")
+    jvbkmrprinter(
+        allBenchmarks, allJdks ,allVirtualisations,allKeysPerBenchmark,
+        "relative accuracy of benchmarks per virtualisation(top view by benchmark). Most pointable is MIN-MAX and MAX-MIN.",
+        "The values are slightly shifted, so they can be readable even if linnes are identical",
+        "rel_",
+        "%",
+        allRelLegend,
+        relVals,
+        True,
+        True,
+        "bjv"
         )
 
 if (SCENARIO ==  2):
