@@ -439,11 +439,13 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo1, toBeAddedTo2, interes
                 if is_avg():
                     toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] + toBeAvg[x][cc]
                 else:
+                    #if there would be zero added, the whole geom will burn, however we know zero is failed benchamrk, and we discarded them long ago
                     toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] * toBeAvg[x][cc]
             if not(toBeAddedTo2 is None):
                 if is_avg():
                     toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] + toBeAvg[x][cc]
                 else:
+                    #if there would be zero added, the whole geom will burn, however we know zero is failed benchamrk, and we discarded them long ago
                     toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] * toBeAvg[x][cc]                
 
 def preprint(anything):
