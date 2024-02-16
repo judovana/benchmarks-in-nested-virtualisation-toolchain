@@ -373,15 +373,16 @@ def keyToStr(key):
         return "all";
     return key
 
-def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals):
+def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals, keyId):
     #calculsting height of chart, to adjust shift properly
     maxi=1
     mini=10000000000000
     for x in interestedTypes:
         if x in allTypes:
-            subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
-            # if to sort, then by virtualization name
-            subset = sorted(subset,  key=lambda r: r.virtualisation)
+            if (keyId == "jbv"):
+                subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
+                # if to sort, then by virtualization name
+                subset = sorted(subset,  key=lambda r: r.virtualisation)
             for item in subset:
                 maxi=max(maxi, item.value)
                 mini=min(mini, item.value)
@@ -391,15 +392,16 @@ def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric,
 def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, finals, keyId):
     if (is_html()): 
         print("<pre>")  
-    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals)
+    chartHeight = getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals, keyId)
     fig_transfer = None
     i=-1
     for x in interestedTypes:
         i+=1
-        if x in allTypes:  
-            subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
-            # if to sort, then by virtualization name
-            subset = sorted(subset,  key=lambda r: r.virtualisation)
+        if x in allTypes:
+            if (keyId == "jbv"):  
+                subset = selectFinals(jdk, key, virt, benchmark, metric, x, finals)
+                # if to sort, then by virtualization name
+                subset = sorted(subset,  key=lambda r: r.virtualisation)
             c=-1
             for item in subset:
                 c+=1
@@ -407,7 +409,8 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
                     avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]+item.value
                 else:
                     avgsOfAllKeys[x][c]=avgsOfAllKeys[x][c]*item.value
-            xAxe = list(map(lambda final: final.virtualisation, subset))
+            if (keyId == "jbv"):  
+                xAxe = list(map(lambda final: final.virtualisation, subset))
             # shift 0.05 was ok for 10, but to big for 1
             relshift=0
             if shift:
@@ -416,7 +419,8 @@ def drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, key, virt
                 relshift=max(0.0001,relshift)#?
             yAxe = list(map(lambda final: final.value+relshift, subset))
             for item in subset:
-                print(x+ " " + str(item.value)+" "+item.virtualisation )
+                if (keyId == "jbv"):  
+                    print(x+ " " + str(item.value)+" "+item.virtualisation )
             if (not (i == len(interestedTypes)-1)):
                 fig_transfer = create_figure(xAxe, yAxe, "rewritten", key+decorator, preffix+iddqd, False, fig_transfer)
             else:
@@ -456,17 +460,17 @@ def preprint(anything):
         print("</pre>")
 
 # WARNIGN WARNIGN WARNIGN WARNIGN virtkey is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
-# WARNIGN that have to be fixed before moving to combinations. Propably te keyPart will need to be split to individual parts
 # WARNIGN in addition the virtKey is iterable and its parts are taken...
-# WARNIGN also jdk i sused as jdk in the JVbkmr constructor
-def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, keyPart, keyId):
+def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, benchmark, key, metric, keyId):
     avgFinals = []
     for keyInterestedTypes, listOfVals in avgs.items():
         #jdks.proeprties and inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
         y=-1
         for value in listOfVals:
             y+=1
-            avgFinals.append(JVbkmr(jdk, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
+            if (keyId == "jbv"):  
+                keyPart = "_"+benchmark+":"+key+":"+metric+":"
+                avgFinals.append(JVbkmr(jdk, virtKey[y]+keyPart+keyInterestedTypes, str(value), True))
     return avgFinals
 
 def initMapOfLists(counterForItems, interestedTypes):
@@ -511,7 +515,7 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
                     iddqd=jdk + "_" + benchmark + "_" + metric+"_"+avgToStr()
                     h4(avgToStr()+" of all keys (benchmark meassured relativre accuracy)", iddqd)
                     preprint(avgsOfAllKeys)
-                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+metric+":", keyId)
+                    avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllKeys, allVirtualisations, benchmark, avgToStr(), metric, keyId)
                     pre(jdk + " " + benchmark + " "+avgToStr()+" where " + metricToString(metric))
                     drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, metric, preffix, decorator, legend, iddqd, avgsOfAllKeys, avgFinals, keyId)
             avgAndAdd(avgsOfAllMetrics, allMetrics, avgsOfAllBenchmarks, None, interestedTypes, allVirtualisations);
@@ -519,7 +523,7 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
                 iddqd=jdk + "_" + benchmark + "_"+avgToStr()+"_"+avgToStr()
                 h4(avgToStr() + " of all metrics from "+avgToStr()+" of all keys", iddqd)
                 preprint(avgsOfAllMetrics)
-                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, "_"+benchmark+":"+avgToStr()+":"+avgToStr()+":", keyId)
+                avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllMetrics, allVirtualisations, benchmark, avgToStr(), avgToStr(), keyId)
                 pre(jdk + " " + benchmark + " "+avgToStr()+" "+avgToStr())
                 drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, benchmark, avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)   
         if (jdk == "all"):
@@ -530,20 +534,20 @@ def jvbkmrprinter(allJdks, allBenchmarks,allVirtualisations, title1, title2, pre
             iddqd=jdk + "_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
             h4(avgToStr() + " of all benchamrks from "+avgToStr()+" of all metrics and all keys", iddqd)
             preprint(avgsOfAllBenchmarks)
-            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
+            avgFinals = avgMapOfListsToJVbkmr(jdk, avgsOfAllBenchmarks, allVirtualisations, avgToStr(), avgToStr(), avgToStr(), keyId)
             pre(jdk + " "+avgToStr()+" "+avgToStr()+" "+avgToStr())
             drawChartForInterestedTypes(shift, allTypes, interestedTypes, jdk, avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId) 
     if (avgs):
         iddqd=avgToStr()+"X_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()
         h4(avgToStr()+" of all above (with all, thus wrong))", iddqd)
         preprint(avgsOfAllJdksWithAll)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdksWithAll, allVirtualisations, avgToStr(), avgToStr(), avgToStr(), keyId)
         pre(avgToStr() + "(with all thus wrong) "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
         drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)
         iddqd=avgToStr()+"_"+avgToStr()+"_"+avgToStr()+"_"+avgToStr()+""
         h4(avgToStr() + " of all above", iddqd)
         preprint(avgsOfAllJdks)
-        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, "_"+avgToStr()+":"+avgToStr()+":"+avgToStr()+":", keyId)
+        avgFinals = avgMapOfListsToJVbkmr("all", avgsOfAllJdks, allVirtualisations, avgToStr(), avgToStr(), avgToStr(), keyId)
         pre(avgToStr()+" "+avgToStr()+" "+avgToStr()+" "+avgToStr()+"")
         drawChartForInterestedTypes(shift, allTypes, interestedTypes, "all", avgToStr(), None, avgToStr(), avgToStr(), preffix, decorator, legend, iddqd, avgsOfAllMetrics, avgFinals, keyId)
 
