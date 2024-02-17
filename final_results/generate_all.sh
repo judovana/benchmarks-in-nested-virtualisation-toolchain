@@ -221,12 +221,16 @@ fi
     echo "<ul>"
     echo "  <li><a href='absJbvCharts/index.html'>absolute values java-benchmark-virtualisation</a></li>" 
     echo "  <li><a href='absBjvCharts/index.html'>absolute values benchmark-java-virtualisation</a></li>" 
+    echo "  <li><a href='absJbvNoTimeCharts/index.html'>absolute values java-benchmark-virtualisation without radarguns' time</a></li>" 
+    echo "  <li><a href='absBjvNoTimeCharts/index.html'>absolute values benchmark-java-virtualisation without radarguns' time</a></li>" 
     echo "</ul>"
     echo "<h2 id="finals-relvals"> relative values </h2>"
     echo "<h3>the midd-way avg/geom means are permtuation order depndent, and interesting </h3>"
     echo "<ul>"
     echo "  <li><a href='relJbvCharts/index.html'>holly grail - relative values java-benchmark-virtualisation</a></li>" 
-    echo "  <li><a href='relBjvCharts/index.html'>holly grail - relative values benchmark-java-virtualisation</a></li>" 
+    echo "  <li><a href='relBjvCharts/index.html'>holly grail - relative values benchmark-java-virtualisation</a></li>"
+    echo "  <li><a href='relJbvNoTimeCharts/index.html'>holly grail - relative values java-benchmark-virtualisation without radarguns' time</a></li>" 
+    echo "  <li><a href='relBjvNoTimeCharts/index.html'>holly grail - relative values benchmark-java-virtualisation without radarguns' time</a></li>"  
     echo "</ul>"
     echo "  <hr>" 
     echo "  <hr>" 
@@ -246,9 +250,14 @@ function finalStats() {
 }
 
 set -x
-               finalStats passratesCharts 2 passrate
+if false; then
+POST_AVG=nope  finalStats passratesCharts 2 passrate
 POST_AVG=false finalStats absJbvCharts 1.1 abs
 POST_AVG=true  finalStats relJbvCharts 3.1 rel
 POST_AVG=false finalStats absBjvCharts 1.2 abs
 POST_AVG=true  finalStats relBjvCharts 3.2 rel
-
+fi
+KEY_BLACKLIST=Time POST_AVG=false finalStats absJbvNoTimeCharts 1.1 abs
+KEY_BLACKLIST=Time POST_AVG=true  finalStats relJbvNoTimeCharts 3.1 rel
+KEY_BLACKLIST=Time POST_AVG=false finalStats absBjvNoTimeCharts 1.2 abs
+KEY_BLACKLIST=Time POST_AVG=true  finalStats relBjvNoTimesCharts 3.2 rel
