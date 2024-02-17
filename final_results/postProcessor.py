@@ -26,6 +26,25 @@ def avgToStr():
     else:
         return "geomMean"
 
+def isBlacklisted(item):
+    blacklist = os.environ.get('KEY_BLACKLIST') #None or regex
+    if (blacklist is None):
+        return False
+    match = re.search(blacklist, item)
+    return not match is None
+
+def isWhitelisted(item):
+    whitelist = os.environ.get('KEY_WHITELIST') #None or regex
+    if (whitelist is None):
+        return True
+    match = re.search(whitelist, item)
+    return not match is None
+    
+def isAccepted(item):
+    if (isBlacklisted(item)):
+        return False
+    return isWhitelisted(item)
+
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
 # thus we can show impact of virtualisation on performance
@@ -252,7 +271,10 @@ def readFinals(root, filename, name):
     for line in file:
         value = line.split("=")[-1].strip()
         key = re.sub("="+value+"\n", "", line); # there can be = in key:(
-        finals.append(JVbkmr(name, key, value))
+        if isAccepted(key):
+            finals.append(JVbkmr(name, key, value))
+        #else:
+        #    eprint("key " + key + " exclluded by KEY_BLACKLIST/KEY_WHITELIST")
 
 def metricToString(m):
     if (m=="m1"):
