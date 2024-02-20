@@ -260,4 +260,4 @@ fi
 KEY_BLACKLIST=Time POST_AVG=false finalStats absJbvNoTimeCharts 1.1 abs
 KEY_BLACKLIST=Time POST_AVG=true  finalStats relJbvNoTimeCharts 3.1 rel
 KEY_BLACKLIST=Time POST_AVG=false finalStats absBjvNoTimeCharts 1.2 abs
-KEY_BLACKLIST=Time POST_AVG=true  finalStats relBjvNoTimesCharts 3.2 rel
+KEY_BLACKLIST=Time POST_AVG=true  finalStats relBjvNoTimeCharts 3.2 rel
