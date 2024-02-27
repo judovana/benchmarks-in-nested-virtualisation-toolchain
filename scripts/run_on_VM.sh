@@ -23,6 +23,7 @@ if [ ! "x$DEV" = "x" ] ; then
   export VM_MEMORY=2048
 fi
 
+#i am not sure how this is supposed to work
 if [ "x$WORKSPACE" = "x" ] ; then 
   isTmpWs="true"
   export WORKSPACE=`mktemp -d`
@@ -40,13 +41,26 @@ VIRTUAL_WORKSPACE=/mnt/workspace
 pushd $SCRIPT_ORIGIN/../vagrantfiles/nested/$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^NESTED= | sed "s/.*=//")
   vagrant destroy -f
   vagrant up
+  vagrant ssh -c "echo '127.0.0.1   localhost results' | sudo tee -a /etc/hosts "
+  vagrant ssh -c "echo '::1         localhost results' | sudo tee -a /etc/hosts "
   vagrant ssh -c "bash $VIRTUAL_WORKSPACE/in/$REPO_NAME/scripts/script.sh $JDK"
+  echo "-------------------------------------------------------------------------------------------------------------------------FINISHED SCRIPT.sh---------------------------------------------------------------"
 popd
 
 find $WORKSPACE
-if [ "x$isTmpWs" = "xtrue" ] ; then 
-  cp -r $WORKSPACE/out $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
-  cp -r $WORKSPACE/results $SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}/
+#find $VIRTUAL_WORKSPACE
+
+RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep RUN_TYPE | sed "s/.*=//")
+TOP_LEVEL_HOST=$(cat $SCRIPT_ORIGIN/../config | grep ^TOP_LEVEL_HOST= | sed "s/.*=//")
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep MIDDLE_POINT | sed "s/.*=//")
+
+if [ "x$isTmpWs" = "xtrue" ] || [ "x$RUN_TYPE" = "xnested_VM" ] ; then 
+  find $WORKSPACE/results/
+  #mkdir -p home/tester/test/results/java-1.8.0-openjdk-jdk8u122.b01-0.ojdk8~u~upstream.hotspot.release.sdk.el7.x86_64.tarxz/1
+  #rsync -av -e "ssh -o StrictHostKeyChecking=no" --relative --progress --exclude .git $WORKSPACE/results/ home/tester/test/results/${JDK_NAME}/${COUNTER}
+  sudo dnf -y install /usr/bin/ssh
+  ssh tester@$TOP_LEVEL_HOST "mkdir -p $WORKSPACE/results/${JDK_NAME}/${COUNTER}"
+  rsync -av -e "ssh -o StrictHostKeyChecking=no"  --progress --exclude .git  $WORKSPACE/out  $WORKSPACE/results tester@$TOP_LEVEL_HOST:$WORKSPACE/results/${JDK_NAME}/${COUNTER}
   rm -rfv $WORKSPACE
 fi
 
