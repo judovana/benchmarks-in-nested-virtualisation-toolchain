@@ -1,0 +1,10 @@
+    PID USER     CPU  SIZE   RSS CMD
+    389 root       - 4588252 4507668 /usr/lib/jvm/java-21-openjdk-jdk.21.0.2.12-0.ojdk21~upstream~cpu.hotspot.release.sdk.el7.x86_64.tarxz/bin/java -Xms4096M -Xmx4096M -XX:CompileCommandFile=/tmp/jmh5089524741390514484compilecommand -cp jmh-specjvm2016.jar org.openjdk.jmh.runner.ForkedMain 127.0.0.1 37649
+    245 root       - 4393040 76800 /usr/lib/jvm/java-21-openjdk-jdk.21.0.2.12-0.ojdk21~upstream~cpu.hotspot.release.sdk.el7.x86_64.tarxz/bin/java -Xms4096M -Xmx4096M -jar jmh-specjvm2016.jar -rf csv -rff results/SPECjvm2016.csv
+    233 root       -  1232  7396 sudo su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh results/memory
+    434 root       -  1076  1576 ps -e -o pid,user,cpu,size,rss,cmd --sort -size,-rss
+    246 root       -   908  5948 su -c sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh results/memory
+      2 root       -   416  3116 sh /mnt/shared/TckScripts/jenkins/benchmarks/specjvm.sh
+    230 root       -   416  3112 bash -x ./run-specjvm.sh -rf csv -rff results/SPECjvm2016.csv
+    251 root       -   416  3056 sh /mnt/shared/TckScripts/jenkins/benchmarks/memoryProtector.sh results/memory
+      1 root       -   416  2924 bash -c sh /mnt/shared/TckScripts/jenkins/benchmarks/specjvm.sh;ls -l /;ls -l /results;dnf -y install --disablerepo fedora-modular rsync openssh-server openssh-clients;mkdir -p /root/.ssh;cp /mnt/shared/TckScripts/ssh-keys/priv-keys/tester_rsa /root/.ssh;chmod 600 /root/.ssh/tester_rsa;chmod 700 /root/.ssh;rsync -av -e "ssh -o StrictHostKeyChecking=no -i /root/.ssh/tester_rsa"  --progress --exclude .git --mkpath /results/ tester@jfabo-main.usersys.redhat.com:/home/tester/middle_point/java-21-openjdk-jdk.21.0.2.12-0.ojdk21~upstream~cpu.hotspot.release.sdk.el7.x86_64.tarxz/5;
