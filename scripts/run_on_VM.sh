@@ -79,10 +79,10 @@ if [ "x$isTmpWs" = "xtrue" ] || [ "x$RUN_TYPE" = "xnested_VM" ] ; then
   #rsync -av -e "ssh -o StrictHostKeyChecking=no" --relative --progress --exclude .git $WORKSPACE/results/ home/tester/test/results/${JDK_NAME}/${COUNTER}
   sudo dnf -y install /usr/bin/ssh
   if [ "x$RUN_TYPE" = "xVM" ] ; then 
-    rsync -av -e "ssh -o StrictHostKeyChecking=no"  --progress --exclude .git  $WORKSPACE/out  $WORKSPACE/results tester@$TOP_LEVEL_HOST:$SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
+    rsync -av -e "ssh -o StrictHostKeyChecking=no -i /home/tester/.ssh/id_rsa"  --progress --exclude .git  $WORKSPACE/out  $WORKSPACE/results tester@$TOP_LEVEL_HOST:$SCRIPT_ORIGIN/../results/${JDK_NAME}/${COUNTER}
   else
     ssh tester@$TOP_LEVEL_HOST "mkdir -p $WORKSPACE/results/${JDK_NAME}/${COUNTER}"
-    rsync -av -e "ssh -o StrictHostKeyChecking=no"  --progress --exclude .git  $WORKSPACE/out  $WORKSPACE/results tester@$TOP_LEVEL_HOST:$WORKSPACE/results/${JDK_NAME}/${COUNTER}
+    rsync -av -e "ssh -o StrictHostKeyChecking=no -i /home/tester/.ssh/id_rsa"  --progress --exclude .git  $WORKSPACE/out  $WORKSPACE/results tester@$TOP_LEVEL_HOST:$WORKSPACE/results/${JDK_NAME}/${COUNTER}
   fi
   rm -rfv $WORKSPACE
 fi
