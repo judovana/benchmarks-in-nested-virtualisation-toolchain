@@ -18,23 +18,28 @@ set -exo pipefail
 JDK_DIR=$1
 JDK_NAME=`basename $2`
 COUNTER=$3
-rm -rf $SCRIPT_ORIGIN/../local_workspace
-mkdir $SCRIPT_ORIGIN/../local_workspace
-export WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
-RESULT_DIR="$SCRIPT_ORIGIN/../local_results"
-pushd $WORKSPACE
-#mkdir -p $RESULT_DIR
 
+#set up benchmarking workspace
+MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep MIDDLE_POINT | sed "s/.*=//")
+rm -rf $MIDDLE_POINT
+mkdir $MIDDLE_POINT || true
+mkdir $MIDDLE_POINT/../local_workspace || true
+export WORKSPACE=$MIDDLE_POINT/../local_workspace
+RESULT_DIR="$SCRIPT_ORIGIN/../local_results"
+
+#create result folder structure
 mkdir $SCRIPT_ORIGIN/../local_results || true
 mkdir $SCRIPT_ORIGIN/../local_results/${JDK_NAME} || true
 mkdir $SCRIPT_ORIGIN/../local_results/${JDK_NAME}/${COUNTER}
 
+pushd $WORKSPACE
 ls -l $WORKSPACE > $RESULT_DIR/${JDK_NAME}/${COUNTER}/jdk.txt
 uname -a > $RESULT_DIR/${JDK_NAME}/${COUNTER}/uname_output.txt
 cat /proc/cpuinfo > $RESULT_DIR/${JDK_NAME}/${COUNTER}/cpuinfo_output.txt
 cat /proc/meminfo > $RESULT_DIR/${JDK_NAME}/${COUNTER}/meminfo_output.txt
 cat /etc/redhat-release > $RESULT_DIR/${JDK_NAME}/${COUNTER}/redhat_release_output.txt
 
+#run benchmark and copy results to final target destination
 rm -rf $WORKSPACE/rpms
 mkdir $WORKSPACE/rpms
 cp $JDK_DIR/$JDK_NAME $WORKSPACE/rpms
