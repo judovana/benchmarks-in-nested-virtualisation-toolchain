@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
     if ENV.has_key? "WORKSPACE"
       override.vm.synced_folder ENV['WORKSPACE'], "/mnt/workspace", type: "virtualbox"
     end
-    override.vm.synced_folder "/home/tester/vm-shared", "/mnt/shared", mount_options: ["ro"], type: "virtualbox"
+    #override.vm.synced_folder "/home/tester/vm-shared", "/mnt/shared", mount_options: ["ro"], type: "virtualbox"
   end
 
   config.vm.provider "libvirt" do |libvirt, override|
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
         libvirt.sound_type = "ich6"
     end
  #   if File.exist?("/home/tester/vm-shared")
-      override.vm.synced_folder "/mnt/shared", "/mnt/shared", type: "sshfs", ssh_username: "tester", sshfs_opts_append: "-o ro"
+      #override.vm.synced_folder "/mnt/shared", "/mnt/shared", type: "sshfs", ssh_username: "tester", sshfs_opts_append: "-o ro"
  #   else
       # empty ssh_password is workaround to prevent promting for pw
       # https://github.com/dustymabe/vagrant-sshfs/blob/9fcb721bf7b406d27273f44cba7924c22de9e7fd/lib/vagrant-sshfs/synced_folder/sshfs_forward_mount.rb#L93
