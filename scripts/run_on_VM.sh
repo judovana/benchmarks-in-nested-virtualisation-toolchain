@@ -60,7 +60,7 @@ pushd $SCRIPT_ORIGIN/../vagrantfiles/$VAGRANTFILES_FOLDER/$(cat $SCRIPT_ORIGIN/.
   if [ "x$isTmpWs" = "xtrue" ] || [ "x$RUN_TYPE" = "xnested_VM" ] ; then
     sudo dnf -y install /usr/bin/ssh rsync
     vagrant ssh -c "sudo dnf -y install /usr/bin/ssh rsync"
-    vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git  tester@$TOP_LEVEL_HOST:/mnt/shared /mnt/shared"
+    vagrant ssh -c "rsync -av -e \"ssh -o StrictHostKeyChecking=no\"  --progress --exclude .git  tester@$TOP_LEVEL_HOST:/mnt/shared/ /mnt/shared" || echo "rsync did its best. Lets try to trust it"
   fi
   vagrant ssh -c "echo '127.0.0.1   localhost results' | sudo tee -a /etc/hosts "
   vagrant ssh -c "echo '::1         localhost results' | sudo tee -a /etc/hosts "
