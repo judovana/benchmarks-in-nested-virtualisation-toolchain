@@ -41,59 +41,13 @@ if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
     sh $SCRIPT_ORIGIN/prepare_container.sh False
 fi
 
-# this function was added to solvw weird instabilities in nested vms runs.
-# thus it always cleans up results and will try to rerun waht is missing
-# it expects the hook with `continue`  in main iterator
-# it is partialy invalidating stability messurements, but ihtout it we may say vm in vm had zero pass rate
-# we belive the instability in vm in vm was caused by our error or wrong HW setup.
-# int heory,. both prmary and secondary results can point to same dir
-function shiftResultsIfAllowed() {
-  local theJdk="${1}"
-  if [ "x$SHIFT_RESULTS" == "xTrue" ]; then
-    if [ "x$PRIMARY_RESULTS" == "x" ]; then
-      echo "SHIFT_RESULTS is true, but PRIMARY_RESULTS are missing"
-      echo "PRIMARY_RESULTS are the results with empty results (in case of nested virtualisations)"
-      echo "  but those results are the ones which are compared against existence"
-      exit 1
-    fi
-    if [ "x$SECONDARY_RESULTS" == "x" ]; then
-      echo "SHIFT_RESULTS is true, but SECONDARY_RESULTS are missing"
-      echo "SECONDARY_RESULTS are the results with real results"
-      echo "  so should not be empty"
-      exit 1
-    fi
-    # we will try to run for ever, while there is at least something to do
-    # it will have for sure unexpected consequences
-    set +e
-    echo "todo:"
-    echo "remove empty dirs, recretate theirs placeholders, continue should do the rest"
-    echo "For now we have seen SECONDARY_RESULTS pretty stable,  but garbage was in PRIMARY_RESULTS"
-    echo "it should work even if both ar eidentical - empties will be rmeoved, eand we have +e"
-    for x in `seq 1 $ITER_NUM` ; do
-      rmdir "$PRIMARY_RESULTS/$jdk/$x"
-      rmdir "$SECONDARY_RESULTS/$jdk/$x"
-    done
-    for x in `seq 1 $ITER_NUM` ; do
-      if [[ -e "$SECONDARY_RESULTS/$jdk/$x" ]] ; then
-        mkdir "$PRIMARY_RESULTS/$jdk/$x"
-      fi
-    done
- fi
-}
-
 for jdk in $JDKS ; do
-  shiftResultsIfAllowed $jdk
   if [ "x$RUN_TYPE" == "xcontainer" ]; then
         sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk` False $JDK_DIR
   elif [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
         sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh `readlink -f $jdk` True $JDK_DIR
   fi
   for x in `seq 1 $ITER_NUM` ; do
-    if [ "x$SHIFT_RESULTS" == "xTrue" ]; then
-      if [[ -e "$PRIMARY_RESULTS/$jdk/$x" || -e "$SECONDARY_RESULTS/$jdk/$x" ]] ; then
-        continue
-      fi
-    fi
     if [ "x$RUN_TYPE" == "xnested_VM" ]; then
         sh $SCRIPT_ORIGIN/run_on_nested_VM.sh $x `readlink -f $jdk` False
     elif [ "x$RUN_TYPE" == "xVM" ]; then
