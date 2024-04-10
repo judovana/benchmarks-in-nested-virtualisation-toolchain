@@ -34,25 +34,18 @@ JDKS=`find  $JDK_DIR -type f | sort -V`
 RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_TYPE= | sed "s/.*=//")
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
-if [ "x$RUN_TYPE" == "xcontainer" ]; then 
-    sh $SCRIPT_ORIGIN/prepare_container.sh False
-fi
-if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
-    sh $SCRIPT_ORIGIN/prepare_container.sh False
-fi
-
-# this function was added to solvw weird instabilities in nested vms runs.
-# thus it always cleans up results and will try to rerun waht is missing
+# this function was added to solve weird instabilities in nested VMs runs.
+# thus it always cleans up results and will try to rerun what is missing
 # it expects the hook with `continue`  in main iterator
-# it is partialy invalidating stability messurements, but ihtout it we may say vm in vm had zero pass rate
-# we belive the instability in vm in vm was caused by our error or wrong HW setup.
-# int heory,. both prmary and secondary results can point to same dir
+# it is partially invalidating stability measurements, but without it we may say VM in VM had zero pass rate
+# we believe the instability in VM in VM was caused by our error or wrong HW setup.
+# in theory, both primary and secondary results can point to same dir
 function shiftResultsIfAllowed() {
   local theJdk="${1}"
   if [ "x$SHIFT_RESULTS" == "xTrue" ]; then
     if [ "x$PRIMARY_RESULTS" == "x" ]; then
       echo "SHIFT_RESULTS is true, but PRIMARY_RESULTS are missing"
-      echo "PRIMARY_RESULTS are the results with empty results (in case of nested virtualisations)"
+      echo "PRIMARY_RESULTS are the results with empty results (in case of nested virtualizations)"
       echo "  but those results are the ones which are compared against existence"
       exit 1
     fi
@@ -62,12 +55,12 @@ function shiftResultsIfAllowed() {
       echo "  so should not be empty"
       exit 1
     fi
-    # we will try to run for ever, while there is at least something to do
+    # we will try to run forever, while there is at least something to do
     # it will have for sure unexpected consequences
     set +e
-    # "remove empty dirs, recretate theirs placeholders, continue should do the rest"
+    # "remove empty dirs, recreate their placeholders, continue should do the rest"
     # "For now we have seen SECONDARY_RESULTS pretty stable,  but garbage was in PRIMARY_RESULTS"
-    # "it should work even if both ar eidentical - empties will be rmeoved, eand we have +e"
+    # "it should work even if both are identical - empties will be removed, and we have +e"
     for x in `seq 1 $ITER_NUM` ; do
       rmdir -v "$PRIMARY_RESULTS/$theJdk/$x"
       rmdir -v "$SECONDARY_RESULTS/$theJdk/$x"
@@ -80,6 +73,13 @@ function shiftResultsIfAllowed() {
     done
  fi
 }
+
+if [ "x$RUN_TYPE" == "xcontainer" ]; then 
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
+fi
+if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
+fi
 
 for jdk in $JDKS ; do
   jdkName=`basename $jdk`

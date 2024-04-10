@@ -42,7 +42,10 @@ podman run --rm --name running-cont-run-uname preparation-cont-jdk uname -a > $R
 podman run --rm --name running-cont-run-cpuinfo preparation-cont-jdk cat /proc/cpuinfo > $RESULT_DIR/cpuinfo_output.txt
 podman run --rm --name running-cont-run-meminfo preparation-cont-jdk cat /proc/meminfo > $RESULT_DIR/meminfo_output.txt
 podman run --rm --name running-cont-run-rri preparation-cont-jdk cat /etc/redhat-release > $RESULT_DIR/redhat_release_output.txt
+
 SCRIPT=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep EXECUTED_SCRIPT | sed "s/.*=//")
+
+# this part is necessary to make J2DBench GUI part work on container
 GUI_PART=""
 if echo ${SCRIPT} | grep J2DBench ; then
   if [ "x$DISPLAY" = "x" ] ; then
@@ -54,18 +57,19 @@ if echo ${SCRIPT} | grep J2DBench ; then
   xhost +"local:podman@" #<- normal user !!! mandatory
   GUI_PART="-v /tmp/.X11-unix:/tmp/.X11-unix:ro -e \"DISPLAY\" --security-opt label=type:container_runtime_t "
 fi
-# container alwways gots hostname same as its name, misusing this for radargun which is trying to connect to results
+# container always gets hostname same as its name, misusing this for radargun which is trying to connect to results
 finalContainerName=results
 #run selected script on container
 echo $pwd
-#MIDDLE_POINT is a folder on real host that is used to collect results from individual runs
+#MIDDLE_POINT is a folder on base host that is used to collect results from individual runs
 MIDDLE_POINT=$(cat $SCRIPT_ORIGIN/../config | grep ^MIDDLE_POINT= | sed "s/.*=//")
 if [ "x$SCRIPT_RUN_FROM_CONTAINER" == "xTrue" ] ; then
   # run benchmark, prepare rsync + everything it needs and copy results from inner container to middle point on host
   # this has to be passed as a single command, other solution would be to create another wrapper
   podman run $GUI_PART --name $finalContainerName preparation-cont-jdk bash -c "sh ${SCRIPT};ls -l /;ls -l /results;dnf -y install --disablerepo fedora-modular rsync openssh-server openssh-clients;mkdir -p /root/.ssh;cp /mnt/shared/TckScripts/ssh-keys/priv-keys/tester_rsa $HOME/.ssh;chmod 600 $HOME/.ssh/tester_rsa;chmod 700 $HOME/.ssh;rsync -av -e \"ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/tester_rsa\"  --progress --exclude .git --mkpath /results/ tester@$TOP_LEVEL_HOST:$MIDDLE_POINT/${JDK_NAME}/${COUNTER};"
 else
-  podman run $GUI_PART --name $finalContainerName preparation-cont-jdk  sh ${SCRIPT}
+  podman run $GUI_PART --name $finalContainerName preparation-cont-jdk sh ${SCRIPT}
+  podman cp $finalContainerName:/results/ $RESULT_DIR
 fi
 podman ps -all
 
