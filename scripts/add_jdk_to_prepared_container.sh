@@ -26,7 +26,12 @@ CONT_WORKSPACE=$SCRIPT_ORIGIN/../local_workspace
 ls -l $CONT_WORKSPACE
 cd $CONT_WORKSPACE
 JDK_DIR=$3
-cp $JDK_DIR/$JDK_NAME $CONT_WORKSPACE
+SCRIPT_RUN_FROM_VM=$4
+if [ "x$SCRIPT_RUN_FROM_VM" == "xTrue" ] ; then
+  cp $WORKSPACE/in/$JDK_NAME $CONT_WORKSPACE
+else
+  cp $JDK_DIR/$JDK_NAME $CONT_WORKSPACE
+fi
 
 VM_in_cont=$2
 JDK_dockerfile=JDK_dockerfile
