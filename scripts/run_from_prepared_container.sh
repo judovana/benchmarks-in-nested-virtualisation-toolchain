@@ -68,7 +68,8 @@ if [ "x$SCRIPT_RUN_FROM_CONTAINER" == "xTrue" ] ; then
   # this has to be passed as a single command, other solution would be to create another wrapper
   podman run $GUI_PART --name $finalContainerName preparation-cont-jdk bash -c "sh ${SCRIPT};ls -l /;ls -l /results;dnf -y install --disablerepo fedora-modular rsync openssh-server openssh-clients;mkdir -p /root/.ssh;cp /mnt/shared/TckScripts/ssh-keys/priv-keys/tester_rsa $HOME/.ssh;chmod 600 $HOME/.ssh/tester_rsa;chmod 700 $HOME/.ssh;rsync -av -e \"ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/tester_rsa\"  --progress --exclude .git --mkpath /results/ tester@$TOP_LEVEL_HOST:$MIDDLE_POINT/${JDK_NAME}/${COUNTER};"
 else
-  podman run $GUI_PART --name $finalContainerName preparation-cont-jdk  sh ${SCRIPT}
+  podman run $GUI_PART --name $finalContainerName preparation-cont-jdk sh ${SCRIPT}
+  podman cp $finalContainerName:/results/ $RESULT_DIR
 fi
 podman ps -all
 
