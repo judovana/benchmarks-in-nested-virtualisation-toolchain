@@ -252,13 +252,13 @@ function finalStats() {
 }
 
 set -x
-if true; then
+
 POST_AVG=nope  finalStats passratesCharts 2 passrate
 POST_AVG=false finalStats absJbvCharts 1.1 abs
 POST_AVG=true  finalStats relJbvCharts 3.1 rel
 POST_AVG=false finalStats absBjvCharts 1.2 abs
 POST_AVG=true  finalStats relBjvCharts 3.2 rel
-fi
+
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=false finalStats absJbvNoTimeCharts 1.1 abs
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=true  finalStats relJbvNoTimeCharts 3.1 rel
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=false finalStats absBjvNoTimeCharts 1.2 abs
