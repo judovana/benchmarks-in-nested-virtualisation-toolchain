@@ -37,6 +37,8 @@ if [ -e $INVERTED_RESULT_DIR ] ; then
     mkdir $INVERTED_RESULT_DIR
   fi
   set -x
+else
+  mkdir $INVERTED_RESULT_DIR
 fi
 
   #all jdks x all benchmarks x all virts
