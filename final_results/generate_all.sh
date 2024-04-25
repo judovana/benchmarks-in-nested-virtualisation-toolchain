@@ -17,7 +17,7 @@ set -exo pipefail
 benchmarks="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 jdks="8 11 17"
 # the / is needed for precission; for subdirs, use `basename` on them
-virts="/local_results /vm_results /container_results /containers_in_container_results /containers_in_vm_results"
+virts="/local_results /vm_results /container_results /containers_in_container_results /containers_in_vm_results /nestedVM_results"
 
 worker=${SCRIPT_ORIGIN}/result_processing_wrapper.sh
 pworker=${SCRIPT_ORIGIN}/postProcessor.py
