@@ -34,13 +34,6 @@ JDKS=`find  $JDK_DIR -type f | sort -V`
 RUN_TYPE=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^RUN_TYPE= | sed "s/.*=//")
 export DEV=$(cat $SCRIPT_ORIGIN/../config | grep -v "^#" | grep ^DEV= | sed "s/.*=//")
 
-if [ "x$RUN_TYPE" == "xcontainer" ]; then 
-    sh $SCRIPT_ORIGIN/prepare_container.sh False
-fi
-if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
-    sh $SCRIPT_ORIGIN/prepare_container.sh False
-fi
-
 # this function was added to solve weird instabilities in nested VMs runs.
 # thus it always cleans up results and will try to rerun what is missing
 # it expects the hook with `continue`  in main iterator
@@ -80,6 +73,13 @@ function shiftResultsIfAllowed() {
     done
  fi
 }
+
+if [ "x$RUN_TYPE" == "xcontainer" ]; then 
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
+fi
+if [ "x$RUN_TYPE" == "xVM_in_cont" ]; then
+    sh $SCRIPT_ORIGIN/prepare_container.sh False
+fi
 
 for jdk in $JDKS ; do
   jdkName=`basename $jdk`
