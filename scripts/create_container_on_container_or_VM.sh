@@ -29,5 +29,10 @@ fi
 
 ls -l
 sh $SCRIPT_ORIGIN/prepare_container.sh True
-sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh $JDK False $JDK_DIR
-sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER $JDK True
+sh $SCRIPT_ORIGIN/add_jdk_to_prepared_container.sh $JDK False $JDK_DIR $SCRIPT_RUN_FROM_VM
+if [ "x$SCRIPT_RUN_FROM_VM" == "xTrue" ] ; then
+  sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER $JDK False
+else
+  sh $SCRIPT_ORIGIN/run_from_prepared_container.sh $COUNTER $JDK True
+fi
+
