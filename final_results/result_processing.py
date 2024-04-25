@@ -280,7 +280,7 @@ def avgmed_alljdks_metric(path, key, result_file, JDKs_expected):
                         geometric_means.append(NvrRunValue(int(parse_number(line)), nvr, int(run)))
     geometric_means=sorted(geometric_means, key=cmp_to_key(compareNvrs))
     x = list(map(lambda title: title.nvr+":"+str(title.run), geometric_means))
-    create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw values", True)
+    create_figure(x, list(map(lambda num: num.value, geometric_means)), "run", args[2], "raw_values", True)
     result = []
     result.append(min_max_avg_med(list(map(lambda num: num.value, geometric_means)), len(geometric_means), path, JDKs_expected, True))
     x = ["min", "max", "avg", "med"]
