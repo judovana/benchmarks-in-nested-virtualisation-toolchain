@@ -26,24 +26,46 @@ def avgToStr():
     else:
         return "geomMean"
 
-def isBlacklisted(item):
+def isKeyBlacklisted(item):
     blacklist = os.environ.get('KEY_BLACKLIST') #None or regex
     if (blacklist is None):
         return False
     match = re.search(blacklist, item)
     return not match is None
 
-def isWhitelisted(item):
+def isKeyWhitelisted(item):
     whitelist = os.environ.get('KEY_WHITELIST') #None or regex
     if (whitelist is None):
         return True
     match = re.search(whitelist, item)
     return not match is None
-    
-def isAccepted(item):
-    if (isBlacklisted(item)):
+
+def isBenchmarkBlacklisted(item):
+    blacklist = os.environ.get('BENCH_BLACKLIST') #None or regex
+    if (blacklist is None):
         return False
-    return isWhitelisted(item)
+    match = re.search(blacklist, item)
+    return not match is None
+
+def isBenchmarkWhitelisted(item):
+    whitelist = os.environ.get('BENCH_WHITELIST') #None or regex
+    if (whitelist is None):
+        return True
+    match = re.search(whitelist, item)
+    return not match is None
+    
+def isKeyAccepted(item):
+    if (isKeyBlacklisted(item)):
+        return False
+    return isKeyWhitelisted(item)
+
+def isBenchmarkAccepted(item):
+    if (isBenchmarkBlacklisted(item)):
+        return False
+    return isBenchmarkWhitelisted(item)
+
+def isAccepted(benchmark, key):
+   return isKeyAccepted(key) and isBenchmarkAccepted(benchmark)
 
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
@@ -90,12 +112,14 @@ class xJxBxV(object):
         initOrAdd(allJdks, self.jdkFromDir, skip);
         self.benchmarkFromDir = dirName.split("_")[1]; 
         self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir) # this one contains name of benchmark or ALL. Thats why we ar eusing the second everywhere. That may chnage
-        initOrAdd(allBenchmarks, self.benchmarkFromDir, skip)
+        if (isBenchmarkAccepted(self.benchmarkFromDir)):
+            initOrAdd(allBenchmarks, self.benchmarkFromDir, skip)
         # NO! this virt is not used in JVbkmr; dont use
         self.virtualizationFromDir = re.sub(self.jdkFromDir+"_"+self.benchmarkFromDir+"_", "", dirName) #container_results  containers_in_container_results
         self.benchmarkFromKey = self.originalKey.split("_")[-1];
         self.benchmarkFromKey = sanitizeAll(self.benchmarkFromKey)
-        initOrAdd(allBenchmarks, self.benchmarkFromKey, skip)
+        if (isBenchmarkAccepted(self.benchmarkFromKey)):
+            initOrAdd(allBenchmarks, self.benchmarkFromKey, skip)
         #YES, this  is shared with JVbkmr; use this
         self.virtualizationFromKey = re.sub("_"+self.benchmarkFromKey, "", self.originalKey)  #container-results  containers_in_container
         self.virtualizationFromKey = sanitizeAll(self.virtualizationFromKey)
@@ -138,15 +162,16 @@ class JVbkmr(object):
         self.metric=splited[2]
         if not skip:
             allMetrics.add(self.metric)
-        self.key=splited[1]
-        if (self.key.find("Time")>=0):
-            self.value=-1*self.value
-        if (self.resultType.find("-")>=0):
-            self.value=abs(self.value)
         virtAndbench=splited[0]
         self.benchmark = virtAndbench.split("_")[-1];
         self.benchmark = sanitizeAll(self.benchmark)
-        initOrAdd(allBenchmarks, self.benchmark, skip)
+        self.key=splited[1]
+        if (self.key.find("Time")>=0 or self.benchmark.find("DACAPO")>=0):
+            self.value=-1*self.value
+        if (self.resultType.find("-")>=0):  #if there is -, then it is some max-avg or similar RELATIVE value
+            self.value=abs(self.value)
+        if (isBenchmarkAccepted(self.benchmark)):
+            initOrAdd(allBenchmarks, self.benchmark, skip)
         if not skip:
             if (self.benchmark in allKeysPerBenchmark):
                 allKeysPerBenchmark[self.benchmark].add(self.key)
@@ -271,10 +296,14 @@ def readFinals(root, filename, name):
     for line in file:
         value = line.split("=")[-1].strip()
         key = re.sub("="+value+"\n", "", line); # there can be = in key:(
-        if isAccepted(key):
+        # key contains all
+        # vm_results_RADARGUNs3:BasicOperations.Get.Throughput=:m2a:MAX-AVG
+        # so the KEY/BENCH is a lie, however BENCH have to be processed on more spalces
+        if isAccepted(key, key):
             finals.append(JVbkmr(name, key, value))
+            #eprint("appended " + name + " " + " " + key + " " + value)
         #else:
-        #    eprint("key " + key + " exclluded by KEY_BLACKLIST/KEY_WHITELIST")
+        #    eprint("key " + key + " exclluded by KEY_BLACKLIST/KEY_WHITELIST BENCH_BLACKLIST/BENCH_WHITELIST")
 
 def metricToString(m):
     if (m=="m1"):
