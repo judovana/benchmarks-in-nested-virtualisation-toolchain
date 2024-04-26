@@ -245,10 +245,10 @@ def create_figure(x1, y1, x_name, y_name, name_modifier, clear_plot, figg = None
     if (clear_plot):
         name_fig = "chart_" + containsFilter + "_" + runType + "_" + args[2] + "_" + name_modifier + ".png"
         plt.savefig(name_fig)
-        file_path = os.getcwd() + "/" + name_fig
         if is_html():
-            print("<br/><a href='"+file_path.strip()+"'><img src='"+file_path.strip()+"'></img></a><br/>")
+            print("<br/><a href='"+name_fig+"'><img src='"+name_fig+"'></img></a><br/>")
         else:
+            file_path = os.getcwd() + "/" + name_fig
             print("file: ", file_path.strip())
     if (clear_plot):
         plt.clf()
