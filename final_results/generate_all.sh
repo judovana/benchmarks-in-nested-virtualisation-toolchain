@@ -225,6 +225,8 @@ fi
     echo "  <li><a href='absBjvCharts/index.html'>absolute values benchmark-java-virtualisation</a></li>" 
     echo "  <li><a href='absJbvNoTimeCharts/index.html'>absolute values java-benchmark-virtualisation without radarguns' time and dacapo</a></li>"
     echo "  <li><a href='absBjvNoTimeCharts/index.html'>absolute values benchmark-java-virtualisation without radarguns' time and dacapo</a></li>"
+    echo "  <li><a href='absJbvOnlyTimeCharts/index.html'>absolute values java-benchmark-virtualisation only with radarguns' time and dacapo</a></li>"
+    echo "  <li><a href='absBjvOnlyTimeCharts/index.html'>absolute values benchmark-java-virtualisation only with radarguns' time and dacapo</a></li>"
     echo "</ul>"
     echo "<h2 id="finals-relvals"> relative values </h2>"
     echo "<h3>the midd-way avg/geom means are permtuation order depndent, and interesting </h3>"
@@ -233,6 +235,8 @@ fi
     echo "  <li><a href='relBjvCharts/index.html'>holly grail - relative values benchmark-java-virtualisation</a></li>"
     echo "  <li><a href='relJbvNoTimeCharts/index.html'>holly grail - relative values java-benchmark-virtualisation without radarguns' time and dacapo</a></li>"
     echo "  <li><a href='relBjvNoTimeCharts/index.html'>holly grail - relative values benchmark-java-virtualisation without radarguns' time and dacapo</a></li>"
+    echo "  <li><a href='relJbvOnlyTimeCharts/index.html'>holly grail - relative values java-benchmark-virtualisation only with radarguns' time and dacapo</a></li>"
+    echo "  <li><a href='relBjvOnlyTimeCharts/index.html'>holly grail - relative values benchmark-java-virtualisation only with radarguns' time and dacapo</a></li>"
     echo "</ul>"
     echo "  <hr>" 
     echo "  <hr>" 
@@ -253,13 +257,28 @@ function finalStats() {
 
 set -x
 
+  if [ ! "$DO_BASE" == false ] ; then
 POST_AVG=nope  finalStats passratesCharts 2 passrate
 POST_AVG=false finalStats absJbvCharts 1.1 abs
 POST_AVG=true  finalStats relJbvCharts 3.1 rel
 POST_AVG=false finalStats absBjvCharts 1.2 abs
 POST_AVG=true  finalStats relBjvCharts 3.2 rel
-
+  else
+echo "Skiped DO_BASE"
+  fi
+  if [ ! "$DO_SCORES" == false ] ; then
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=false finalStats absJbvNoTimeCharts 1.1 abs
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=true  finalStats relJbvNoTimeCharts 3.1 rel
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=false finalStats absBjvNoTimeCharts 1.2 abs
 BENCH_BLACKLIST=DACAPO KEY_BLACKLIST=Time POST_AVG=true  finalStats relBjvNoTimeCharts 3.2 rel
+  else
+echo "Skiped DO_SCORES"
+  fi
+  if [ ! "$DO_TIMES" == false ] ; then
+BENCH_WHITELIST="(DACAPO|RADARGUN).*" KEY_WHITELIST="geom|Time" POST_AVG=false finalStats absJbvOnlyTimeCharts 1.1 abs
+BENCH_WHITELIST="(DACAPO|RADARGUN).*" KEY_WHITELIST="geom|Time" POST_AVG=true  finalStats relJbvOnlyTimeCharts 3.1 rel
+BENCH_WHITELIST="(DACAPO|RADARGUN).*" KEY_WHITELIST="geom|Time" POST_AVG=false finalStats absBjvOnlyTimeCharts 1.2 abs
+BENCH_WHITELIST="(DACAPO|RADARGUN).*" KEY_WHITELIST="geom|Time" POST_AVG=true  finalStats relBjvOnlyTimeCharts 3.2 rel
+  else
+echo "Skiped DO_TIMES"
+ fi

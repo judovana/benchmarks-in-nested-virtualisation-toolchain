@@ -798,7 +798,8 @@ if (SCENARIO ==  3 or SCENARIO ==  3.1):
         )
         
 if (SCENARIO ==  1.2):
-    allBenchmarks.remove("all")
+    if "all" in allBenchmarks:
+        allBenchmarks.remove("all")
     jvbkmrprinter(
         allBenchmarks, allJdks, allVirtualisations, allKeysPerBenchmark,
         "absolute values of benchmarks per virtualisation (top view by benchmark)",
@@ -813,7 +814,8 @@ if (SCENARIO ==  1.2):
         )
 
 if (SCENARIO ==  3.2):
-    allBenchmarks.remove("all")
+    if "all" in allBenchmarks:
+        allBenchmarks.remove("all")
     jvbkmrprinter(
         allBenchmarks, allJdks ,allVirtualisations,allKeysPerBenchmark,
         "relative accuracy of benchmarks per virtualisation(top view by benchmark). Most pointable is MIN-MAX and MAX-MIN.",
