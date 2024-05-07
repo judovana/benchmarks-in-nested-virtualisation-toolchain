@@ -1,0 +1,1117 @@
+17:07:20,354 INFO  [org.radargun.RemoteMasterConnection] (main) Attempting to connect to master results:2103
+17:07:20,361 INFO  [org.radargun.RemoteMasterConnection] (main) Successfully established connection with master at: results:2103
+17:07:20,363 INFO  [org.radargun.Slave] (main) Received slave index 2
+17:07:20,365 INFO  [org.radargun.Slave] (main) Received slave count 3
+17:07:20,569 INFO  [org.radargun.ServiceHelper] (sc-main) ServiceContext properties: {}
+17:07:20,824 INFO  [org.radargun.Slave] (sc-main) Eager Service Infinispan92EmbeddedService {batching=false, cache=testCache, channelRetrievalTimeout=2 mins 0 secs, enableDiagnostics=null, explicitLocking=false, file=/mnt/workspace/results/dist-sync.xml, internalsExpositionEnabled=false, jgroupsDumperEnabled=false, jgroupsDumperInterval=10.000 secs, keysPerThread=-1, mapReduceDistributedReducePhase=false, mapReduceUseIntermediateSharedCache=false, removedCaches=[  ], threadsPerNode=-1 } loaded.
+17:07:22,927 INFO  [org.radargun.Slave] (sc-main) Starting stage ScenarioInit
+17:07:22,959 INFO  [org.radargun.Slave] (sc-main) Finished stage ScenarioInit
+17:07:22,964 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:22,979 INFO  [org.radargun.Slave] (sc-main) Starting stage BeforeServiceStart
+17:07:22,979 INFO  [org.radargun.Slave] (sc-main) Finished stage BeforeServiceStart
+17:07:22,980 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:22,993 INFO  [org.radargun.Slave] (sc-main) Starting stage ServiceStart
+17:07:22,996 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main)  Startup staggering, this is the slave with index 2. Sleeping for 6000 millis.
+17:07:28,998 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main) Ack master's StartCluster stage. Local address is: /127.0.0.1. This slave's index is: 2
+17:07:29,001 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) Infinispan version: Infinispan 'Gaina' 9.2.0.Final
+17:07:29,017 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) JGroups version: JGroups 4.0.10.Final (Schiener Berg)
+17:07:30,403 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (sc-main) ISPN000078: Starting JGroups channel results
+17:07:30,616 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the send buffer of socket MulticastSocket was set to 1.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+17:07:30,619 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the receive buffer of socket MulticastSocket was set to 20.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+17:07:30,621 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the send buffer of socket MulticastSocket was set to 1.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+17:07:30,632 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the receive buffer of socket MulticastSocket was set to 25.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+17:07:30,708 INFO  [org.infinispan.CLUSTER] (sc-main) ISPN000094: Received new cluster view for channel results: [fedora-19494|2] (3) [fedora-19494, fedora-15603, fedora-39847]
+17:07:30,852 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (sc-main) ISPN000079: Channel results local address is fedora-39847, physical addresses are [192.168.124.236:42746]
+17:07:30,865 INFO  [org.infinispan.factories.GlobalComponentRegistry] (sc-main) ISPN000128: Infinispan version: Infinispan 'Gaina' 9.2.0.Final
+17:07:31,313 INFO  [org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup] (sc-main) ISPN000107: Retrieving transaction manager Transaction: unknown
+17:07:31,473 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) No RELAY2 protocol in XS service
+17:07:31,474 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) No RELAY2 protocol in XS service
+17:07:31,475 INFO  [org.radargun.stages.lifecycle.LifecycleHelper] (sc-main) Number of members is the one expected: 3
+17:07:31,475 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main) Successfully started cache service infinispan92/embedded on slave 2
+17:07:31,507 ERROR [org.radargun.service.ConfigDumpHelper] (sc-main) Error while dumping ___protobuf_metadata cache config as properties
+javax.management.AttributeNotFoundException: Unknown attribute 'configurationAsProperties'. Known attributes names are: [rebalancingEnabled, cacheStatus, cacheName, cacheAvailability, version, configurationAsProperties]
+	at org.infinispan.jmx.ResourceDMBean.getAttribute(ResourceDMBean.java:181) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.getAttribute(DefaultMBeanServerInterceptor.java:644) ~[?:?]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.getAttribute(JmxMBeanServer.java:679) ~[?:?]
+	at org.radargun.service.ConfigDumpHelper60.dumpCache(ConfigDumpHelper60.java:44) [plugin-infinispan60-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.EmbeddedConfigurationProvider.getNormalizedConfigs(EmbeddedConfigurationProvider.java:33) [plugin-infinispan52-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.ServiceStartStage.executeOnSlave(ServiceStartStage.java:92) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.scenarioLoop(SlaveBase.java:102) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase$ScenarioRunner.run(SlaveBase.java:203) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+17:07:31,517 ERROR [org.radargun.service.ConfigDumpHelper] (sc-main) Error while dumping ___protobuf_metadata cache config as properties
+javax.management.AttributeNotFoundException: Unknown attribute 'configurationAsProperties'. Known attributes names are: [rebalancingEnabled, cacheStatus, cacheName, cacheAvailability, version, configurationAsProperties]
+	at org.infinispan.jmx.ResourceDMBean.getAttribute(ResourceDMBean.java:181) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.getAttribute(DefaultMBeanServerInterceptor.java:644) ~[?:?]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.getAttribute(JmxMBeanServer.java:679) ~[?:?]
+	at org.radargun.service.ConfigDumpHelper60.dumpCache(ConfigDumpHelper60.java:44) [plugin-infinispan60-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.EmbeddedConfigurationProvider.getNormalizedConfigs(EmbeddedConfigurationProvider.java:33) [plugin-infinispan52-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.ServiceStartStage.executeOnSlave(ServiceStartStage.java:92) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.scenarioLoop(SlaveBase.java:102) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase$ScenarioRunner.run(SlaveBase.java:203) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+17:07:31,543 INFO  [org.radargun.Slave] (sc-main) Finished stage ServiceStart
+17:07:31,550 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:31,701 INFO  [org.radargun.Slave] (sc-main) Starting stage AfterServiceStart
+17:07:31,707 INFO  [org.radargun.Slave] (sc-main) Finished stage AfterServiceStart
+17:07:31,713 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:31,811 INFO  [org.radargun.Slave] (sc-main) Starting stage MonitorStart
+17:07:31,820 INFO  [org.radargun.sysmonitor.AbstractMonitors] (sc-main) Gathering statistics every 1000 ms
+17:07:31,821 INFO  [org.radargun.Slave] (sc-main) Finished stage MonitorStart
+17:07:31,821 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:31,865 INFO  [org.radargun.Slave] (sc-main) Starting stage Load
+17:07:40,133 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-4) This node loaded 10000 entries (~10000000 bytes)
+17:07:45,169 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) This node loaded 20000 entries (~20000000 bytes)
+17:07:48,350 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) This node loaded 30000 entries (~30000000 bytes)
+17:07:49,002 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-8) Finished loading entries
+17:07:49,112 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-5) Finished loading entries
+17:07:49,146 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) Finished loading entries
+17:07:49,149 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-1) Finished loading entries
+17:07:49,181 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-4) Finished loading entries
+17:07:49,212 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-3) Finished loading entries
+17:07:49,219 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) Finished loading entries
+17:07:49,230 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-7) Finished loading entries
+17:07:49,238 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) Finished loading entries
+17:07:49,286 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-0) Finished loading entries
+17:07:49,289 INFO  [org.radargun.Slave] (sc-main) Finished stage Load
+17:07:49,289 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:07:49,626 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+17:07:49,630 INFO  [org.radargun.Slave] (sc-main) Starting stage BasicOperationsTest
+17:07:49,630 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using key generator org.radargun.stages.cache.generators.StringKeyGenerator {format=null }
+17:07:49,630 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using value generator org.radargun.stages.cache.generators.ByteArrayValueGenerator { }
+17:07:49,631 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using cache selector Default { }
+17:07:49,631 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Starting test warmup
+17:07:49,645 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Started 4 stressor threads.
+17:08:49,647 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Finished test. Test duration is: 1 mins 0 secs
+17:08:49,650 INFO  [org.radargun.Slave] (sc-main) Finished stage BasicOperationsTest
+17:08:49,672 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:08:49,718 INFO  [org.radargun.Slave] (sc-main) Starting stage Clear
+17:08:49,723 INFO  [org.radargun.stages.cache.ClearStage] (sc-main) Before executing clear, memory looks like this: 
+Runtime free: 567,836 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,309 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,700 kb
+MX Metaspace(Non-heap memory): used: 34,597 kb, init: 0 kb, committed: 35,008 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 9,426 kb, init: 2,496 kb, committed: 9,920 kb, max: 120,028 kb
+MX Compressed Class Space(Non-heap memory): used: 4,153 kb, init: 0 kb, committed: 4,352 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 642,048 kb, init: 73,728 kb, committed: 701,440 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 143,329 kb, init: 1,325,056 kb, committed: 651,264 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 45,568 kb, init: 0 kb, committed: 46,080 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 4,783 kb, init: 2,496 kb, committed: 4,800 kb, max: 120,032 kb
+17:08:49,852 INFO  [org.radargun.stages.cache.ClearStage] (sc-main) After executing clear, memory looks like this: 
+Runtime free: 1,381,546 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,309 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,700 kb
+MX Metaspace(Non-heap memory): used: 34,629 kb, init: 0 kb, committed: 35,008 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 9,508 kb, init: 2,496 kb, committed: 9,920 kb, max: 120,028 kb
+MX Compressed Class Space(Non-heap memory): used: 4,154 kb, init: 0 kb, committed: 4,352 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 0 kb, init: 73,728 kb, committed: 880,640 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 16,725 kb, init: 1,325,056 kb, committed: 518,144 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 0 kb, init: 0 kb, committed: 0 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 4,793 kb, init: 2,496 kb, committed: 4,800 kb, max: 120,032 kb
+17:08:49,853 INFO  [org.radargun.Slave] (sc-main) Finished stage Clear
+17:08:49,853 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:08:49,909 INFO  [org.radargun.Slave] (sc-main) Starting stage Load
+17:08:52,353 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-5) This node loaded 10000 entries (~10000000 bytes)
+17:08:54,802 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) This node loaded 20000 entries (~20000000 bytes)
+17:08:57,162 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-0) This node loaded 30000 entries (~30000000 bytes)
+17:08:57,802 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-0) Finished loading entries
+17:08:57,871 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) Finished loading entries
+17:08:57,882 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) Finished loading entries
+17:08:57,890 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-1) Finished loading entries
+17:08:57,895 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-5) Finished loading entries
+17:08:57,897 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-8) Finished loading entries
+17:08:57,910 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-4) Finished loading entries
+17:08:57,912 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) Finished loading entries
+17:08:57,942 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-3) Finished loading entries
+17:08:57,948 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-7) Finished loading entries
+17:08:57,949 INFO  [org.radargun.Slave] (sc-main) Finished stage Load
+17:08:57,949 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:08:58,148 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+17:08:58,149 INFO  [org.radargun.Slave] (sc-main) Starting stage BasicOperationsTest
+17:08:58,156 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using key generator org.radargun.stages.cache.generators.StringKeyGenerator {format=null }
+17:08:58,156 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using value generator org.radargun.stages.cache.generators.ByteArrayValueGenerator { }
+17:08:58,156 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using cache selector Default { }
+17:08:58,156 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Starting test stress-test
+17:08:58,198 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Started 4 stressor threads.
+17:18:58,206 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Finished test. Test duration is: 10 mins 0 secs
+17:18:58,209 INFO  [org.radargun.Slave] (sc-main) Finished stage BasicOperationsTest
+17:18:58,349 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:18:58,483 INFO  [org.radargun.Slave] (sc-main) Starting stage MonitorStop
+17:18:58,484 INFO  [org.radargun.Slave] (sc-main) Finished stage MonitorStop
+17:18:58,485 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:18:58,491 INFO  [org.radargun.Slave] (sc-main) Starting stage ScenarioDestroy
+17:18:58,492 INFO  [org.radargun.stages.ScenarioDestroyStage] (sc-main) Scenario finished, destroying...
+17:18:58,493 INFO  [org.radargun.stages.ScenarioDestroyStage] (sc-main) Memory before cleanup: 
+Runtime free: 507,562 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,311 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,700 kb
+MX Metaspace(Non-heap memory): used: 35,267 kb, init: 0 kb, committed: 35,648 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 9,331 kb, init: 2,496 kb, committed: 9,984 kb, max: 120,028 kb
+MX Compressed Class Space(Non-heap memory): used: 4,187 kb, init: 0 kb, committed: 4,352 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 399,360 kb, init: 73,728 kb, committed: 705,536 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 436,565 kb, init: 1,325,056 kb, committed: 638,976 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 54,272 kb, init: 0 kb, committed: 54,272 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 5,031 kb, init: 2,496 kb, committed: 5,056 kb, max: 120,032 kb
+17:18:58,494 INFO  [org.radargun.stages.lifecycle.LifecycleHelper] (sc-main) Stopping service.
+17:18:58,564 WARN  [org.infinispan.statetransfer.InboundTransferTask] (stateTransferExecutor-thread--p6-t24) ISPN000210: Failed to request state of cache ___counters from node fedora-19494, segments {1-9 15-20 25-29 35-37 42-43 49 61 70-78 81-83 87-89 95 103 106 109-112 135-139 143-144 150-155 159-162 165-166 187 191-193 197-200 204 214 231-237 253}
+org.infinispan.remoting.transport.jgroups.SuspectException: ISPN000400: Node fedora-19494 was suspected
+	at org.infinispan.remoting.transport.ResponseCollectors.remoteNodeSuspected(ResponseCollectors.java:33) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleResponseCollector.targetNotFound(SingleResponseCollector.java:31) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleResponseCollector.targetNotFound(SingleResponseCollector.java:17) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.ValidSingleResponseCollector.addResponse(ValidSingleResponseCollector.java:23) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleTargetRequest.receiveResponse(SingleTargetRequest.java:51) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleTargetRequest.onResponse(SingleTargetRequest.java:35) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.RequestRepository.addResponse(RequestRepository.java:53) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.processResponse(JGroupsTransport.java:1302) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.processMessage(JGroupsTransport.java:1205) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.access$200(JGroupsTransport.java:123) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport$ChannelCallbacks.receive(JGroupsTransport.java:1340) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.jgroups.JChannel.up(JChannel.java:819) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.stack.ProtocolStack.up(ProtocolStack.java:893) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FRAG3.up(FRAG3.java:171) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FlowControl.up(FlowControl.java:343) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FlowControl.up(FlowControl.java:343) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.GMS.up(GMS.java:864) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.STABLE.up(STABLE.java:240) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.deliverMessage(UNICAST3.java:1002) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.handleDataReceived(UNICAST3.java:728) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.up(UNICAST3.java:383) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.NAKACK2.up(NAKACK2.java:600) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.VERIFY_SUSPECT.up(VERIFY_SUSPECT.java:119) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FD_ALL.up(FD_ALL.java:199) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FD_SOCK.up(FD_SOCK.java:252) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.MERGE3.up(MERGE3.java:276) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.Discovery.up(Discovery.java:267) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.TP.passMessageUp(TP.java:1248) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.util.SubmitToThreadPool$SingleMessageHandler.run(SubmitToThreadPool.java:87) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+17:18:58,571 ERROR [org.infinispan.statetransfer.StateConsumerImpl] (transport-thread--p4-t10) ISPN000208: No live owners found for segments {1-9 15-20 25-29 35-37 42-43 49 61 70-78 81-83 87-89 95 103 106 109-112 135-139 143-144 150-155 159-162 165-166 187 191-193 197-200 204 214 231-237 253} of cache ___counters. Excluded owners: []
+17:18:58,580 INFO  [org.infinispan.CLUSTER] (jgroups-36,fedora-39847) ISPN000094: Received new cluster view for channel results: [fedora-15603|3] (2) [fedora-15603, fedora-39847]
+17:18:58,586 INFO  [org.infinispan.CLUSTER] (jgroups-36,fedora-39847) ISPN100001: Node fedora-19494 left the cluster
+17:19:28,505 WARN  [org.radargun.stages.lifecycle.LifecycleHelper] (sc-main) Lifecycle did not finished withing timeout, killing instead.
+17:19:28,507 ERROR [org.radargun.service.Infinispan90Lifecycle] (sc-main) Service kill failed
+17:19:28,509 ERROR [org.radargun.stages.ScenarioDestroyStage] (sc-main) Problems shutting down the slave
+java.lang.RuntimeException: org.infinispan.IllegalLifecycleStateException: Cache container has been stopped and cannot be reused. Recreate the cache container.
+	at org.radargun.service.InfinispanKillableLifecycle.kill(InfinispanKillableLifecycle.java:82) ~[plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.LifecycleHelper.stop(LifecycleHelper.java:166) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.ScenarioDestroyStage.executeOnSlave(ScenarioDestroyStage.java:38) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.scenarioLoop(SlaveBase.java:102) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase$ScenarioRunner.run(SlaveBase.java:203) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+Caused by: org.infinispan.IllegalLifecycleStateException: Cache container has been stopped and cannot be reused. Recreate the cache container.
+	at org.infinispan.manager.DefaultCacheManager.assertIsNotTerminated(DefaultCacheManager.java:950) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.internalGetCache(DefaultCacheManager.java:464) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.getCache(DefaultCacheManager.java:460) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.getCache(DefaultCacheManager.java:446) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.radargun.service.InfinispanKillableLifecycle.getChannels(InfinispanKillableLifecycle.java:172) ~[plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.Infinispan52Lifecycle.getChannels(Infinispan52Lifecycle.java:22) ~[plugin-infinispan52-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.InfinispanKillableLifecycle.getChannels(InfinispanKillableLifecycle.java:152) ~[plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.InfinispanKillableLifecycle.startDiscarding(InfinispanKillableLifecycle.java:213) ~[plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.InfinispanKillableLifecycle.kill(InfinispanKillableLifecycle.java:69) ~[plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	... 4 more
+17:19:28,516 INFO  [org.radargun.Slave] (sc-main) Finished stage ScenarioDestroy
+17:19:28,520 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+17:19:28,566 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.service.Infinispan80EmbeddedService.destroy() overrides public void org.radargun.service.Infinispan60EmbeddedService.destroy() but both are declared with @Destroy annotation: calling only once
+17:19:28,570 INFO  [org.radargun.Slave] (main) Starting stage ScenarioCleanup
+17:19:28,578 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t23 (id=123, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,579 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-35,fedora-39847 (id=189, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,580 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread Transaction Reaper (id=25, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/java.lang.Object.wait(Native Method)
+	at app//com.arjuna.ats.internal.arjuna.coordinator.ReaperThread.run(ReaperThread.java:90)
+17:19:28,581 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t14 (id=102, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,583 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-36,fedora-39847 (id=192, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,583 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-34,fedora-39847 (id=173, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,585 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t8 (id=89, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,586 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t33 (id=222, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,588 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread Controller-remote-thread-null (id=38, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:211)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(AbstractQueuedSynchronizer.java:715)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireSharedInterruptibly(AbstractQueuedSynchronizer.java:1047)
+	at java.base@17.0.4-internal/java.util.concurrent.Semaphore.acquire(Semaphore.java:318)
+	at app//org.infinispan.util.concurrent.BlockingTaskAwareExecutorServiceImpl$ControllerThread.run(BlockingTaskAwareExecutorServiceImpl.java:159)
+17:19:28,589 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t10 (id=93, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,590 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-8,fedora-39847 (id=34, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,591 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread RxCachedWorkerPoolEvictor-1 (id=81, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,592 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-41,fedora-39847 (id=215, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,593 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t20 (id=114, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,595 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread async-thread--p5-t2 (id=91, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,596 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread ucast-receiver-3,fedora-39847 (id=29, state=RUNNABLE)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receive0(Native Method)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receiveIntoNativeBuffer(DatagramChannelImpl.java:750)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receive(DatagramChannelImpl.java:728)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.trustedBlockingReceive(DatagramChannelImpl.java:666)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.blockingReceive(DatagramChannelImpl.java:635)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramSocketAdaptor.receive(DatagramSocketAdaptor.java:240)
+	at java.base@17.0.4-internal/java.net.DatagramSocket.receive(DatagramSocket.java:700)
+	at app//org.jgroups.protocols.UDP$PacketReceiver.run(UDP.java:704)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,597 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t7 (id=87, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,598 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t12 (id=95, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,599 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t22 (id=118, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,600 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t3 (id=47, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,603 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-43,fedora-39847 (id=221, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,608 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread FD_SOCK acceptor-5,fedora-39847 (id=31, state=RUNNABLE)
+	at java.base@17.0.4-internal/sun.nio.ch.Net.accept(Native Method)
+	at java.base@17.0.4-internal/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:755)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:675)
+	at java.base@17.0.4-internal/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:617)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:574)
+	at java.base@17.0.4-internal/java.net.ServerSocket.accept(ServerSocket.java:532)
+	at app//org.jgroups.protocols.FD_SOCK$ServerSocketHandler.run(FD_SOCK.java:991)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,609 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread async-thread--p5-t1 (id=88, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,610 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread stateTransferExecutor-thread--p6-t24 (id=75, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack$SNode.block(SynchronousQueue.java:288)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:397)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.take(SynchronousQueue.java:886)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,612 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread Timer runner-1,fedora-39847 (id=27, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+	at java.base@17.0.4-internal/java.util.concurrent.DelayQueue.take(DelayQueue.java:229)
+	at java.base@17.0.4-internal/java.util.concurrent.DelayQueue.take(DelayQueue.java:77)
+	at app//org.jgroups.util.TimeScheduler3.run(TimeScheduler3.java:181)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,613 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread Listener:46299 (id=23, state=RUNNABLE)
+	at java.base@17.0.4-internal/sun.nio.ch.Net.accept(Native Method)
+	at java.base@17.0.4-internal/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:755)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:675)
+	at java.base@17.0.4-internal/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:617)
+	at java.base@17.0.4-internal/java.net.ServerSocket.implAccept(ServerSocket.java:574)
+	at java.base@17.0.4-internal/java.net.ServerSocket.accept(ServerSocket.java:532)
+	at app//com.arjuna.ats.internal.arjuna.recovery.Listener.run(Listener.java:122)
+17:19:28,614 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t16 (id=104, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,616 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-21,fedora-39847 (id=148, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,616 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t24 (id=125, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,617 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-40,fedora-39847 (id=201, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,618 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t31 (id=219, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,618 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t32 (id=220, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,619 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t11 (id=94, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,620 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t7 (id=154, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,621 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t29 (id=217, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,622 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-18,fedora-39847 (id=145, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,622 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t2 (id=46, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,624 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread Transaction Reaper Worker 0 (id=26, state=WAITING)
+	at java.base@17.0.4-internal/java.lang.Object.wait(Native Method)
+	at java.base@17.0.4-internal/java.lang.Object.wait(Object.java:338)
+	at app//com.arjuna.ats.arjuna.coordinator.TransactionReaper.waitForCancellations(TransactionReaper.java:328)
+	at app//com.arjuna.ats.internal.arjuna.coordinator.ReaperWorkerThread.run(ReaperWorkerThread.java:65)
+17:19:28,624 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread timeout-thread--p3-t1 (id=43, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,625 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread StopThread (id=223, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.CompletableFuture$Signaller.block(CompletableFuture.java:1866)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1939)
+	at java.base@17.0.4-internal/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+	at app//org.infinispan.util.concurrent.CompletableFutures.await(CompletableFutures.java:82)
+	at app//org.infinispan.remoting.transport.Transport.invokeRemotely(Transport.java:71)
+	at app//org.infinispan.topology.LocalTopologyManagerImpl.executeOnCoordinator(LocalTopologyManagerImpl.java:698)
+	at app//org.infinispan.topology.LocalTopologyManagerImpl.leave(LocalTopologyManagerImpl.java:190)
+	at app//org.infinispan.statetransfer.StateTransferManagerImpl.stop(StateTransferManagerImpl.java:246)
+	at java.base@17.0.4-internal/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.4-internal/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.4-internal/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.4-internal/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.infinispan.commons.util.SecurityActions.lambda$invokeAccessibly$0(SecurityActions.java:79)
+	at app//org.infinispan.commons.util.SecurityActions$$Lambda$204/0x0000000800e364c8.run(Unknown Source)
+	at app//org.infinispan.commons.util.SecurityActions.doPrivileged(SecurityActions.java:71)
+	at app//org.infinispan.commons.util.SecurityActions.invokeAccessibly(SecurityActions.java:76)
+	at app//org.infinispan.commons.util.ReflectionUtil.invokeAccessibly(ReflectionUtil.java:185)
+	at app//org.infinispan.factories.AbstractComponentRegistry$PrioritizedMethod.invoke(AbstractComponentRegistry.java:968)
+	at app//org.infinispan.factories.AbstractComponentRegistry.lambda$internalStop$7(AbstractComponentRegistry.java:741)
+	at app//org.infinispan.factories.AbstractComponentRegistry$$Lambda$555/0x0000000801040ab8.run(Unknown Source)
+	at app//org.infinispan.factories.SecurityActions.lambda$run$1(SecurityActions.java:72)
+	at app//org.infinispan.factories.SecurityActions$$Lambda$219/0x0000000800e60f20.run(Unknown Source)
+	at app//org.infinispan.security.Security.doPrivileged(Security.java:76)
+	at app//org.infinispan.factories.SecurityActions.run(SecurityActions.java:71)
+	at app//org.infinispan.factories.AbstractComponentRegistry.internalStop(AbstractComponentRegistry.java:734)
+	at app//org.infinispan.factories.AbstractComponentRegistry.stop(AbstractComponentRegistry.java:639)
+	at app//org.infinispan.factories.ComponentRegistry.stop(ComponentRegistry.java:256)
+	at app//org.infinispan.cache.impl.CacheImpl.performImmediateShutdown(CacheImpl.java:1046)
+	at app//org.infinispan.cache.impl.CacheImpl.stop(CacheImpl.java:1010)
+	at app//org.infinispan.cache.impl.AbstractDelegatingCache.stop(AbstractDelegatingCache.java:420)
+	at app//org.infinispan.manager.DefaultCacheManager.terminate(DefaultCacheManager.java:693)
+	at app//org.infinispan.manager.DefaultCacheManager.stopCaches(DefaultCacheManager.java:733)
+	at app//org.infinispan.manager.DefaultCacheManager.stop(DefaultCacheManager.java:710)
+	at app//org.radargun.service.InfinispanEmbeddedService.stopCaches(InfinispanEmbeddedService.java:146)
+	at app//org.radargun.service.Infinispan51EmbeddedService.stopCaches(Infinispan51EmbeddedService.java:117)
+	at app//org.radargun.service.Infinispan60EmbeddedService.stopCaches(Infinispan60EmbeddedService.java:120)
+	at app//org.radargun.service.InfinispanLifecycle.stop(InfinispanLifecycle.java:78)
+	at app//org.radargun.stages.lifecycle.LifecycleHelper$1.run(LifecycleHelper.java:154)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,626 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-29,fedora-39847 (id=168, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,627 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread mcast-receiver-4,fedora-39847 (id=30, state=RUNNABLE)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receive0(Native Method)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receiveIntoNativeBuffer(DatagramChannelImpl.java:750)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.receive(DatagramChannelImpl.java:728)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.trustedBlockingReceive(DatagramChannelImpl.java:666)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramChannelImpl.blockingReceive(DatagramChannelImpl.java:635)
+	at java.base@17.0.4-internal/sun.nio.ch.DatagramSocketAdaptor.receive(DatagramSocketAdaptor.java:240)
+	at java.base@17.0.4-internal/java.net.DatagramSocket.receive(DatagramSocket.java:700)
+	at app//org.jgroups.protocols.UDP$PacketReceiver.run(UDP.java:704)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,628 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t28 (id=214, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,628 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t19 (id=110, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,629 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t1 (id=42, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,630 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t4 (id=49, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,631 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t18 (id=106, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,633 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t17 (id=105, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,635 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-37,fedora-39847 (id=193, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,638 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t25 (id=124, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,639 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t9 (id=90, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,640 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t13 (id=162, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,642 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t5 (id=51, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,643 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread RxSchedulerPurge-1 (id=78, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,644 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t6 (id=83, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,646 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t13 (id=96, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,647 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t21 (id=115, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,648 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread jgroups-25,fedora-39847 (id=152, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,650 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread expiration-thread--p7-t1 (id=45, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@17.0.4-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,651 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread remote-thread--p2-t25 (id=198, state=TIMED_WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:401)
+	at java.base@17.0.4-internal/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:903)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1061)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,652 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread transport-thread--p4-t15 (id=103, state=WAITING)
+	at java.base@17.0.4-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3463)
+	at java.base@17.0.4-internal/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3434)
+	at java.base@17.0.4-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+	at java.base@17.0.4-internal/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+	at java.base@17.0.4-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.4-internal/java.lang.Thread.run(Thread.java:833)
+17:19:28,653 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t23 (id=123, state=WAITING)
+17:19:28,654 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-35,fedora-39847 (id=189, state=TIMED_WAITING)
+17:19:28,654 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread Transaction Reaper (id=25, state=TIMED_WAITING)
+17:19:28,655 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t14 (id=102, state=WAITING)
+17:19:28,655 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-36,fedora-39847 (id=192, state=TIMED_WAITING)
+17:19:28,656 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-34,fedora-39847 (id=173, state=TIMED_WAITING)
+17:19:28,656 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t8 (id=89, state=WAITING)
+17:19:28,657 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t33 (id=222, state=TIMED_WAITING)
+17:19:28,658 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread Controller-remote-thread-null (id=38, state=WAITING)
+17:19:28,658 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t10 (id=93, state=WAITING)
+17:19:28,659 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-8,fedora-39847 (id=34, state=TIMED_WAITING)
+17:19:28,660 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread RxCachedWorkerPoolEvictor-1 (id=81, state=TIMED_WAITING)
+17:19:28,660 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-41,fedora-39847 (id=215, state=TIMED_WAITING)
+17:19:28,661 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t20 (id=114, state=WAITING)
+17:19:28,662 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread async-thread--p5-t2 (id=91, state=WAITING)
+17:19:28,662 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread ucast-receiver-3,fedora-39847 (id=29, state=RUNNABLE)
+17:19:28,662 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t7 (id=87, state=WAITING)
+17:19:28,663 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t12 (id=95, state=WAITING)
+17:19:28,663 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t22 (id=118, state=WAITING)
+17:19:28,663 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t3 (id=47, state=WAITING)
+17:19:28,664 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-43,fedora-39847 (id=221, state=TIMED_WAITING)
+17:19:28,664 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread FD_SOCK acceptor-5,fedora-39847 (id=31, state=RUNNABLE)
+17:19:28,665 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread async-thread--p5-t1 (id=88, state=WAITING)
+17:19:28,665 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread stateTransferExecutor-thread--p6-t24 (id=75, state=WAITING)
+17:19:28,665 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread Timer runner-1,fedora-39847 (id=27, state=TIMED_WAITING)
+17:19:28,665 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread Listener:46299 (id=23, state=RUNNABLE)
+17:19:28,666 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t16 (id=104, state=WAITING)
+17:19:28,666 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-21,fedora-39847 (id=148, state=TIMED_WAITING)
+17:19:28,667 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t24 (id=125, state=WAITING)
+17:19:28,667 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-40,fedora-39847 (id=201, state=TIMED_WAITING)
+17:19:28,667 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t31 (id=219, state=TIMED_WAITING)
+17:19:28,667 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t32 (id=220, state=TIMED_WAITING)
+17:19:28,668 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t11 (id=94, state=WAITING)
+17:19:28,668 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t7 (id=154, state=TIMED_WAITING)
+17:19:28,668 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t29 (id=217, state=TIMED_WAITING)
+17:19:28,669 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-18,fedora-39847 (id=145, state=TIMED_WAITING)
+17:19:28,669 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t2 (id=46, state=WAITING)
+17:19:28,669 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread Transaction Reaper Worker 0 (id=26, state=WAITING)
+17:19:28,669 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread timeout-thread--p3-t1 (id=43, state=TIMED_WAITING)
+17:19:28,670 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread StopThread (id=223, state=TIMED_WAITING)
+17:19:28,670 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-29,fedora-39847 (id=168, state=TIMED_WAITING)
+17:19:28,670 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread mcast-receiver-4,fedora-39847 (id=30, state=RUNNABLE)
+17:19:28,670 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t28 (id=214, state=TIMED_WAITING)
+17:19:28,671 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t19 (id=110, state=WAITING)
+17:19:28,671 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t1 (id=42, state=WAITING)
+17:19:28,671 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t4 (id=49, state=WAITING)
+17:19:28,671 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t18 (id=106, state=WAITING)
+17:19:28,672 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t17 (id=105, state=WAITING)
+17:19:28,672 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-37,fedora-39847 (id=193, state=TIMED_WAITING)
+17:19:28,672 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t25 (id=124, state=WAITING)
+17:19:28,673 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t9 (id=90, state=WAITING)
+17:19:28,673 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t13 (id=162, state=TIMED_WAITING)
+17:19:28,673 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t5 (id=51, state=WAITING)
+17:19:28,673 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread RxSchedulerPurge-1 (id=78, state=TIMED_WAITING)
+17:19:28,673 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t6 (id=83, state=WAITING)
+17:19:28,674 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t13 (id=96, state=WAITING)
+17:19:28,674 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t21 (id=115, state=WAITING)
+17:19:28,674 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread jgroups-25,fedora-39847 (id=152, state=TIMED_WAITING)
+17:19:28,674 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread expiration-thread--p7-t1 (id=45, state=TIMED_WAITING)
+17:19:28,674 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread remote-thread--p2-t25 (id=198, state=TIMED_WAITING)
+17:19:28,675 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread transport-thread--p4-t15 (id=103, state=WAITING)
+17:19:33,676 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t23 (id=123, state=WAITING)
+17:19:33,677 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-35,fedora-39847 (id=189, state=TIMED_WAITING)
+17:19:33,678 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread Transaction Reaper (id=25, state=TIMED_WAITING)
+17:19:33,679 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t14 (id=102, state=WAITING)
+17:19:33,680 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-36,fedora-39847 (id=192, state=TIMED_WAITING)
+17:19:33,681 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-34,fedora-39847 (id=173, state=TIMED_WAITING)
+17:19:33,682 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t8 (id=89, state=WAITING)
+17:19:33,682 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t33 (id=222, state=TIMED_WAITING)
+17:19:33,683 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t10 (id=93, state=WAITING)
+17:19:33,683 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-8,fedora-39847 (id=34, state=TIMED_WAITING)
+17:19:33,685 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread RxCachedWorkerPoolEvictor-1 (id=81, state=TIMED_WAITING)
+17:19:33,685 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-41,fedora-39847 (id=215, state=TIMED_WAITING)
+17:19:33,686 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t20 (id=114, state=WAITING)
+17:19:33,687 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread async-thread--p5-t2 (id=91, state=WAITING)
+17:19:33,691 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread ucast-receiver-3,fedora-39847 (id=29, state=RUNNABLE)
+17:19:33,696 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t7 (id=87, state=WAITING)
+17:19:33,700 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t12 (id=95, state=WAITING)
+17:19:33,701 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t22 (id=118, state=WAITING)
+17:19:33,702 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t3 (id=47, state=WAITING)
+17:19:33,703 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-43,fedora-39847 (id=221, state=TIMED_WAITING)
+17:19:33,704 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread FD_SOCK acceptor-5,fedora-39847 (id=31, state=RUNNABLE)
+17:19:33,708 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread async-thread--p5-t1 (id=88, state=WAITING)
+17:19:33,709 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread stateTransferExecutor-thread--p6-t24 (id=75, state=WAITING)
+17:19:33,709 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread Timer runner-1,fedora-39847 (id=27, state=TIMED_WAITING)
+17:19:33,710 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread Listener:46299 (id=23, state=RUNNABLE)
+17:19:33,710 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t16 (id=104, state=WAITING)
+17:19:33,710 ERROR [org.jgroups.util.TimeScheduler3] (Timer runner-1,fedora-39847) JGRP000212: failed submitting task to thread pool
+java.lang.IllegalMonitorStateException: null
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.signal(AbstractQueuedSynchronizer.java:1473) ~[?:?]
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:239) ~[?:?]
+	at java.util.concurrent.DelayQueue.take(DelayQueue.java:77) ~[?:?]
+	at org.jgroups.util.TimeScheduler3.run(TimeScheduler3.java:181) [jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+17:19:33,711 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-21,fedora-39847 (id=148, state=TIMED_WAITING)
+17:19:33,719 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t24 (id=125, state=WAITING)
+17:19:33,722 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-40,fedora-39847 (id=201, state=TIMED_WAITING)
+17:19:33,724 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t31 (id=219, state=TIMED_WAITING)
+17:19:33,726 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t32 (id=220, state=TIMED_WAITING)
+17:19:33,727 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t11 (id=94, state=WAITING)
+17:19:33,728 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t7 (id=154, state=TIMED_WAITING)
+17:19:33,729 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t29 (id=217, state=TIMED_WAITING)
+17:19:33,729 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-18,fedora-39847 (id=145, state=TIMED_WAITING)
+17:19:33,730 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t2 (id=46, state=WAITING)
+17:19:33,732 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread Transaction Reaper Worker 0 (id=26, state=WAITING)
+17:19:33,733 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread timeout-thread--p3-t1 (id=43, state=TIMED_WAITING)
+17:19:33,733 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread StopThread (id=223, state=TIMED_WAITING)
+17:19:33,734 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-29,fedora-39847 (id=168, state=TIMED_WAITING)
+17:19:33,735 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread mcast-receiver-4,fedora-39847 (id=30, state=RUNNABLE)
+17:19:33,736 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t28 (id=214, state=TIMED_WAITING)
+17:19:33,736 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t19 (id=110, state=WAITING)
+17:19:33,735 WARN  [org.infinispan.factories.ComponentRegistry] (StopThread) ISPN000189: While stopping a cache or cache manager, one of its components failed to stop
+org.infinispan.commons.CacheException: Unable to invoke method public void org.infinispan.statetransfer.StateTransferManagerImpl.stop() on object of type StateTransferManagerImpl
+	at org.infinispan.commons.util.SecurityActions.lambda$invokeAccessibly$0(SecurityActions.java:83) ~[infinispan-commons-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.commons.util.SecurityActions.doPrivileged(SecurityActions.java:71) ~[infinispan-commons-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.commons.util.SecurityActions.invokeAccessibly(SecurityActions.java:76) ~[infinispan-commons-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.commons.util.ReflectionUtil.invokeAccessibly(ReflectionUtil.java:185) ~[infinispan-commons-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.AbstractComponentRegistry$PrioritizedMethod.invoke(AbstractComponentRegistry.java:968) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.AbstractComponentRegistry.lambda$internalStop$7(AbstractComponentRegistry.java:741) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.SecurityActions.lambda$run$1(SecurityActions.java:72) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.security.Security.doPrivileged(Security.java:76) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.SecurityActions.run(SecurityActions.java:71) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.AbstractComponentRegistry.internalStop(AbstractComponentRegistry.java:734) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.AbstractComponentRegistry.stop(AbstractComponentRegistry.java:639) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.factories.ComponentRegistry.stop(ComponentRegistry.java:256) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.cache.impl.CacheImpl.performImmediateShutdown(CacheImpl.java:1046) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.cache.impl.CacheImpl.stop(CacheImpl.java:1010) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.cache.impl.AbstractDelegatingCache.stop(AbstractDelegatingCache.java:420) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.terminate(DefaultCacheManager.java:693) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.stopCaches(DefaultCacheManager.java:733) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.manager.DefaultCacheManager.stop(DefaultCacheManager.java:710) [infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.radargun.service.InfinispanEmbeddedService.stopCaches(InfinispanEmbeddedService.java:146) [plugin-infinispan4-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.Infinispan51EmbeddedService.stopCaches(Infinispan51EmbeddedService.java:117) [plugin-infinispan51-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.Infinispan60EmbeddedService.stopCaches(Infinispan60EmbeddedService.java:120) [plugin-infinispan60-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.InfinispanLifecycle.stop(InfinispanLifecycle.java:78) [plugin-infinispan4-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.LifecycleHelper$1.run(LifecycleHelper.java:154) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.ThreadDeath
+	at java.lang.Thread.stop(Thread.java:942) ~[?:?]
+	at org.radargun.stages.ScenarioCleanupStage.stopUnfinished(ScenarioCleanupStage.java:169) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.ScenarioCleanupStage.executeOnSlave(ScenarioCleanupStage.java:65) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.runCleanup(SlaveBase.java:178) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.Slave.run(Slave.java:70) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.Slave.main(Slave.java:95) ~[radargun-core-3.0.0-SNAPSHOT.jar:?]
+17:19:33,737 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t1 (id=42, state=WAITING)
+17:19:33,739 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t4 (id=49, state=WAITING)
+17:19:33,739 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t18 (id=106, state=WAITING)
+17:19:33,740 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t17 (id=105, state=WAITING)
+17:19:33,741 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-37,fedora-39847 (id=193, state=TIMED_WAITING)
+17:19:33,742 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t25 (id=124, state=WAITING)
+17:19:33,743 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t9 (id=90, state=WAITING)
+17:19:33,743 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t13 (id=162, state=TIMED_WAITING)
+17:19:33,744 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t5 (id=51, state=WAITING)
+17:19:33,745 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread RxSchedulerPurge-1 (id=78, state=TIMED_WAITING)
+17:19:33,745 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t6 (id=83, state=WAITING)
+17:19:33,746 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t13 (id=96, state=WAITING)
+17:19:33,747 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t21 (id=115, state=WAITING)
+17:19:33,748 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread jgroups-25,fedora-39847 (id=152, state=TIMED_WAITING)
+17:19:33,750 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread expiration-thread--p7-t1 (id=45, state=TIMED_WAITING)
+17:19:33,751 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread remote-thread--p2-t25 (id=198, state=TIMED_WAITING)
+17:19:33,752 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread transport-thread--p4-t15 (id=103, state=WAITING)
+17:19:33,753 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t23 (id=123, state=TERMINATED)) alive? false
+17:19:33,753 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-35,fedora-39847 (id=189, state=TERMINATED)) alive? false
+17:19:33,754 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread Transaction Reaper (id=25, state=TERMINATED)) alive? false
+17:19:33,755 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t14 (id=102, state=TERMINATED)) alive? false
+17:19:33,755 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-36,fedora-39847 (id=192, state=TERMINATED)) alive? false
+17:19:33,756 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-34,fedora-39847 (id=173, state=TERMINATED)) alive? false
+17:19:33,757 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t8 (id=89, state=TERMINATED)) alive? false
+17:19:33,757 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t33 (id=222, state=TERMINATED)) alive? false
+17:19:33,758 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread Controller-remote-thread-null (id=38, state=TERMINATED)) alive? false
+17:19:33,758 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t10 (id=93, state=TERMINATED)) alive? false
+17:19:33,759 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-8,fedora-39847 (id=34, state=TERMINATED)) alive? false
+17:19:33,760 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread RxCachedWorkerPoolEvictor-1 (id=81, state=TERMINATED)) alive? false
+17:19:33,760 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-41,fedora-39847 (id=215, state=TERMINATED)) alive? false
+17:19:33,761 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t20 (id=114, state=TERMINATED)) alive? false
+17:19:33,761 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread async-thread--p5-t2 (id=91, state=TERMINATED)) alive? false
+17:19:38,678 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread ucast-receiver-3,fedora-39847 (id=29, state=RUNNABLE)) alive? true
+17:19:38,679 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t7 (id=87, state=TERMINATED)) alive? false
+17:19:38,682 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t12 (id=95, state=TERMINATED)) alive? false
+17:19:38,683 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t22 (id=118, state=TERMINATED)) alive? false
+17:19:38,684 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t3 (id=47, state=TERMINATED)) alive? false
+17:19:38,686 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-43,fedora-39847 (id=221, state=TERMINATED)) alive? false
+17:19:38,687 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread FD_SOCK acceptor-5,fedora-39847 (id=31, state=RUNNABLE)) alive? true
+17:19:38,688 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread async-thread--p5-t1 (id=88, state=TERMINATED)) alive? false
+17:19:38,689 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread stateTransferExecutor-thread--p6-t24 (id=75, state=TERMINATED)) alive? false
+17:19:38,690 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread Timer runner-1,fedora-39847 (id=27, state=TIMED_WAITING)) alive? true
+17:19:38,691 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread Listener:46299 (id=23, state=RUNNABLE)) alive? true
+17:19:38,692 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t16 (id=104, state=TERMINATED)) alive? false
+17:19:38,693 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-21,fedora-39847 (id=148, state=TERMINATED)) alive? false
+17:19:38,694 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t24 (id=125, state=TERMINATED)) alive? false
+17:19:38,695 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-40,fedora-39847 (id=201, state=TERMINATED)) alive? false
+17:19:38,696 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t31 (id=219, state=TERMINATED)) alive? false
+17:19:38,698 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t32 (id=220, state=TERMINATED)) alive? false
+17:19:38,699 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t11 (id=94, state=TERMINATED)) alive? false
+17:19:38,700 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t7 (id=154, state=TERMINATED)) alive? false
+17:19:38,701 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t29 (id=217, state=TERMINATED)) alive? false
+17:19:38,703 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-18,fedora-39847 (id=145, state=TERMINATED)) alive? false
+17:19:38,704 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t2 (id=46, state=TERMINATED)) alive? false
+17:19:38,705 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread Transaction Reaper Worker 0 (id=26, state=TERMINATED)) alive? false
+17:19:38,705 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread timeout-thread--p3-t1 (id=43, state=TERMINATED)) alive? false
+17:19:38,708 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread StopThread (id=223, state=TIMED_WAITING)) alive? true
+17:19:38,710 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-29,fedora-39847 (id=168, state=TERMINATED)) alive? false
+17:19:38,712 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread mcast-receiver-4,fedora-39847 (id=30, state=RUNNABLE)) alive? true
+17:19:38,714 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t28 (id=214, state=TERMINATED)) alive? false
+17:19:38,715 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t19 (id=110, state=TERMINATED)) alive? false
+17:19:38,717 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t1 (id=42, state=TERMINATED)) alive? false
+17:19:38,718 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t4 (id=49, state=TERMINATED)) alive? false
+17:19:38,718 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t18 (id=106, state=TERMINATED)) alive? false
+17:19:38,719 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t17 (id=105, state=TERMINATED)) alive? false
+17:19:38,720 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-37,fedora-39847 (id=193, state=TERMINATED)) alive? false
+17:19:38,722 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t25 (id=124, state=TERMINATED)) alive? false
+17:19:38,723 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t9 (id=90, state=TERMINATED)) alive? false
+17:19:38,723 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t13 (id=162, state=TERMINATED)) alive? false
+17:19:38,724 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t5 (id=51, state=TERMINATED)) alive? false
+17:19:38,725 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread RxSchedulerPurge-1 (id=78, state=TERMINATED)) alive? false
+17:19:38,726 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t6 (id=83, state=TERMINATED)) alive? false
+17:19:38,727 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t13 (id=96, state=TERMINATED)) alive? false
+17:19:38,728 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t21 (id=115, state=TERMINATED)) alive? false
+17:19:38,728 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread jgroups-25,fedora-39847 (id=152, state=TERMINATED)) alive? false
+17:19:38,729 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread expiration-thread--p7-t1 (id=45, state=TERMINATED)) alive? false
+17:19:38,730 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread remote-thread--p2-t25 (id=198, state=TERMINATED)) alive? false
+17:19:38,731 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread transport-thread--p4-t15 (id=103, state=TERMINATED)) alive? false
+17:19:38,801 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Memory after cleanup: 
+Runtime free: 1,379,448 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,312 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,700 kb
+MX Metaspace(Non-heap memory): used: 35,541 kb, init: 0 kb, committed: 35,904 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 9,783 kb, init: 2,496 kb, committed: 9,984 kb, max: 120,028 kb
+MX Compressed Class Space(Non-heap memory): used: 4,216 kb, init: 0 kb, committed: 4,416 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 0 kb, init: 73,728 kb, committed: 880,640 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 18,816 kb, init: 1,325,056 kb, committed: 518,144 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 0 kb, init: 0 kb, committed: 0 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 5,179 kb, init: 2,496 kb, committed: 5,184 kb, max: 120,032 kb
+17:19:38,807 INFO  [org.radargun.RemoteMasterConnection] (main) Message successfully sent to the master
+17:19:38,875 INFO  [org.radargun.RemoteMasterConnection] (main) Message successfully sent to the master
+17:19:43,523 INFO  [org.radargun.Slave] (main) Master shutdown!
+17:19:43,524 INFO  [org.radargun.ShutDownHook] (Thread-0) Slave process is being shutdown
