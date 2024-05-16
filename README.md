@@ -2,7 +2,85 @@ the final results are commited, and you can view them directly via [http://raw.g
 Note especially the last group, the **Final charts**
 # benchmarks-in-nested-virtualisation-toolchain
 
-Prerequisites for running:
+This work is focusing on research how is (nested-)virtualization affecting **accuracy** of benchmarks.
+
+The accuracy is calculated by several metric, but generally it changes the absolute values to relative, %, as:  
+```
+-((minValue / (maxValue / 100.0))-100)
+```
+The results then scale as 0 - benchmark have absolutely no oscillation, 100 the minimal value was 0, maximal infinity.
+Note, that eg `-((5 / (10 / 100.0))-100)) = 50` thus benchmark can oscillate by 100%
+
+We have to split time and score values, as they were obviously inverted.
+
+### Sore based relative results - score                                          
+With score, in absolute numbers, more  would be better
+
+|benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|-------------------------|------------|------------|------------|------------|------------|------------|------------|
+| specjbb                 |            |            |            |            |            |            |    N/A     |
+| jmh                     |            |            |            |            |            |            |    N/A     |
+| radargun 1 node         |            |            |            |            |            |            |    N/A     |
+| radargun 3 nodes        |            |            |            |            |            |            |    N/A     |
+| j2dbench                |            |            |            |            |            |            |    N/A     |
+
+
+### Time based relative results - ms
+With time, in absolute numbers, the lesser would be better
+
+|benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|-------------------------|------------|------------|------------|------------|------------|------------|------------|
+| radargun 1 node         |   10       |   10       |   13.5     |     9      |   12       |    9       |    N/A     |
+| radargun 3 nodes        |   11.5     |   10       |   12       |    12      |   15       |   15       |    N/A     |
+| dacapo                  |   11       |   10       |   11       |    17      |   12       |   26       |    N/A     |
+
+We tried  8 JDKs 1.8.0 , 8 JDKs 11, 8 JDKs 17, and 4 jdks21 (wip). Each JDK was run five times. We were not stripping worst/best runs, as there was no need for it.
+Partial and detailed descriptions and results or absolute values are in the charts linked above, and in these linked below.
+Radargun contains both score and time metrics. Vm in container was indeed unimplemented
+
+With all this effort, we hit interesting new value - crash rates, because  yes, jdk can crash fro time to time. But with all those virtualisations, all the chain may crash more often.
+
+###  Pass rates - % of successful runs from all runs
+
+|benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|-------------------------|------------|------------|------------|------------|------------|------------|------------|
+| specjbb                 |     90     |    90      |     90     |    90      |     100    |    90      |    N/A     |
+| jmh                     |    100     |   100      |    100     |   100      |      97    |    98      |    N/A     |
+| radargun 1 node         |     90     |   100      |    100     |    97      |     100    |   100      |    N/A     |
+| radargun 3 nodes        |     90     |   100      |    100     |   100      |      99    |    96      |    N/A     |
+| j2dbench                |     90     |   100      |     88     |    98      |     100    |    95      |    N/A     |
+| dacapo                  |     91     |    98      |     85     |    40      |      80    |    66      |    N/A     |
+
+### vm in container failure
+We were unable to pass the error of:
+```
+ + vagrant ...
+ Error while connecting to Libvirt: Error making a connection to libvirt URI qemu:///system:
+ Call to virConnectOpen failed: Failed to connect socket to '/var/run/libvirt/virtqemud-sock': No such file or directory
+```
+
+The run_VM_on_container.sh do not work correctly now, and latest working revision is https://github.com/judovana/benchmarks-in-nested-virtualisation-toolchain/tree/8ecd2383e2f791555be4c5e721cc5aefc2ffdcc9
+
+Still.. we never make VM in container to work.
+
+### Per JDK results
+|   JDK   /virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|-------------------------|------------|------------|------------|------------|------------|------------|------------|
+| jdk 8                   |            |            |            |            |            |            |    N/A     |
+| jdk 11                  |            |            |            |            |            |            |    N/A     |
+| jdk  17                 |            |            |            |            |            |            |    N/A     |
+| jdk  21                 |            |            |            |            |            |            |    N/A     |
+
+
+|   JDK   /benchmark      | specjbb    | jmh        |radargun s1 |radargun s3 | j2dbench   | dacapo     |
+|-------------------------|------------|------------|------------|------------|------------|------------|
+| jdk 8                   |            |            |            |            |            |            |
+| jdk 11                  |            |            |            |            |            |            |
+| jdk  17                 |            |            |            |            |            |            |
+| jdk  21                 |            |            |            |            |            |            |
+
+Partial and detailed descriptions and results or absolute values are in the charts linked above, and in these linked below.
+## Prerequisites for running:
 1. Private key has to be present in ~/.ssh
 2. The key has to be symlinked on multiple places, but the script complains correctly, so it is easy to fix.
 3. scripts/install_components.sh has to be run once before running the main script (to save time in repeated launches).
@@ -24,7 +102,7 @@ Prerequisites for running:
     3. There is a "magical" `results` hostname, I no longer recall where it comes from (container?)
 
 
-Result processing
+## Result processing
 1. Make sure that "result_processing.py", "postProcessor.py", "generate_all.sh" and "result_processing_wrapper.sh" are placed inside final_results folder, next to folders containing results like local_results and vm_results.
 2. Make sure you have python with matplotlib installed. Afaik it is python3 dialect.
 3. Run like this: "sh result_processing_wrapper.sh <JDK_ver> <benchmarks>"
