@@ -11,7 +11,6 @@ The accuracy is calculated by several metric, but generally it changes the absol
 The results then scale as 0 - benchmark have absolutely no oscillation, 100 the minimal value was 0, maximal infinity.
 Note, that eg `-((5 / (10 / 100.0))-100)) = 50` thus benchmark can oscillate by 100%, which would be absolutely intolerable. Some real data then looks like `-((1000 / (1100 / 100.0))-100)=9` whcih is acceptable benchmark.
 
-
 We have to split time and score values, as they were obviously inverted.
 Also, mixing of jdk (first three tables) or mixing virtualisations or benchmarks, is really bad idea. But it is also a lot of tables. See  charts linked above, and in these linked below.
 
@@ -82,6 +81,8 @@ Still.. we never make VM in container to work.
 | jdk  21                 |            |            |            |            |            |            |
 
 ### Per virtualizations per JDK results
+
+### Absolute numbers
 
 Partial and detailed descriptions and results or absolute values are in the charts linked above, and in these linked below.
 ## Prerequisites for running:
