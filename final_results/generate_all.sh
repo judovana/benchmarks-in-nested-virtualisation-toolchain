@@ -13,10 +13,10 @@ readonly SCRIPT_ORIGIN="$( cd -P "$( dirname "$SCRIPT_SOURCE" )" && pwd )"
 
 set -exo pipefail
 
-# ALL or "" shoudl be understood as all in all three cases
+# ALL or "" should be understood as all in all three cases
 benchmarks="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
 jdks="8 11 17"
-# the / is needed for precission; for subdirs, use `basename` on them
+# the / is needed for precision; for subdirs, use `basename` on them
 virts="/local_results /vm_results /container_results /containers_in_container_results /containers_in_vm_results /nestedVM_results"
 
 worker=${SCRIPT_ORIGIN}/result_processing_wrapper.sh
@@ -30,7 +30,7 @@ export INVERTED_RESULT_DIR="`pwd`/inverted_results"
 if [ -e $INVERTED_RESULT_DIR ] ; then
   set +x
   echo "found directory with inverted results. If you expect any regeneration, please remove it"
-  echo "if it is removed, final data can not be processsed, unless it is fully regenerated"
+  echo "if it is removed, final data can not be processed, unless it is fully regenerated"
   read -p "remove?  y/n " yORn
   if [ "x$yORn" == "xy" ] ; then
     rm -rf $INVERTED_RESULT_DIR
@@ -49,7 +49,7 @@ fi
       sh ${worker} ALL ALL ALL > index.html
     popd
   else
-    echo  "skipping $dir1, alreadye exists"
+    echo  "skipping $dir1, already exists"
   fi
 
   #all jdks x all benchmarks x virt one by one
@@ -64,7 +64,7 @@ fi
               sh ${worker} ALL ALL $virt > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
         done
   popd
@@ -80,7 +80,7 @@ fi
               sh ${worker} ALL $bench ALL > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
       done
   popd
@@ -96,7 +96,7 @@ fi
               sh ${worker} $jdk ALL ALL > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
     done
   popd
@@ -114,7 +114,7 @@ fi
               sh ${worker} ALL $bench $virt > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
         done
       done
@@ -132,7 +132,7 @@ fi
               sh ${worker} $jdk $bench ALL > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
       done
     done
@@ -151,7 +151,7 @@ fi
               sh ${worker} $jdk ALL $virt > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
         done
     done
@@ -171,7 +171,7 @@ fi
               sh ${worker} $jdk $bench $virt > index.html
             popd
           else
-            echo  "skipping $dir2, alreadye exists"
+            echo  "skipping $dir2, already exists"
           fi
         done
       done
