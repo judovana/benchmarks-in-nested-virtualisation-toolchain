@@ -9,26 +9,28 @@ The accuracy is calculated by several metric, but generally it changes the absol
 -((minValue / (maxValue / 100.0))-100)
 ```
 The results then scale as 0 - benchmark have absolutely no oscillation, 100 the minimal value was 0, maximal infinity.
-Note, that eg `-((5 / (10 / 100.0))-100)) = 50` thus benchmark can oscillate by 100%
+Note, that eg `-((5 / (10 / 100.0))-100)) = 50` thus benchmark can oscillate by 100%, which would be absolutely intolerable. Some real data then looks like `-((1000 / (1100 / 100.0))-100)=9` whcih is acceptable benchmark.
+
 
 We have to split time and score values, as they were obviously inverted.
+Also, mixing of jdk (first three tables) or mixing virtualisations or benchmarks, is really bad idea. But it is also a lot of tables. See  charts linked above, and in these linked below.
 
-### Sore based relative results - score                                          
+### Score based benchmarks - relative accuracy                                          
 With score, in absolute numbers, more  would be better
 
-|benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|benchmark/virtualization | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
 |-------------------------|------------|------------|------------|------------|------------|------------|------------|
-| specjbb                 |            |            |            |            |            |            |    N/A     |
-| jmh                     |            |            |            |            |            |            |    N/A     |
-| radargun 1 node         |            |            |            |            |            |            |    N/A     |
-| radargun 3 nodes        |            |            |            |            |            |            |    N/A     |
-| j2dbench                |            |            |            |            |            |            |    N/A     |
+| specjbb                 |   17       |    16      |    17      |   16       |   17.5     |    14      |    N/A     |
+| jmh                     |   11       |    10      |     8      |    8       |    7       |     9      |    N/A     |
+| radargun 1 node         |   16       |    20      |    16      |   19       |    4       |    14      |    N/A     |
+| radargun 3 nodes        |   15       |    10      |    14      |    9       |   35       |     8      |    N/A     |
+| j2dbench                |   11       |     5      |    11      |    6       |   10       |    11      |    N/A     |
 
 
-### Time based relative results - ms
+### Time based benchmarks - relative accuracy         
 With time, in absolute numbers, the lesser would be better
 
-|benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|benchmark/virtualization | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
 |-------------------------|------------|------------|------------|------------|------------|------------|------------|
 | radargun 1 node         |   10       |   10       |   13.5     |     9      |   12       |    9       |    N/A     |
 | radargun 3 nodes        |   11.5     |   10       |   12       |    12      |   15       |   15       |    N/A     |
@@ -78,6 +80,8 @@ Still.. we never make VM in container to work.
 | jdk 11                  |            |            |            |            |            |            |
 | jdk  17                 |            |            |            |            |            |            |
 | jdk  21                 |            |            |            |            |            |            |
+
+### Per virtualizations per JDK results
 
 Partial and detailed descriptions and results or absolute values are in the charts linked above, and in these linked below.
 ## Prerequisites for running:
