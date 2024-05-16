@@ -1,22 +1,39 @@
+# Set the OS for individual virtualization levels. 
+# Remember that vagrant and podman use different formats for OS - e.g. Fedora 36 is "f36-x64" for vagrant and "fedora:36" for podman.
 MAINVM=f36-x64
 #MAINVM=fedora:36
-#NESTED=fedora:36
-NESTED=f36-x64
+NESTED=fedora:36
+#NESTED=f36-x64
+
+# Set number of iterations per JDK, default=5
 ITER_NUM=5
+
+# Set the hostname address of host computer. Necessary to move results from nested scenarios to host.
 TOP_LEVEL_HOST=jfabo-main.usersys.redhat.com
+
+# Set path to the directory that contains JDK builds.
 JDK_DIR=/home/tester/diplomka/JDKs/combined
+
+# Set path to the benchmark runner to be run.
 EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/benchmarks/dacapo.sh
 #EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/benchmarks/specjvm.sh
 #EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/benchmarks/specjbb.sh
-#radargun can not interpret config with // on start of path. use patched radargun or sanitize config in radargun.sh
+# Radargun cannot interpret config with // on start of path. Use patched radargun or sanitize config in radargun.sh
 #EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/benchmarks/radargun/quickstart-radargun1.sh
 #EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/benchmarks/radargun/quickstart-radargun3.sh
 #EXECUTED_SCRIPT=/mnt/shared/TckScripts/jenkins/run-intree-J2DBench-vagrant.sh
+
+# Enable/disable dev mode - leave EMPTY in most cases.
 DEV=
+
+# Set virtualization scenario:
 #RUN_TYPE=local
 #RUN_TYPE=VM
 #RUN_TYPE=container
 #RUN_TYPE=nested_container
-#RUN_TYPE=cont_in_VM
+RUN_TYPE=cont_in_VM
 #RUN_TYPE=VM_in_cont
-RUN_TYPE=nested_VM
+#RUN_TYPE=nested_VM
+
+# Middle point directory is used as an exchange point between host and virtualization scenarios. Contents WILL LIKELY be deleted when running something, so don`t store anything important inside.
+

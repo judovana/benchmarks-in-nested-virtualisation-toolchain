@@ -13,7 +13,7 @@ from functools import cmp_to_key
 import matplotlib.pyplot as plt 
 
 def is_html():
-    #if not defined then true, it no longer have sense without it
+    #if not defined then true, it no longer makes sense without it
     return (os.environ.get('HTML') is  None or os.environ.get('HTML') == "true")
 
 def is_avg():
@@ -69,18 +69,18 @@ def isAccepted(benchmark, key):
 
 # scenario 1: gathered absolute values from inverted_results/*properties.sort.uniq  
 # min, max, avg, med
-# thus we can show impact of virtualisation on performance
+# thus we can show impact of virtualization on performance
 
-# scenario 2: gathered  vlaues from passrates.properties.sort.uniq (note there is trailing %:-/
-# there we can show which jdk was most/less stable under which virtualisation
-# there we can show, which virtualisation generally improveds stability, and which degraded it
+# scenario 2: gathered  values from passrates.properties.sort.uniq (note there is trailing %:-/
+# there we can show which JDK was most/least stable under which virtualization scenario
+# there we can show, which virtualization generally improved stability, and which worsened it
 
 # scenario 3: the final answer from inverted_results/*properties.sort.uniq
-# here we have relative stability results per jdk and per virtualisation
-# there is hidden final answer of imapct of (nested) virtualisation to accuracy
+# here we have relative stability results per JDK and per virtualization
+# there is hidden final answer of imapct of (nested) virtualization to accuracy
 # ideally also add avgs from various combinations
-# as it is possible to really iterate thi as the pasrates, its the way to go
-#  however, it would be ok to pas each to different file/dir due of size
+# as it is possible to really iterate this as the passrates, its the way to go
+# however, it would be ok to pass each to different file/dir due to size
 
  
 
@@ -96,22 +96,22 @@ class xJxBxV(object):
     benchmarkFromKey=""
 
     
-    # the file always contains  virtualisation_benchmark=value% (the percentage must be filtered out)
-    # and is in directory, which says, which jdks and which benchmarks and which virtualisations were used
+    # the file always contains  virtualization_benchmark=value% (the percentage must be filtered out)
+    # and is in directory, which says, which jdks and which benchmarks and which virtualizations were used
     # so we need the parent dir name, and the value read from it
     def __init__(self, dirName, keyName, value, skip=False):
         self.value = parse_number(re.sub("%","",value))
         self.originalDir = dirName
         self.originalKey = keyName
         #eprint(str(self.value) + " " + self.originalDir + " " + self.originalKey)
-        # now parse origDir and Key. The final benchmark and virtualisation should match
-        # if not, use one (and with other objects) use it consitently.
+        # now parse origDir and Key. The final benchmark and virtualization should match
+        # if not, use one (and with other objects) use it consistently.
         # Benchmark name may contain several _ :(
         self.jdkFromDir = dirName.split("_")[0];  # eg jdk11, all, allJ
         self.jdkFromDir = sanitizeAll(self.jdkFromDir)
         initOrAdd(allJdks, self.jdkFromDir, skip);
         self.benchmarkFromDir = dirName.split("_")[1]; 
-        self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir) # this one contains name of benchmark or ALL. Thats why we ar eusing the second everywhere. That may chnage
+        self.benchmarkFromDir = sanitizeAll(self.benchmarkFromDir) # this one contains name of benchmark or ALL. Thats why we are using the second everywhere. That may change
         if (isBenchmarkAccepted(self.benchmarkFromDir)):
             initOrAdd(allBenchmarks, self.benchmarkFromDir, skip)
         # NO! this virt is not used in JVbkmr; dont use
@@ -133,8 +133,8 @@ class xJxBxV(object):
         return self.jdkFromDir+ " " + " " + self.virtualizationFromKey + " " +self.benchmarkFromKey
 
 # object to keep values of inverted_results/*properties.sort.uniq
-# name contains jdks in measurment
-# inside is very complicated key virtualisation_benchmark:key:metric:resultTyp=value
+# name contains JDKs in measurement
+# inside is a very complicated key virtualisation_benchmark:key:metric:resultTyp=value
 # there is no percentage for relative metrics, but should be. Count with that. will be added
 class JVbkmr(object):
     jdkFromName = ""
@@ -193,7 +193,7 @@ def initOrAdd(hashmap, key, skip):
             hashmap[key]=1
 
 def sanitizeAll(where):
-    # this function sanitize small differences in various names. It may appear that they do not belong together. we will see
+    # this function sanitizes small differences in various names. It may appear that they do not belong together. we will see
     q = re.sub(".*all.*","all",where)
     q = re.sub("jdk8.*","java-1.8.0",q)
     q = re.sub("jdk","java-",q)
@@ -429,7 +429,7 @@ def keyToStr(key):
     return key
 
 def getChartHeight(allTypes, interestedTypes, jdk, key, virt, benchmark, metric, finals, keyId):
-    #calculsting height of chart, to adjust shift properly
+    #calculating height of chart, to adjust shift properly
     maxi=1
     mini=10000000000000
     for x in interestedTypes:
@@ -506,13 +506,13 @@ def avgAndAdd(toBeAvg, listToCountCountFrom, toBeAddedTo1, toBeAddedTo2, interes
                 if is_avg():
                     toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] + toBeAvg[x][cc]
                 else:
-                    #if there would be zero added, the whole geom will burn, however we know zero is failed benchamrk, and we discarded them long ago
+                    #if there would be zero added, the whole geom will burn, however we know zero is a failed benchamrk, and we discarded them long ago
                     toBeAddedTo1[x][cc] = toBeAddedTo1[x][cc] * toBeAvg[x][cc]
             if not(toBeAddedTo2 is None):
                 if is_avg():
                     toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] + toBeAvg[x][cc]
                 else:
-                    #if there would be zero added, the whole geom will burn, however we know zero is failed benchamrk, and we discarded them long ago
+                    #if there would be zero added, the whole geom will burn, however we know zero is a failed benchamrk, and we discarded them long ago
                     toBeAddedTo2[x][cc] = toBeAddedTo2[x][cc] * toBeAvg[x][cc]                
 
 def preprint(anything):
@@ -522,8 +522,8 @@ def preprint(anything):
     if (is_html()):
         print("</pre>")
 
-# WARNIGN WARNIGN WARNIGN WARNIGN virtkey is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
-# WARNIGN in addition the virtKey is iterable and its parts are taken...
+# WARNING WARNING WARNING WARNING virtkey is now virtualisation, and thus in first place in virtKey+keyPart+keyInterestedTypes
+# WARNING in addition the virtKey is iterable and its parts are taken...
 def avgMapOfListsToJVbkmr(jdk, avgs, virtKey, benchmark, key, metric, keyId):
     avgFinals = []
     for keyInterestedTypes, listOfVals in avgs.items():
@@ -551,11 +551,11 @@ def initMapOfLists(counterForItems, interestedTypes):
     return mapOfLists
     
 
-# becasue of the nature of keys, the benchmark always have to stay  on first or second place
-# otherwise the logic around keys would stop work. 
+# because of the nature of keys, the benchmark always has to stay on first or second place
+# otherwise the logic around keys would stop working. 
 # see `for key in allKeysPerBenchmark[benchmark]:` part
-# That gives us jbv, bjv, vbj, bvj combos only(?) Tbh not sure if this will give proepr answers...
-# maybe allkeysPer benchamrk shouldbe configurable too, and then search in that?
+# That gives us jbv, bjv, vbj, bvj combos only(?) TBH not sure if this will give proper answers...
+# maybe allkeysPer benchamrk should be configurable too, and then search in that?
 def jvbkmrprinter(allJdks, allBenchmarks, allVirtualisations, allKeysPerBenchmark, title1, title2, preffix, decorator, legend, interestedTypes, shift, avgs, keyId):
     #then follow passrate example on iterating jdk x benchamrk x jdk  as in passrates
     h1(title1)
