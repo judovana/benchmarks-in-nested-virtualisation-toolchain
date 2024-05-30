@@ -1,0 +1,255 @@
+18:47:21,351 INFO  [org.radargun.RemoteMasterConnection] (main) Attempting to connect to master results:2103
+18:47:21,366 INFO  [org.radargun.RemoteMasterConnection] (main) Successfully established connection with master at: results:2103
+18:47:21,374 INFO  [org.radargun.Slave] (main) Received slave index 2
+18:47:21,375 INFO  [org.radargun.Slave] (main) Received slave count 3
+18:47:21,905 INFO  [org.radargun.ServiceHelper] (sc-main) ServiceContext properties: {}
+18:47:22,191 INFO  [org.radargun.Slave] (sc-main) Eager Service Infinispan92EmbeddedService {batching=false, cache=testCache, channelRetrievalTimeout=2 mins 0 secs, enableDiagnostics=null, explicitLocking=false, file=/mnt/workspace/results/dist-sync.xml, internalsExpositionEnabled=false, jgroupsDumperEnabled=false, jgroupsDumperInterval=10.000 secs, keysPerThread=-1, mapReduceDistributedReducePhase=false, mapReduceUseIntermediateSharedCache=false, removedCaches=[  ], threadsPerNode=-1 } loaded.
+18:47:24,297 INFO  [org.radargun.Slave] (sc-main) Starting stage ScenarioInit
+18:47:24,318 INFO  [org.radargun.Slave] (sc-main) Finished stage ScenarioInit
+18:47:24,324 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:24,408 INFO  [org.radargun.Slave] (sc-main) Starting stage BeforeServiceStart
+18:47:24,409 INFO  [org.radargun.Slave] (sc-main) Finished stage BeforeServiceStart
+18:47:24,409 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:24,423 INFO  [org.radargun.Slave] (sc-main) Starting stage ServiceStart
+18:47:24,423 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main)  Startup staggering, this is the slave with index 2. Sleeping for 6000 millis.
+18:47:30,424 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main) Ack master's StartCluster stage. Local address is: /127.0.0.1. This slave's index is: 2
+18:47:30,427 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) Infinispan version: Infinispan 'Gaina' 9.2.0.Final
+18:47:30,449 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) JGroups version: JGroups 4.0.10.Final (Schiener Berg)
+18:47:31,678 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (sc-main) ISPN000078: Starting JGroups channel results
+18:47:31,977 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the send buffer of socket MulticastSocket was set to 1.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+18:47:31,977 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the receive buffer of socket MulticastSocket was set to 20.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+18:47:31,978 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the send buffer of socket MulticastSocket was set to 1.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max send buffer in the OS correctly (e.g. net.core.wmem_max on Linux)
+18:47:31,978 WARN  [org.jgroups.protocols.UDP] (sc-main) JGRP000015: the receive buffer of socket MulticastSocket was set to 25.00MB, but the OS only allocated 212.99KB. This might lead to performance problems. Please set your max receive buffer in the OS correctly (e.g. net.core.rmem_max on Linux)
+18:47:32,105 INFO  [org.infinispan.CLUSTER] (sc-main) ISPN000094: Received new cluster view for channel results: [fedora-17110|2] (3) [fedora-17110, fedora-35303, fedora-9184]
+18:47:32,220 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (sc-main) ISPN000079: Channel results local address is fedora-9184, physical addresses are [192.168.124.178:46569]
+18:47:32,232 INFO  [org.infinispan.factories.GlobalComponentRegistry] (sc-main) ISPN000128: Infinispan version: Infinispan 'Gaina' 9.2.0.Final
+18:47:33,138 INFO  [org.infinispan.transaction.lookup.JBossStandaloneJTAManagerLookup] (sc-main) ISPN000107: Retrieving transaction manager Transaction: unknown
+18:47:33,290 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) No RELAY2 protocol in XS service
+18:47:33,290 INFO  [org.radargun.service.Infinispan90Lifecycle] (sc-main) No RELAY2 protocol in XS service
+18:47:33,291 INFO  [org.radargun.stages.lifecycle.LifecycleHelper] (sc-main) Number of members is the one expected: 3
+18:47:33,292 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (sc-main) Successfully started cache service infinispan92/embedded on slave 2
+18:47:33,325 ERROR [org.radargun.service.ConfigDumpHelper] (sc-main) Error while dumping ___protobuf_metadata cache config as properties
+javax.management.AttributeNotFoundException: Unknown attribute 'configurationAsProperties'. Known attributes names are: [rebalancingEnabled, cacheStatus, cacheName, cacheAvailability, version, configurationAsProperties]
+	at org.infinispan.jmx.ResourceDMBean.getAttribute(ResourceDMBean.java:181) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.getAttribute(DefaultMBeanServerInterceptor.java:641) ~[?:?]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.getAttribute(JmxMBeanServer.java:678) ~[?:?]
+	at org.radargun.service.ConfigDumpHelper60.dumpCache(ConfigDumpHelper60.java:44) [plugin-infinispan60-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.EmbeddedConfigurationProvider.getNormalizedConfigs(EmbeddedConfigurationProvider.java:33) [plugin-infinispan52-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.ServiceStartStage.executeOnSlave(ServiceStartStage.java:92) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.scenarioLoop(SlaveBase.java:102) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase$ScenarioRunner.run(SlaveBase.java:203) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+18:47:33,334 ERROR [org.radargun.service.ConfigDumpHelper] (sc-main) Error while dumping ___protobuf_metadata cache config as properties
+javax.management.AttributeNotFoundException: Unknown attribute 'configurationAsProperties'. Known attributes names are: [rebalancingEnabled, cacheStatus, cacheName, cacheAvailability, version, configurationAsProperties]
+	at org.infinispan.jmx.ResourceDMBean.getAttribute(ResourceDMBean.java:181) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.getAttribute(DefaultMBeanServerInterceptor.java:641) ~[?:?]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.getAttribute(JmxMBeanServer.java:678) ~[?:?]
+	at org.radargun.service.ConfigDumpHelper60.dumpCache(ConfigDumpHelper60.java:44) [plugin-infinispan60-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.service.EmbeddedConfigurationProvider.getNormalizedConfigs(EmbeddedConfigurationProvider.java:33) [plugin-infinispan52-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.stages.lifecycle.ServiceStartStage.executeOnSlave(ServiceStartStage.java:92) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase.scenarioLoop(SlaveBase.java:102) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+	at org.radargun.SlaveBase$ScenarioRunner.run(SlaveBase.java:203) [radargun-core-3.0.0-SNAPSHOT.jar:?]
+18:47:33,357 INFO  [org.radargun.Slave] (sc-main) Finished stage ServiceStart
+18:47:33,365 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:33,380 INFO  [org.radargun.Slave] (sc-main) Starting stage AfterServiceStart
+18:47:33,381 INFO  [org.radargun.Slave] (sc-main) Finished stage AfterServiceStart
+18:47:33,383 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:33,487 INFO  [org.radargun.Slave] (sc-main) Starting stage MonitorStart
+18:47:33,493 INFO  [org.radargun.sysmonitor.AbstractMonitors] (sc-main) Gathering statistics every 1000 ms
+18:47:33,493 INFO  [org.radargun.Slave] (sc-main) Finished stage MonitorStart
+18:47:33,494 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:33,537 INFO  [org.radargun.Slave] (sc-main) Starting stage Load
+18:47:41,795 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) This node loaded 10000 entries (~10000000 bytes)
+18:47:48,705 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) This node loaded 20000 entries (~20000000 bytes)
+18:47:54,106 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-3) This node loaded 30000 entries (~30000000 bytes)
+18:47:55,160 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) Finished loading entries
+18:47:55,200 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-1) Finished loading entries
+18:47:55,212 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-8) Finished loading entries
+18:47:55,265 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-4) Finished loading entries
+18:47:55,295 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-7) Finished loading entries
+18:47:55,321 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) Finished loading entries
+18:47:55,345 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-0) Finished loading entries
+18:47:55,376 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-5) Finished loading entries
+18:47:55,410 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-3) Finished loading entries
+18:47:55,538 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) Finished loading entries
+18:47:55,540 INFO  [org.radargun.Slave] (sc-main) Finished stage Load
+18:47:55,542 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:47:55,822 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+18:47:55,826 INFO  [org.radargun.Slave] (sc-main) Starting stage BasicOperationsTest
+18:47:55,826 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using key generator org.radargun.stages.cache.generators.StringKeyGenerator {format=null }
+18:47:55,827 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using value generator org.radargun.stages.cache.generators.ByteArrayValueGenerator { }
+18:47:55,827 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using cache selector Default { }
+18:47:55,827 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Starting test warmup
+18:47:55,839 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Started 4 stressor threads.
+18:48:55,847 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Finished test. Test duration is: 1 mins 0 secs
+18:48:55,850 INFO  [org.radargun.Slave] (sc-main) Finished stage BasicOperationsTest
+18:48:55,869 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:48:55,902 INFO  [org.radargun.Slave] (sc-main) Starting stage Clear
+18:48:55,904 INFO  [org.radargun.stages.cache.ClearStage] (sc-main) Before executing clear, memory looks like this: 
+Runtime free: 826,106 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,327 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,696 kb
+MX Metaspace(Non-heap memory): used: 43,891 kb, init: 0 kb, committed: 45,360 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 12,282 kb, init: 2,496 kb, committed: 12,288 kb, max: 120,032 kb
+MX Compressed Class Space(Non-heap memory): used: 4,957 kb, init: 0 kb, committed: 5,504 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 401,408 kb, init: 73,728 kb, committed: 806,912 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 144,645 kb, init: 1,325,056 kb, committed: 565,248 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 26,624 kb, init: 0 kb, committed: 26,624 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 5,245 kb, init: 2,496 kb, committed: 5,248 kb, max: 120,032 kb
+18:48:56,027 INFO  [org.radargun.stages.cache.ClearStage] (sc-main) After executing clear, memory looks like this: 
+Runtime free: 1,381,957 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,327 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,696 kb
+MX Metaspace(Non-heap memory): used: 43,872 kb, init: 0 kb, committed: 45,360 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 12,406 kb, init: 2,496 kb, committed: 12,416 kb, max: 120,032 kb
+MX Compressed Class Space(Non-heap memory): used: 4,941 kb, init: 0 kb, committed: 5,504 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 0 kb, init: 73,728 kb, committed: 880,640 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 16,314 kb, init: 1,325,056 kb, committed: 518,144 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 0 kb, init: 0 kb, committed: 0 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 5,254 kb, init: 2,496 kb, committed: 5,312 kb, max: 120,032 kb
+18:48:56,027 INFO  [org.radargun.Slave] (sc-main) Finished stage Clear
+18:48:56,028 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:48:56,099 INFO  [org.radargun.Slave] (sc-main) Starting stage Load
+18:48:59,334 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) This node loaded 10000 entries (~10000000 bytes)
+18:49:02,498 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) This node loaded 20000 entries (~20000000 bytes)
+18:49:05,691 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) This node loaded 30000 entries (~30000000 bytes)
+18:49:06,602 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-1) Finished loading entries
+18:49:06,660 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-6) Finished loading entries
+18:49:06,701 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-0) Finished loading entries
+18:49:06,702 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-4) Finished loading entries
+18:49:06,710 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-3) Finished loading entries
+18:49:06,728 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-7) Finished loading entries
+18:49:06,737 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-2) Finished loading entries
+18:49:06,746 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-5) Finished loading entries
+18:49:06,772 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-8) Finished loading entries
+18:49:06,799 INFO  [org.radargun.stages.cache.test.LoadStage] (Loader-9) Finished loading entries
+18:49:06,799 INFO  [org.radargun.Slave] (sc-main) Finished stage Load
+18:49:06,800 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:49:07,252 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+18:49:07,255 INFO  [org.radargun.Slave] (sc-main) Starting stage BasicOperationsTest
+18:49:07,256 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using key generator org.radargun.stages.cache.generators.StringKeyGenerator {format=null }
+18:49:07,258 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using value generator org.radargun.stages.cache.generators.ByteArrayValueGenerator { }
+18:49:07,259 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Using cache selector Default { }
+18:49:07,261 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Starting test stress-test
+18:49:07,304 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Started 4 stressor threads.
+18:59:07,312 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (sc-main) Finished test. Test duration is: 10 mins 0 secs
+18:59:07,318 INFO  [org.radargun.Slave] (sc-main) Finished stage BasicOperationsTest
+18:59:07,421 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:59:07,591 INFO  [org.radargun.Slave] (sc-main) Starting stage MonitorStop
+18:59:07,593 INFO  [org.radargun.Slave] (sc-main) Finished stage MonitorStop
+18:59:07,594 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:59:07,605 INFO  [org.radargun.Slave] (sc-main) Starting stage ScenarioDestroy
+18:59:07,607 INFO  [org.radargun.stages.ScenarioDestroyStage] (sc-main) Scenario finished, destroying...
+18:59:07,607 INFO  [org.radargun.stages.ScenarioDestroyStage] (sc-main) Memory before cleanup: 
+Runtime free: 899,067 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,329 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,696 kb
+MX Metaspace(Non-heap memory): used: 44,588 kb, init: 0 kb, committed: 45,872 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 14,269 kb, init: 2,496 kb, committed: 14,272 kb, max: 120,032 kb
+MX Compressed Class Space(Non-heap memory): used: 4,982 kb, init: 0 kb, committed: 5,504 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 155,648 kb, init: 73,728 kb, committed: 822,272 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 284,090 kb, init: 1,325,056 kb, committed: 518,144 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 58,368 kb, init: 0 kb, committed: 58,368 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 6,346 kb, init: 2,496 kb, committed: 6,400 kb, max: 120,032 kb
+18:59:07,608 INFO  [org.radargun.stages.lifecycle.LifecycleHelper] (sc-main) Stopping service.
+18:59:07,696 ERROR [org.infinispan.statetransfer.StateConsumerImpl] (transport-thread--p4-t6) ISPN000208: No live owners found for segments {3 12 18-20 24 36-39 48 51-53 67 75-76 83 90-91 94-98 105-112 119-120 133 136-144 147-154 158-159 163 172 176-177 184-186 191-193 196 203 208 219-224 231-233 249-254} of cache ___counters. Excluded owners: []
+18:59:07,713 INFO  [org.infinispan.CLUSTER] (jgroups-14,fedora-9184) ISPN000094: Received new cluster view for channel results: [fedora-35303|3] (2) [fedora-35303, fedora-9184]
+18:59:07,715 ERROR [org.infinispan.statetransfer.StateConsumerImpl] (transport-thread--p4-t2) ISPN000208: No live owners found for segments {0-2 8 12 15-16 24-26 41-44 47-55 62 68-69 80-82 92-93 102-110 122 130 133 142 150-152 159-160 165-167 172-176 180 183 188-190 193-196 199-204 212-218 223-226 237-242 246-247 272-274 287 290 293-303 308-311 318 325 329 344 353-355 359-361 368-375 381 385-389 392-394 398 408-409 416-418 424-425 437-443 446-449 454 461 464-467 477 485-486 498-499 511} of cache testCache. Excluded owners: []
+18:59:07,739 INFO  [org.infinispan.CLUSTER] (jgroups-14,fedora-9184) ISPN100001: Node fedora-17110 left the cluster
+18:59:07,778 WARN  [org.jgroups.protocols.pbcast.NAKACK2] (jgroups-42,fedora-9184) JGRP000011: fedora-9184: dropped message 4 from non-member fedora-35303 (view=[fedora-9184|4] (1) [fedora-9184])
+18:59:07,840 INFO  [org.infinispan.CLUSTER] (jgroups-14,fedora-9184) ISPN000094: Received new cluster view for channel results: [fedora-9184|4] (1) [fedora-9184]
+18:59:07,840 INFO  [org.infinispan.CLUSTER] (jgroups-14,fedora-9184) ISPN100001: Node fedora-35303 left the cluster
+18:59:07,840 WARN  [org.infinispan.statetransfer.InboundTransferTask] (stateTransferExecutor-thread--p6-t50) ISPN000210: Failed to request state of cache testCache from node fedora-35303, segments {0-2 8 12 15-16 24-26 41-44 47-55 62 68-69 80-82 92-93 102-110 122 130 133 142 150-152 159-160 165-167 172-176 180 183 188-190 193-196 199-204 212-218 223-226 237-242 246-247 272-274 287 290 293-303 308-311 318 325 329 344 353-355 359-361 368-375 381 385-389 392-394 398 408-409 416-418 424-425 437-443 446-449 454 461 464-467 477 485-486 498-499 511}
+org.infinispan.remoting.transport.jgroups.SuspectException: ISPN000400: Node fedora-35303 was suspected
+	at org.infinispan.remoting.transport.ResponseCollectors.remoteNodeSuspected(ResponseCollectors.java:33) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleResponseCollector.targetNotFound(SingleResponseCollector.java:31) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleResponseCollector.targetNotFound(SingleResponseCollector.java:17) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.ValidSingleResponseCollector.addResponse(ValidSingleResponseCollector.java:23) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleTargetRequest.receiveResponse(SingleTargetRequest.java:51) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.SingleTargetRequest.onResponse(SingleTargetRequest.java:35) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.impl.RequestRepository.addResponse(RequestRepository.java:53) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.processResponse(JGroupsTransport.java:1302) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.processMessage(JGroupsTransport.java:1205) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.access$200(JGroupsTransport.java:123) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport$ChannelCallbacks.receive(JGroupsTransport.java:1340) ~[infinispan-core-9.2.0.Final.jar:9.2.0.Final]
+	at org.jgroups.JChannel.up(JChannel.java:819) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.stack.ProtocolStack.up(ProtocolStack.java:893) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FRAG3.up(FRAG3.java:171) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FlowControl.up(FlowControl.java:343) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FlowControl.up(FlowControl.java:343) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.GMS.up(GMS.java:864) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.STABLE.up(STABLE.java:240) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.deliverMessage(UNICAST3.java:1002) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.handleDataReceived(UNICAST3.java:728) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.UNICAST3.up(UNICAST3.java:383) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.pbcast.NAKACK2.up(NAKACK2.java:600) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.VERIFY_SUSPECT.up(VERIFY_SUSPECT.java:119) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FD_ALL.up(FD_ALL.java:199) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.FD_SOCK.up(FD_SOCK.java:252) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.MERGE3.up(MERGE3.java:276) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.Discovery.up(Discovery.java:267) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.protocols.TP.passMessageUp(TP.java:1248) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at org.jgroups.util.SubmitToThreadPool$SingleMessageHandler.run(SubmitToThreadPool.java:87) ~[jgroups-4.0.10.Final.jar:4.0.10.Final]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) [?:?]
+	at java.lang.Thread.run(Thread.java:829) [?:?]
+18:59:07,861 WARN  [org.infinispan.CLUSTER] (transport-thread--p4-t21) [Context=___counter_configuration]ISPN000320: After merge (or coordinator change), cache still hasn't recovered a majority of members and must stay in degraded mode. Current members are [fedora-9184], lost members are [fedora-17110, fedora-35303], stable members are [fedora-17110, fedora-35303, fedora-9184]
+18:59:07,875 INFO  [org.infinispan.remoting.transport.jgroups.JGroupsTransport] (StopThread) ISPN000080: Disconnecting JGroups channel results
+18:59:07,914 INFO  [org.radargun.service.Infinispan90Lifecycle] (StopThread) Stopped, previous view is [fedora-17110, fedora-35303, fedora-9184]
+18:59:07,914 INFO  [org.radargun.stages.ScenarioDestroyStage] (sc-main) Service successfully stopped.
+18:59:07,914 INFO  [org.radargun.Slave] (sc-main) Finished stage ScenarioDestroy
+18:59:07,915 INFO  [org.radargun.RemoteMasterConnection] (sc-main) Message successfully sent to the master
+18:59:07,923 WARN  [org.radargun.config.InitHelper] (sc-main) Method public void org.radargun.service.Infinispan80EmbeddedService.destroy() overrides public void org.radargun.service.Infinispan60EmbeddedService.destroy() but both are declared with @Destroy annotation: calling only once
+18:59:07,930 INFO  [org.radargun.Slave] (main) Starting stage ScenarioCleanup
+18:59:07,931 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread RxCachedWorkerPoolEvictor-1 (id=94, state=TIMED_WAITING)
+	at java.base@11.0.21-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@11.0.21-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+	at java.base@11.0.21-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+	at java.base@11.0.21-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@11.0.21-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base@11.0.21-internal/java.lang.Thread.run(Thread.java:829)
+18:59:07,932 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread RxSchedulerPurge-1 (id=89, state=TIMED_WAITING)
+	at java.base@11.0.21-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@11.0.21-internal/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+	at java.base@11.0.21-internal/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+	at java.base@11.0.21-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+	at java.base@11.0.21-internal/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+	at java.base@11.0.21-internal/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base@11.0.21-internal/java.lang.Thread.run(Thread.java:829)
+18:59:07,933 WARN  [org.radargun.stages.ScenarioCleanupStage] (main) Unfinished thread ForkJoinPool.commonPool-worker-5 (id=46, state=WAITING)
+	at java.base@11.0.21-internal/jdk.internal.misc.Unsafe.park(Native Method)
+	at java.base@11.0.21-internal/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+	at java.base@11.0.21-internal/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1628)
+	at java.base@11.0.21-internal/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+18:59:07,933 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread RxCachedWorkerPoolEvictor-1 (id=94, state=TIMED_WAITING)
+18:59:07,934 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread RxSchedulerPurge-1 (id=89, state=TIMED_WAITING)
+18:59:07,934 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Interrupting thread ForkJoinPool.commonPool-worker-5 (id=46, state=WAITING)
+18:59:12,942 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread RxCachedWorkerPoolEvictor-1 (id=94, state=TIMED_WAITING)
+18:59:12,943 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread RxSchedulerPurge-1 (id=89, state=TIMED_WAITING)
+18:59:12,953 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Stopping thread ForkJoinPool.commonPool-worker-5 (id=46, state=WAITING)
+18:59:12,975 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread RxCachedWorkerPoolEvictor-1 (id=94, state=TERMINATED)) alive? false
+18:59:12,975 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread RxSchedulerPurge-1 (id=89, state=TERMINATED)) alive? false
+18:59:12,975 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Is thread ForkJoinPool.commonPool-worker-5 (id=46, state=TERMINATED)) alive? false
+18:59:13,062 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Memory after cleanup: 
+Runtime free: 1,380,288 kb
+Runtime max:1,398,784 kb
+Runtime total:1,398,784 kb
+MX CodeHeap 'non-nmethods'(Non-heap memory): used: 1,332 kb, init: 2,496 kb, committed: 2,496 kb, max: 5,696 kb
+MX Metaspace(Non-heap memory): used: 45,044 kb, init: 0 kb, committed: 46,512 kb, max: 0 kb
+MX CodeHeap 'profiled nmethods'(Non-heap memory): used: 14,518 kb, init: 2,496 kb, committed: 14,528 kb, max: 120,032 kb
+MX Compressed Class Space(Non-heap memory): used: 5,049 kb, init: 0 kb, committed: 5,632 kb, max: 1,048,576 kb
+MX G1 Eden Space(Heap memory): used: 0 kb, init: 73,728 kb, committed: 880,640 kb, max: 0 kb
+MX G1 Old Gen(Heap memory): used: 17,983 kb, init: 1,325,056 kb, committed: 518,144 kb, max: 1,398,784 kb
+MX G1 Survivor Space(Heap memory): used: 0 kb, init: 0 kb, committed: 0 kb, max: 0 kb
+MX CodeHeap 'non-profiled nmethods'(Non-heap memory): used: 6,421 kb, init: 2,496 kb, committed: 6,464 kb, max: 120,032 kb
+18:59:13,063 INFO  [org.radargun.RemoteMasterConnection] (main) Message successfully sent to the master
+18:59:13,100 INFO  [org.radargun.RemoteMasterConnection] (main) Message successfully sent to the master
+18:59:16,740 INFO  [org.radargun.Slave] (main) Master shutdown!
+18:59:16,741 INFO  [org.radargun.ShutDownHook] (Thread-0) Slave process is being shutdown
