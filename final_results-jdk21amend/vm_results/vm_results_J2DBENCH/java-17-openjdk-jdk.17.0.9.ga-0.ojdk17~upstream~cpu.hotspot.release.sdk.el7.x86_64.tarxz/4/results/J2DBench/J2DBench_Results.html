@@ -1,0 +1,4764 @@
+<html><body bgcolor="#ffffff"><hr size="1">
+<center><h2>J2DBench2 - Report</h2>
+</center><hr size="1"><br>
+<table cols="2" cellspacing="2" cellpadding="5" border="0" width="80%">
+<tr><td bgcolor="#CCCCFF" colspan="2"><b>Build Details</b></td></tr>
+<tr>
+<td bgcolor="#f0f0f0">Description</td>
+<td>Rendering tests with the default pipeline</td>
+</tr>
+<tr><td bgcolor="#f0f0f0">From Date</td>
+<td>Sat, Aug 17, 2024 AD at 22:41:51 UTC</td></tr>
+<tr><td bgcolor="#f0f0f0">To Date</td>
+<td>Sat, Aug 17, 2024 AD at 23:39:46 UTC</td></tr>
+<tr><td bgcolor="#CCCCFF"><b>System Property</b></td><td bgcolor="#CCCCFF"><b>Value</b></td></tr>
+<tr><td bgcolor="#f0f0f0">java.runtime.name</td><td>OpenJDK Runtime Environment&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.version</td><td>17.0.9-internal+0-adhoc.tester.openjdk&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.vendor</td><td>Oracle Corporation&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vendor.url</td><td>https://openjdk.java.net/&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.name</td><td>OpenJDK 64-Bit Server VM&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.java.launcher</td><td>SUN_STANDARD&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">user.country</td><td>US&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.compressedOopsMode</td><td>Zero based&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.specification.name</td><td>Java Virtual Machine Specification&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.runtime.version</td><td>17.0.9-internal+0-adhoc.tester.openjdk&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">os.arch</td><td>amd64&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.specification.vendor</td><td>Oracle Corporation&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">os.name</td><td>Linux&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.jnu.encoding</td><td>UTF-8&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">jdk.debug</td><td>release&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.awt.enableExtraMouseButtons</td><td>true&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.specification.name</td><td>Java Platform API Specification&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.class.version</td><td>61.0&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.management.compiler</td><td>HotSpot 64-Bit Tiered Compilers&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">os.version</td><td>5.19.13-200.fc36.x86_64&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.specification.version</td><td>17&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">user.name</td><td>tester&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.specification.version</td><td>17&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.arch.data.model</td><td>64&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.java.command</td><td>/mnt/ramdisk/srcs/openjdk/src/demo/share/java2d/J2DBench/dist/J2DBench.jar -batch -loadopts /mnt/ramdisk/srcs/openjdk/src/demo/share/java2d/J2DBench/options/default.opt -saveres /mnt/workspace/default.res -title Rendering - Default ppl -desc Rendering tests with the default pipeline&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.home</td><td>/usr/lib/jvm/java-17-openjdk-jdk.17.0.9.ga-0.ojdk17~upstream~cpu.hotspot.release.sdk.el7.x86_64.tarxz&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">user.language</td><td>en&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.specification.vendor</td><td>Oracle Corporation&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vm.info</td><td>mixed mode, sharing&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.version</td><td>17.0.9-internal&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">native.encoding</td><td>UTF-8&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vendor</td><td>N/A&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.version.date</td><td>2023-10-17&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.vendor.url.bug</td><td>https://bugreport.java.com/bugreport/&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">java.compiler</td><td>unknown&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.font.fontmanager</td><td>sun.awt.X11FontManager&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.io.unicode.encoding</td><td>UnicodeLittle&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.cpu.endian</td><td>little&nbsp;</td></tr>
+<tr><td bgcolor="#f0f0f0">sun.cpu.isalist</td><td>unknown&nbsp;</td></tr>
+</table>
+<br>
+<hr size="1">
+<br>
+<table cellspacing="0" cellpadding="3" border="1" width="80%">
+<tr>
+<td bgcolor="#CCCCFF" align="center"><b>Num Reps</b></td>
+<td bgcolor="#CCCCFF" align="center"><b>Num Units</b></td>
+<td bgcolor="#CCCCFF" align="center"><b>Name</b></td>
+<td bgcolor="#CCCCFF" align="center"><b>Options</b></td>
+<td bgcolor="#CCCCFF" align="center"><b>Score</b></td>
+</tr>
+<tr>
+<td>3187696</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">496990.33</td>
+</tr>
+<tr>
+<td>63772</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1637934.58</td>
+</tr>
+<tr>
+<td>2298558</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">378456.9</td>
+</tr>
+<tr>
+<td>42385</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1093027.93</td>
+</tr>
+<tr>
+<td>305905</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51107.68</td>
+</tr>
+<tr>
+<td>74323</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1923791.73</td>
+</tr>
+<tr>
+<td>302674</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">50024.63</td>
+</tr>
+<tr>
+<td>58114</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1478878.26</td>
+</tr>
+<tr>
+<td>4154447</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">666364.1</td>
+</tr>
+<tr>
+<td>170505</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4424747.76</td>
+</tr>
+<tr>
+<td>2516688</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">410017.6</td>
+</tr>
+<tr>
+<td>60503</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1564387.51</td>
+</tr>
+<tr>
+<td>312428</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">52075.67</td>
+</tr>
+<tr>
+<td>127665</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3326827.26</td>
+</tr>
+<tr>
+<td>298061</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">50153.29</td>
+</tr>
+<tr>
+<td>72176</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1877236.79</td>
+</tr>
+<tr>
+<td>3975937</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">665206.12</td>
+</tr>
+<tr>
+<td>169723</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4446921.9</td>
+</tr>
+<tr>
+<td>2438938</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">409149.14</td>
+</tr>
+<tr>
+<td>59199</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1550426.37</td>
+</tr>
+<tr>
+<td>311124</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">52018.73</td>
+</tr>
+<tr>
+<td>127435</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3305123.87</td>
+</tr>
+<tr>
+<td>299648</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">50079.05</td>
+</tr>
+<tr>
+<td>72731</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1874201.16</td>
+</tr>
+<tr>
+<td>2897738</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">507707.05</td>
+</tr>
+<tr>
+<td>64786</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1632185.18</td>
+</tr>
+<tr>
+<td>2250914</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">373564.68</td>
+</tr>
+<tr>
+<td>42272</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1093271.54</td>
+</tr>
+<tr>
+<td>308318</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51549.57</td>
+</tr>
+<tr>
+<td>74482</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1902691.49</td>
+</tr>
+<tr>
+<td>294318</td>
+<td>400</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">49837.95</td>
+</tr>
+<tr>
+<td>57881</td>
+<td>62500</td>
+<td>graphics.imaging.benchmarks.tests.drawimage</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1506564.43</td>
+</tr>
+<tr>
+<td>1324491</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">515054.4</td>
+</tr>
+<tr>
+<td>17223</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">991722.37</td>
+</tr>
+<tr>
+<td>1074796</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">407119.7</td>
+</tr>
+<tr>
+<td>12683</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">740429.62</td>
+</tr>
+<tr>
+<td>279811</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">106418.99</td>
+</tr>
+<tr>
+<td>23584</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1360559.57</td>
+</tr>
+<tr>
+<td>271916</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">102335.2</td>
+</tr>
+<tr>
+<td>18521</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1066987.15</td>
+</tr>
+<tr>
+<td>1742937</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">694458.69</td>
+</tr>
+<tr>
+<td>34262</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1987170.56</td>
+</tr>
+<tr>
+<td>524548</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">197116.16</td>
+</tr>
+<tr>
+<td>6752</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">390258.94</td>
+</tr>
+<tr>
+<td>291105</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">110630.23</td>
+</tr>
+<tr>
+<td>40640</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2326007.33</td>
+</tr>
+<tr>
+<td>223676</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">83048.02</td>
+</tr>
+<tr>
+<td>7153</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">412453.1</td>
+</tr>
+<tr>
+<td>1939706</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">735294.16</td>
+</tr>
+<tr>
+<td>35441</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1991803.46</td>
+</tr>
+<tr>
+<td>508730</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">191092.24</td>
+</tr>
+<tr>
+<td>6818</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">390828.82</td>
+</tr>
+<tr>
+<td>290988</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">109982.03</td>
+</tr>
+<tr>
+<td>40303</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2324505.53</td>
+</tr>
+<tr>
+<td>222317</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">82981.63</td>
+</tr>
+<tr>
+<td>7155</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">412399.33</td>
+</tr>
+<tr>
+<td>1381793</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">519601.28</td>
+</tr>
+<tr>
+<td>17128</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">991530.13</td>
+</tr>
+<tr>
+<td>1084858</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">399988.61</td>
+</tr>
+<tr>
+<td>13019</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">737748.58</td>
+</tr>
+<tr>
+<td>282338</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">106614.16</td>
+</tr>
+<tr>
+<td>23650</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1360460.3</td>
+</tr>
+<tr>
+<td>269016</td>
+<td>900</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">102020.23</td>
+</tr>
+<tr>
+<td>18409</td>
+<td>140625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagescaleup</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1066564.61</td>
+</tr>
+<tr>
+<td>886625</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">175468.8</td>
+</tr>
+<tr>
+<td>15621</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">484115.29</td>
+</tr>
+<tr>
+<td>733853</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">145472.17</td>
+</tr>
+<tr>
+<td>12310</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">381972.65</td>
+</tr>
+<tr>
+<td>255359</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51420.27</td>
+</tr>
+<tr>
+<td>14048</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">437481.47</td>
+</tr>
+<tr>
+<td>246342</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">49820.13</td>
+</tr>
+<tr>
+<td>12625</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntArgb translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">394661.72</td>
+</tr>
+<tr>
+<td>927024</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">178330.53</td>
+</tr>
+<tr>
+<td>18682</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">576805.03</td>
+</tr>
+<tr>
+<td>720344</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">146440.9</td>
+</tr>
+<tr>
+<td>12536</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">386353.82</td>
+</tr>
+<tr>
+<td>255888</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51681.6</td>
+</tr>
+<tr>
+<td>16450</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">506238.81</td>
+</tr>
+<tr>
+<td>243715</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">49284.72</td>
+</tr>
+<tr>
+<td>12379</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = IntXrgb opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">389288.87</td>
+</tr>
+<tr>
+<td>880663</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">177941.43</td>
+</tr>
+<tr>
+<td>18801</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">578730.72</td>
+</tr>
+<tr>
+<td>682305</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">145299.02</td>
+</tr>
+<tr>
+<td>12387</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">385691.24</td>
+</tr>
+<tr>
+<td>255253</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51394.65</td>
+</tr>
+<tr>
+<td>16247</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">506922.76</td>
+</tr>
+<tr>
+<td>251419</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">49615.43</td>
+</tr>
+<tr>
+<td>12587</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = opqcompatimg opaque</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">389417.39</td>
+</tr>
+<tr>
+<td>821238</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">179708.47</td>
+</tr>
+<tr>
+<td>15590</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">485262.49</td>
+</tr>
+<tr>
+<td>757985</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">147560.43</td>
+</tr>
+<tr>
+<td>12296</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">382542.78</td>
+</tr>
+<tr>
+<td>253801</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51119.3</td>
+</tr>
+<tr>
+<td>14118</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">439082.81</td>
+</tr>
+<tr>
+<td>252461</td>
+<td>484</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">49570.44</td>
+</tr>
+<tr>
+<td>12606</td>
+<td>75625</td>
+<td>graphics.imaging.benchmarks.tests.drawimagetxform</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.imaging.benchmarks.opts.interpolation = Nearest neighbor</li>
+<li>graphics.imaging.src = transcompatimg translucent</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.imaging.benchmarks.opts.touchsrc = false</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">394982.08</td>
+</tr>
+<tr>
+<td>664295</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">5495.49</td>
+</tr>
+<tr>
+<td>683852</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">5522.95</td>
+</tr>
+<tr>
+<td>597952</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4842.5</td>
+</tr>
+<tr>
+<td>583346</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4930.66</td>
+</tr>
+<tr>
+<td>9081</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">908.97</td>
+</tr>
+<tr>
+<td>8842</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">902.47</td>
+</tr>
+<tr>
+<td>49445</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4845.27</td>
+</tr>
+<tr>
+<td>44401</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4831.24</td>
+</tr>
+<tr>
+<td>440318</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3514.67</td>
+</tr>
+<tr>
+<td>474833</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3943.14</td>
+</tr>
+<tr>
+<td>600993</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4806.79</td>
+</tr>
+<tr>
+<td>611493</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4910.01</td>
+</tr>
+<tr>
+<td>8520</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">847.46</td>
+</tr>
+<tr>
+<td>8289</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">844.78</td>
+</tr>
+<tr>
+<td>48875</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4821.16</td>
+</tr>
+<tr>
+<td>49486</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4857.28</td>
+</tr>
+<tr>
+<td>230871</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1917.06</td>
+</tr>
+<tr>
+<td>234115</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1923.86</td>
+</tr>
+<tr>
+<td>414489</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3382.48</td>
+</tr>
+<tr>
+<td>426121</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3536.57</td>
+</tr>
+<tr>
+<td>5694</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">586.87</td>
+</tr>
+<tr>
+<td>5650</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">584.21</td>
+</tr>
+<tr>
+<td>17858</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1825.67</td>
+</tr>
+<tr>
+<td>17728</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1837.17</td>
+</tr>
+<tr>
+<td>197134</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1584.93</td>
+</tr>
+<tr>
+<td>198018</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1631.39</td>
+</tr>
+<tr>
+<td>408787</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3370.05</td>
+</tr>
+<tr>
+<td>432863</td>
+<td>20</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">3508.37</td>
+</tr>
+<tr>
+<td>8055</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">827.14</td>
+</tr>
+<tr>
+<td>8055</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">827.82</td>
+</tr>
+<tr>
+<td>17818</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1822.48</td>
+</tr>
+<tr>
+<td>17756</td>
+<td>250</td>
+<td>graphics.render.tests.drawLine</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">1822.25</td>
+</tr>
+<tr>
+<td>455311</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">61623.99</td>
+</tr>
+<tr>
+<td>399613</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">62191.95</td>
+</tr>
+<tr>
+<td>469857</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">60839.22</td>
+</tr>
+<tr>
+<td>459051</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">61852.91</td>
+</tr>
+<tr>
+<td>13075</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">267756.58</td>
+</tr>
+<tr>
+<td>13234</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">268614.52</td>
+</tr>
+<tr>
+<td>25193</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">482839.6</td>
+</tr>
+<tr>
+<td>23362</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">484278.08</td>
+</tr>
+<tr>
+<td>441347</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">56903.57</td>
+</tr>
+<tr>
+<td>453808</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">58114.08</td>
+</tr>
+<tr>
+<td>468891</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">60719.14</td>
+</tr>
+<tr>
+<td>486221</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">61532.08</td>
+</tr>
+<tr>
+<td>9876</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">202380.9</td>
+</tr>
+<tr>
+<td>10192</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">205358.63</td>
+</tr>
+<tr>
+<td>22549</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">428684.26</td>
+</tr>
+<tr>
+<td>22430</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">431400.91</td>
+</tr>
+<tr>
+<td>243275</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">31427.78</td>
+</tr>
+<tr>
+<td>249742</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">31153.26</td>
+</tr>
+<tr>
+<td>410082</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51758.88</td>
+</tr>
+<tr>
+<td>408667</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">53174.8</td>
+</tr>
+<tr>
+<td>7055</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">144295.33</td>
+</tr>
+<tr>
+<td>7143</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">143629.54</td>
+</tr>
+<tr>
+<td>6325</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">130221.99</td>
+</tr>
+<tr>
+<td>6470</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">130858.22</td>
+</tr>
+<tr>
+<td>192493</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">25038.44</td>
+</tr>
+<tr>
+<td>197853</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">24926.11</td>
+</tr>
+<tr>
+<td>393205</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51256.38</td>
+</tr>
+<tr>
+<td>405976</td>
+<td>314</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">52776.54</td>
+</tr>
+<tr>
+<td>10555</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">216114.66</td>
+</tr>
+<tr>
+<td>10807</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">217428.97</td>
+</tr>
+<tr>
+<td>6202</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">123785.3</td>
+</tr>
+<tr>
+<td>6092</td>
+<td>49087</td>
+<td>graphics.render.tests.fillOval</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">124433.26</td>
+</tr>
+<tr>
+<td>4241597</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">704467.2</td>
+</tr>
+<tr>
+<td>2950067</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">486970.45</td>
+</tr>
+<tr>
+<td>575002</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">92199.47</td>
+</tr>
+<tr>
+<td>569022</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">94561.2</td>
+</tr>
+<tr>
+<td>265640</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">6843005.52</td>
+</tr>
+<tr>
+<td>253633</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">6456525.94</td>
+</tr>
+<tr>
+<td>28980</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">708128.08</td>
+</tr>
+<tr>
+<td>28174</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">710832.8</td>
+</tr>
+<tr>
+<td>1950197</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">333995.03</td>
+</tr>
+<tr>
+<td>3424636</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">563308.82</td>
+</tr>
+<tr>
+<td>566364</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">91808.07</td>
+</tr>
+<tr>
+<td>594462</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">93623.43</td>
+</tr>
+<tr>
+<td>93748</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2412802.67</td>
+</tr>
+<tr>
+<td>96989</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2495600.04</td>
+</tr>
+<tr>
+<td>25713</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">633400.01</td>
+</tr>
+<tr>
+<td>26126</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">637443.39</td>
+</tr>
+<tr>
+<td>1020167</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">168427.77</td>
+</tr>
+<tr>
+<td>1585940</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">259394.83</td>
+</tr>
+<tr>
+<td>423183</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">69085.46</td>
+</tr>
+<tr>
+<td>443288</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">72085.21</td>
+</tr>
+<tr>
+<td>188679</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">4919665.21</td>
+</tr>
+<tr>
+<td>271133</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">6758859.48</td>
+</tr>
+<tr>
+<td>5943</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">156302.6</td>
+</tr>
+<tr>
+<td>6095</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">157881.92</td>
+</tr>
+<tr>
+<td>284555</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">48434.89</td>
+</tr>
+<tr>
+<td>312345</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">51593.16</td>
+</tr>
+<tr>
+<td>414919</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">67307.81</td>
+</tr>
+<tr>
+<td>440937</td>
+<td>400</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">70487.89</td>
+</tr>
+<tr>
+<td>94492</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2374839.15</td>
+</tr>
+<tr>
+<td>94439</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">2460579.25</td>
+</tr>
+<tr>
+<td>5664</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">147315.86</td>
+</tr>
+<tr>
+<td>5636</td>
+<td>62500</td>
+<td>graphics.render.tests.fillRect</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">148553.48</td>
+</tr>
+<tr>
+<td>588915</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">30749.53</td>
+</tr>
+<tr>
+<td>573003</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">30995.92</td>
+</tr>
+<tr>
+<td>506810</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">25771.4</td>
+</tr>
+<tr>
+<td>513266</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">26285.75</td>
+</tr>
+<tr>
+<td>11840</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">92587.7</td>
+</tr>
+<tr>
+<td>11837</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">92794.59</td>
+</tr>
+<tr>
+<td>28220</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">213084.67</td>
+</tr>
+<tr>
+<td>27511</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">214772.3</td>
+</tr>
+<tr>
+<td>435590</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">22904.57</td>
+</tr>
+<tr>
+<td>483150</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">24686.78</td>
+</tr>
+<tr>
+<td>503107</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">25700.19</td>
+</tr>
+<tr>
+<td>520138</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">26153.36</td>
+</tr>
+<tr>
+<td>10066</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">78009.3</td>
+</tr>
+<tr>
+<td>9887</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">78727.58</td>
+</tr>
+<tr>
+<td>28124</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">217368.36</td>
+</tr>
+<tr>
+<td>28579</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = false</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">217510.89</td>
+</tr>
+<tr>
+<td>235256</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">12543.51</td>
+</tr>
+<tr>
+<td>236932</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">12536.62</td>
+</tr>
+<tr>
+<td>405043</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">20944.14</td>
+</tr>
+<tr>
+<td>421278</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">21846.89</td>
+</tr>
+<tr>
+<td>6650</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">52481.47</td>
+</tr>
+<tr>
+<td>6607</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">52933.51</td>
+</tr>
+<tr>
+<td>11707</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">92219.66</td>
+</tr>
+<tr>
+<td>11469</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = false</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">91705.99</td>
+</tr>
+<tr>
+<td>195958</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">10090.94</td>
+</tr>
+<tr>
+<td>200436</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">10401.24</td>
+</tr>
+<tr>
+<td>405907</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">20879.99</td>
+</tr>
+<tr>
+<td>421201</td>
+<td>125</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 20</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">21777.85</td>
+</tr>
+<tr>
+<td>9873</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">79353.73</td>
+</tr>
+<tr>
+<td>9920</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = false</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">79138.76</td>
+</tr>
+<tr>
+<td>11597</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = random</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">89096.45</td>
+</tr>
+<tr>
+<td>11413</td>
+<td>19531</td>
+<td>graphics.render.tests.shape.fillCubic</td>
+<td valign="center"><ul>
+<li>graphics.opts.xormode = false</li>
+<li>graphics.render.opts.paint = single</li>
+<li>graphics.opts.renderhint = Default</li>
+<li>graphics.opts.alpharule = SrcOver</li>
+<li>graphics.opts.extraalpha = true</li>
+<li>graphics.render.opts.alphacolor = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>graphics.render.opts.antialias = true</li>
+<li>graphics.opts.sizes = 250</li>
+<li>graphics.opts.clip = true</li>
+<li>graphics.opts.transform = ident</li>
+<li>graphics.render.opts.stroke = width1</li>
+<li>graphics.opts.anim = 2</li>
+</ul></td>
+<td valign="center">89227.16</td>
+</tr>
+<tr>
+<td>147930</td>
+<td>32</td>
+<td>text.Rendering.tests.drawString</td>
+<td valign="center"><ul>
+<li>text.opts.advopts.tlruns = 1</li>
+<li>text.opts.graphics.gtx = Identity</li>
+<li>text.opts.font.ftx = Identity</li>
+<li>text.opts.graphics.tfm = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>text.opts.advopts.maptype = FONT</li>
+<li>text.opts.data.tlength = 32</li>
+<li>text.opts.font.fsize = 13.0</li>
+<li>text.opts.graphics.textaa = Off</li>
+<li>text.opts.graphics.gaa = false</li>
+<li>text.opts.font.fname = Physical</li>
+<li>text.opts.advopts.gvstyle = 0</li>
+<li>text.opts.data.tscript = english</li>
+<li>text.opts.font.fstyle = 0</li>
+</ul></td>
+<td valign="center">1912.48</td>
+</tr>
+<tr>
+<td>159648</td>
+<td>32</td>
+<td>text.Rendering.tests.drawString</td>
+<td valign="center"><ul>
+<li>text.opts.advopts.tlruns = 1</li>
+<li>text.opts.graphics.gtx = Identity</li>
+<li>text.opts.font.ftx = Identity</li>
+<li>text.opts.graphics.tfm = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>text.opts.advopts.maptype = FONT</li>
+<li>text.opts.data.tlength = 32</li>
+<li>text.opts.font.fsize = 13.0</li>
+<li>text.opts.graphics.textaa = On</li>
+<li>text.opts.graphics.gaa = false</li>
+<li>text.opts.font.fname = Physical</li>
+<li>text.opts.advopts.gvstyle = 0</li>
+<li>text.opts.data.tscript = english</li>
+<li>text.opts.font.fstyle = 0</li>
+</ul></td>
+<td valign="center">2141.67</td>
+</tr>
+<tr>
+<td>144504</td>
+<td>32</td>
+<td>text.Rendering.tests.drawString</td>
+<td valign="center"><ul>
+<li>text.opts.advopts.tlruns = 1</li>
+<li>text.opts.graphics.gtx = Identity</li>
+<li>text.opts.font.ftx = Identity</li>
+<li>text.opts.graphics.tfm = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>text.opts.advopts.maptype = FONT</li>
+<li>text.opts.data.tlength = 32</li>
+<li>text.opts.font.fsize = 13.0</li>
+<li>text.opts.graphics.textaa = Off</li>
+<li>text.opts.graphics.gaa = false</li>
+<li>text.opts.font.fname = Serif</li>
+<li>text.opts.advopts.gvstyle = 0</li>
+<li>text.opts.data.tscript = english</li>
+<li>text.opts.font.fstyle = 0</li>
+</ul></td>
+<td valign="center">1901.84</td>
+</tr>
+<tr>
+<td>159677</td>
+<td>32</td>
+<td>text.Rendering.tests.drawString</td>
+<td valign="center"><ul>
+<li>text.opts.advopts.tlruns = 1</li>
+<li>text.opts.graphics.gtx = Identity</li>
+<li>text.opts.font.ftx = Identity</li>
+<li>text.opts.graphics.tfm = false</li>
+<li>global.dest = VolatileImg()</li>
+<li>text.opts.advopts.maptype = FONT</li>
+<li>text.opts.data.tlength = 32</li>
+<li>text.opts.font.fsize = 13.0</li>
+<li>text.opts.graphics.textaa = On</li>
+<li>text.opts.graphics.gaa = false</li>
+<li>text.opts.font.fname = Serif</li>
+<li>text.opts.advopts.gvstyle = 0</li>
+<li>text.opts.data.tscript = english</li>
+<li>text.opts.font.fstyle = 0</li>
+</ul></td>
+<td valign="center">2096.19</td>
+</tr>
+</table>
+<br><hr WIDTH="100%" size="1">
+</p><hr WIDTH="100%" size="1"></body></html>
