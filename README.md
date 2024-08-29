@@ -4,6 +4,9 @@ Note especially the last group, the **Final charts**
 
 This work is focusing on research how is (nested-)virtualization affecting **accuracy** of benchmarks.
 
+Full results for jdk 8-17 can be read here: https://is.muni.cz/th/thit1/456542_final20052024-1247.pdf which is [master these of Impact of Nested Virtualization to Benchmark Accuracy](https://is.muni.cz/th/thit1/). 
+JDK 21 was added later, and some quick summ up is lower in this readme.
+
 The accuracy is calculated by several metric, but generally it changes the absolute values to relative, %, as:  
 ```
 -((minValue / (maxValue / 100.0))-100)
