@@ -1,0 +1,80 @@
+/usr/lib/jvm/java/bin/java --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED -Djgroups.udp.mcast_port=46410 -classpath /root/RadarGun-3.0.0-SNAPSHOT/lib/HdrHistogram-2.1.0.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/activation-1.1.1.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/commons-codec-1.6.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/commons-io-2.1.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/commons-logging-1.1.3.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/fast-classpath-scanner-1.93.1.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/httpclient-4.3.6.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/httpcore-4.3.3.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/jboss-annotations-api_1.2_spec-1.0.0.Final.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/jboss-jaxrs-api_2.0_spec-1.0.0.Final.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/jboss-logging-3.1.4.GA.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/jboss-transaction-api-1.0.1.GA.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/jcip-annotations-1.0.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/log4j-1.2.16.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-cache-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-core-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-counter-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-hdrhistogram-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-mapreduce-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-multimap-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-query-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/radargun-rest-3.0.0-SNAPSHOT.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/resteasy-client-3.0.16.Final.jar:/root/RadarGun-3.0.0-SNAPSHOT/lib/resteasy-jaxrs-3.0.16.Final.jar:/root/RadarGun-3.0.0-SNAPSHOT/conf -Djava.net.preferIPv4Stack=true -Dmaster.address=results org.radargun.LaunchMaster --config //results/config.xml
+Picked up JAVA_TOOL_OPTIONS:  --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED
+Running in directory: /results/.
+PerNodeRollingFileAppender::Not using file prefix.
+02:21:46,266 INFO  [org.radargun.LaunchMaster] (main) Running in directory: /results/.
+Configuration file is: //results/config.xml
+02:21:46,281 INFO  [org.radargun.LaunchMaster] (main) Configuration file is: //results/config.xml
+loading: //results/config.xml
+loading: //results/config.xml
+02:21:46,282 ERROR [org.radargun.config.DomConfigParser] (main) loading: //results/config.xml
+loaded: /results/config.xml
+loaded: /results/config.xml
+02:21:46,286 ERROR [org.radargun.config.DomConfigParser] (main) loaded: /results/config.xml
+02:21:46,509 INFO  [org.radargun.RemoteSlaveConnection] (main) Attempting to start Master listening for connection on: results/127.0.0.1:2103
+02:21:46,511 INFO  [org.radargun.RemoteSlaveConnection] (main) Waiting 5 seconds for server socket to open completely
+02:21:51,512 INFO  [org.radargun.RemoteSlaveConnection] (main) Awaiting registration from 3 slaves.
+02:21:51,515 INFO  [org.radargun.RemoteSlaveConnection] (main) Awaiting registration from 2 slaves.
+02:21:51,515 INFO  [org.radargun.RemoteSlaveConnection] (main) Awaiting registration from 1 slaves.
+02:21:51,516 INFO  [org.radargun.RemoteSlaveConnection] (main) Connection established from 3 slaves.
+02:21:51,591 INFO  [org.radargun.Master] (main) Started benchmarking configuration 'Infinispan 9.2 - distributed'
+02:21:51,592 INFO  [org.radargun.Master] (main) Starting scenario on Cluster[default=3]
+02:21:51,703 INFO  [org.radargun.RemoteSlaveConnection] (main) Waiting for 3 reconnecting slaves
+02:21:52,691 INFO  [org.radargun.RemoteSlaveConnection] (main) Waiting for 2 reconnecting slaves
+02:21:52,708 INFO  [org.radargun.RemoteSlaveConnection] (main) Waiting for 1 reconnecting slaves
+02:21:52,780 INFO  [org.radargun.Master] (main) Starting distributed stage ScenarioInit.
+02:21:54,651 INFO  [org.radargun.stages.ScenarioInitStage] (main) Received responses from all 3 slaves. Durations [0 = 42 ms, 1 = 24 ms, 2 = 28 ms]
+02:21:54,651 INFO  [org.radargun.Master] (main) Finished distributed stage ScenarioInit.
+02:21:54,652 INFO  [org.radargun.Master] (main) Starting distributed stage BeforeServiceStart.
+02:21:54,667 INFO  [org.radargun.stages.BeforeServiceStartStage] (main) Received responses from all 3 slaves. Durations [0 = 0 ns, 1 = 0 ns, 2 = 0 ns]
+02:21:54,668 INFO  [org.radargun.Master] (main) Finished distributed stage BeforeServiceStart.
+02:21:54,683 INFO  [org.radargun.Master] (main) Starting distributed stage ServiceStart.
+02:22:02,082 INFO  [org.radargun.stages.lifecycle.ServiceStartStage] (main) Received responses from all 3 slaves. Durations [0 = 7.17 seconds, 1 = 6.94 seconds, 2 = 7.39 seconds]
+02:22:02,083 INFO  [org.radargun.Master] (main) Finished distributed stage ServiceStart.
+02:22:02,084 INFO  [org.radargun.Master] (main) Starting distributed stage AfterServiceStart.
+02:22:02,092 INFO  [org.radargun.stages.AfterServiceStartStage] (main) Received responses from all 3 slaves. Durations [0 = 0 ns, 1 = 0 ns, 2 = 0 ns]
+02:22:02,093 INFO  [org.radargun.Master] (main) Finished distributed stage AfterServiceStart.
+02:22:02,094 INFO  [org.radargun.Master] (main) Starting distributed stage MonitorStart.
+02:22:02,148 INFO  [org.radargun.sysmonitor.AbstractMonitors] (main) Gathering statistics every 1000 ms
+02:22:02,157 INFO  [org.radargun.stages.monitor.MonitorStartStage] (main) Received responses from all 3 slaves. Durations [0 = 6 ms, 1 = 6 ms, 2 = 6 ms]
+02:22:02,157 INFO  [org.radargun.Master] (main) Finished distributed stage MonitorStart.
+02:22:02,166 INFO  [org.radargun.Master] (main) Starting distributed stage Load.
+02:22:09,529 INFO  [org.radargun.stages.cache.test.LoadStage] (main) Received responses from all 3 slaves. Durations [0 = 7.29 seconds, 1 = 7.36 seconds, 2 = 7.29 seconds]
+02:22:09,529 INFO  [org.radargun.Master] (main) Finished distributed stage Load.
+02:22:09,537 WARN  [org.radargun.config.InitHelper] (main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+02:22:09,539 INFO  [org.radargun.Master] (main) Starting distributed stage BasicOperationsTest.
+02:23:09,578 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (main) Received responses from all 3 slaves. Durations [0 = 60.02 seconds, 1 = 60.01 seconds, 2 = 60.01 seconds]
+02:23:09,578 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (main) This test was executed as a warmup
+02:23:09,580 INFO  [org.radargun.Master] (main) Finished distributed stage BasicOperationsTest.
+02:23:09,581 INFO  [org.radargun.Master] (main) Starting distributed stage Clear.
+02:23:09,716 INFO  [org.radargun.stages.cache.ClearStage] (main) Received responses from all 3 slaves. Durations [0 = 122 ms, 1 = 133 ms, 2 = 125 ms]
+02:23:09,716 INFO  [org.radargun.Master] (main) Finished distributed stage Clear.
+02:23:09,717 INFO  [org.radargun.Master] (main) Starting distributed stage Load.
+02:23:12,037 INFO  [org.radargun.stages.cache.test.LoadStage] (main) Received responses from all 3 slaves. Durations [0 = 2.32 seconds, 1 = 2.31 seconds, 2 = 2.31 seconds]
+02:23:12,037 INFO  [org.radargun.Master] (main) Finished distributed stage Load.
+02:23:12,065 WARN  [org.radargun.config.InitHelper] (main) Method public void org.radargun.stages.cache.test.BasicOperationsTestStage.init() overrides public void org.radargun.stages.test.TestStage.init() but both are declared with @Init annotation: calling only once
+02:23:12,065 INFO  [org.radargun.Master] (main) Starting distributed stage BasicOperationsTest.
+02:33:12,458 INFO  [org.radargun.stages.cache.test.BasicOperationsTestStage] (main) Received responses from all 3 slaves. Durations [0 = 10 minutes, 1 = 10 minutes, 2 = 10 minutes]
+02:33:12,587 INFO  [org.radargun.Master] (main) Finished distributed stage BasicOperationsTest.
+02:33:12,588 INFO  [org.radargun.Master] (main) Starting distributed stage MonitorStop.
+02:33:12,599 INFO  [org.radargun.Master] (main) Finished distributed stage MonitorStop.
+02:33:12,602 INFO  [org.radargun.Master] (main) Starting distributed stage ScenarioDestroy.
+02:33:13,732 INFO  [org.radargun.Master] (main) Finished distributed stage ScenarioDestroy.
+02:33:13,734 INFO  [org.radargun.Master] (main) Starting distributed stage ScenarioCleanup.
+02:33:18,775 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Node 0 has changed available memory from 1357 MB to 1348 MB and has 0 unfinished threads
+02:33:18,775 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Node 1 has changed available memory from 1357 MB to 1348 MB and has 2 unfinished threads
+02:33:18,775 INFO  [org.radargun.stages.ScenarioCleanupStage] (main) Node 2 has changed available memory from 1357 MB to 1348 MB and has 2 unfinished threads
+02:33:18,775 INFO  [org.radargun.Master] (main) Finished distributed stage ScenarioCleanup.
+02:33:18,775 INFO  [org.radargun.Master] (main) Finished scenario on Cluster[default=3] in 11 mins 26 secs
+02:33:18,807 INFO  [org.radargun.Master] (main) Finished benchmarking configuration 'Infinispan 9.2 - distributed' in 11 mins 27 secs
+02:33:18,807 INFO  [org.radargun.Master] (main) Executed all benchmarks in 11 mins 27 secs, reporting...
+02:33:18,807 INFO  [org.radargun.Master] (main) Running reporter org.radargun.reporting.csv.CsvReporter@70e9c95d
+02:33:18,808 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/stress-test_Infinispan 9.2 - distributed_default_3.csv
+02:33:18,846 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/timeline_Infinispan 9.2 - distributed_default_3_CPU usage.csv
+02:33:18,879 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/timeline_Infinispan 9.2 - distributed_default_3_Open files.csv
+02:33:18,893 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/timeline_Infinispan 9.2 - distributed_default_3_GC CPU usage.csv
+02:33:18,908 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/timeline_Infinispan 9.2 - distributed_default_3_RSS Memory usage.csv
+02:33:18,917 INFO  [org.radargun.utils.Utils] (main) Successfully created report file:/results/results/csv/timeline_Infinispan 9.2 - distributed_default_3_Memory usage.csv
+02:33:18,923 INFO  [org.radargun.Master] (main) Running reporter org.radargun.reporting.html.HtmlReporter@1ffaf86
+02:33:21,365 INFO  [org.radargun.Master] (main) All reporters have been executed, exiting.
+02:33:21,367 INFO  [org.radargun.ShutDownHook] (Thread-0) Master process is being shutdown
