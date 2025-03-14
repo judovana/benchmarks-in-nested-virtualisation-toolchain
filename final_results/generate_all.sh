@@ -15,7 +15,7 @@ set -exo pipefail
 
 # ALL or "" should be understood as all in all three cases
 benchmarks="DACAPO J2DBENCH JMH RADARGUNs1 RADARGUNs3 SPECJBB"
-jdks="8 11 17"
+jdks="8 11 17 21"
 # the / is needed for precision; for subdirs, use `basename` on them
 virts="/local_results /vm_results /container_results /containers_in_container_results /containers_in_vm_results /nestedVM_results"
 

@@ -89,13 +89,15 @@ elif [[ $JDK_ver == "11" ]];then
   REGEX="java-11"
 elif [[ $JDK_ver == "17" ]];then
   REGEX="java-17"
+elif [[ $JDK_ver == "21" ]];then
+  REGEX="java-21"
 elif [[ $JDK_ver == "ALL" ]];then
   REGEX="java-"
 elif [[ $JDK_ver == "" ]];then
   REGEX="java-"
 else
   title1 "invalid $JDK_ver"
-  echo "invalid java version, use 8, 11 or 17" >&2
+  echo "invalid java version, use 8, 11 or 17 or 21" >&2
   exit 1
 fi
 
