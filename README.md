@@ -17,7 +17,7 @@ Note, that eg `-((5 / (10 / 100.0))-100)) = 50` thus benchmark can oscillate by 
 We have to split time and score values, as they were obviously inverted.
 Also, mixing of jdk (first three tables) or mixing virtualisations or benchmarks, is really bad idea. But it is also a lot of tables. See  charts linked above, and in these linked below.
 
-### Score based benchmarks - relative accuracy                                          
+### Score based benchmarks - relative accuracy (without jdk21)
 With score, in absolute numbers, more  would be better
 
 |benchmark/virtualization | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
@@ -29,7 +29,7 @@ With score, in absolute numbers, more  would be better
 | j2dbench                |   11       |     5      |    11      |    6       |   10       |    11      |    N/A     |
 
 
-### Time based benchmarks - relative accuracy         
+### Time based benchmarks - relative accuracy (without jdk21)    
 With time, in absolute numbers, the lesser would be better
 
 |benchmark/virtualization | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
@@ -44,7 +44,7 @@ Radargun contains both score and time metrics. Vm in container was indeed unimpl
 
 With all this effort, we hit interesting new value - crash rates, because  yes, jdk can crash fro time to time. But with all those virtualisations, all the chain may crash more often.
 
-###  Pass rates - % of successful runs from all runs
+###  Pass rates - % of successful runs from all runs (without jdk21)
 
 |benchmark/virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
 |-------------------------|------------|------------|------------|------------|------------|------------|------------|
@@ -68,24 +68,23 @@ The run_VM_on_container.sh do not work correctly now, and latest working revisio
 Still.. we never make VM in container to work.
 
 ### Per JDK results
-|   JDK   /virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |
+|   JDK   /virtualisation | real hw    | con(tainer)|   VM       | con In con |  vm in vm  |  con in vm | vm in cont |all         |
+|-------------------------|------------|------------|------------|------------|------------|------------|------------|------------|
+| jdk  8                  |            |            |            |            |            |            |    N/A     |            |
+| jdk 11                  |            |            |            |            |            |            |    N/A     |            |
+| jdk 17                  |            |            |            |            |            |            |    N/A     |            |
+| jdk 21                  |            |            |            |            |            |            |    N/A     |            |
+| all                     |            |            |            |            |            |            |    N/A     |            |
+
+
+|   JDK   /benchmark      | specjbb    | jmh        |radargun s1 |radargun s3 | j2dbench   | dacapo     |all
 |-------------------------|------------|------------|------------|------------|------------|------------|------------|
-| jdk 8                   |            |            |            |            |            |            |    N/A     |
-| jdk 11                  |            |            |            |            |            |            |    N/A     |
-| jdk  17                 |            |            |            |            |            |            |    N/A     |
-| jdk  21                 |            |            |            |            |            |            |    N/A     |
+| jdk  8                  |            |            |            |            |            |            |            |
+| jdk 11                  |            |            |            |            |            |            |            |
+| jdk 17                  |            |            |            |            |            |            |            |
+| jdk 21                  |            |            |            |            |            |            |            |
+| all                     |            |            |            |            |            |            |            |
 
-
-|   JDK   /benchmark      | specjbb    | jmh        |radargun s1 |radargun s3 | j2dbench   | dacapo     |
-|-------------------------|------------|------------|------------|------------|------------|------------|
-| jdk 8                   |            |            |            |            |            |            |
-| jdk 11                  |            |            |            |            |            |            |
-| jdk  17                 |            |            |            |            |            |            |
-| jdk  21                 |            |            |            |            |            |            |
-
-### Per virtualizations per JDK results
-
-### Absolute numbers
 
 Partial and detailed descriptions and results or absolute values are in the charts linked above, and in these linked below.
 ## Prerequisites for running:
